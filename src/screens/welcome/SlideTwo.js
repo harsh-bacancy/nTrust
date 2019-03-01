@@ -10,14 +10,7 @@ class SlideTwo extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={{ flex: 1, padding: 20, alignItems: 'center' }}>
-                    <Image
-                        source={require('./../../assets/images/nTrust_logo_header.png')}
-                        style={{ height: 100, width: 100 }}
-                    />
-                    <Text style={styles.nTrusttext}>nTrust</Text>
-                </View>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <Image
                         source={require('./../../assets/images/introscreen_walletone.png')}
                         style={{ height: 125, width: 125 }}
@@ -55,12 +48,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         // backgroundColor: '#2c3e50',
     },
-    nTrusttext: {
-        color: '#FFF',
-        fontSize: 30,
-        fontWeight: 'bold',
-        marginTop: -15
-    }
 });
 
 //make this component available to the app
