@@ -5,12 +5,16 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import Swiper from 'react-native-swiper'
 import LinearGradient from 'react-native-linear-gradient';
 import Spinner from 'react-native-loading-spinner-overlay';
-import {UIActivityIndicator} from 'react-native-indicators';
+import { UIActivityIndicator } from 'react-native-indicators';
 
 
 import SlideOne from './SlideOne'
 import SlideTwo from './SlideTwo'
 import SlideThree from './SlideThree'
+import { BackgroundColors, nTrustColor } from '../../hepler/Constant'
+
+
+
 // create a component
 class Welcome extends Component {
     constructor(props) {
@@ -19,26 +23,17 @@ class Welcome extends Component {
             spinner: false
         }
     }
-    OnSkip() {
-        // setInterval(() => {
-        //     this.setState({
-        //         spinner: !this.state.spinner
-        //     });
-        // }, 5000);
-        this.setState({
-            spinner: !this.state.spinner
-        });
+    componentDidMount() {
+        <Spinner
+            visible={this.state.spinner}
+            textStyle={{ color: '#FFF' }}
+            customIndicator={<UIActivityIndicator color='#00DE95' />}
+        />
+        this.setState({ spinner: false })
     }
     render() {
-        const Colors = ['#164349', '#17464D', '#184A51', '#1A4E55', '#1A4E55', '#1B5259', '#1D565D', '#1E5961', '#1F5D65', '#216169', '#22656D', '#246972', '#246972', '#246972', '#246972', '#246972', '#246972', '#246972', '#246972', '#246972', '#246972', '#246972', '#246972', '#246972', '#22656D', '#216169', '#1F5D65', '#1E5961', '#1D565D', '#1B5259', '#1A4E55', '#1A4E55', '#184A51', '#17464D', '#164349']
-        const ButtonColor = ['#00E98A', '#00DE95', '#00DA98', '#00D39E', '#00C9A7', '#00C6AA', '#00DE95', '#00C7AA', '#00BCB4', '#00B0BF', '#00A5C9', '#0099D4', '#008EDE', '#0083E9']
         return (
-            <LinearGradient colors={Colors} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ flex: 1 }}>
-                <Spinner
-                    visible={this.state.spinner}                    
-                    textStyle={{color:'#FFF'}}
-                    customIndicator={<UIActivityIndicator color='#00DE95'/>}
-                />
+            <LinearGradient colors={BackgroundColors} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ flex: 1 }}>               
                 <View style={{ padding: 20, alignItems: 'center' }}>
                     <Image
                         source={require('./../../assets/images/nTrust_logo_header.png')}
@@ -59,11 +54,11 @@ class Welcome extends Component {
                 </Swiper>
                 <View style={styles.login}>
                     <LinearGradient
-                        colors={ButtonColor}
+                        colors={nTrustColor}
                         start={{ x: 0.0, y: 0.25 }} end={{ x: 0.99, y: 1.0 }}
                     >
                         <TouchableOpacity
-                            onPress={() => this.OnSkip()}
+                            onPress={() => this.props.navigation.navigate('DetailsNavigator')}
                         >
                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: hp('7%'), width: wp('70%') }}>
                                 <Image
