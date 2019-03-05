@@ -1,8 +1,7 @@
 import { createAppContainer, createStackNavigator } from 'react-navigation'
 
 import Welcome from '../../screens/welcome'
-import Dashboard from '../../screens/dashboard'
-import DetailsNavigator from './DetilsNavigator'
+import ProductListNavigator from './ProductListNavigator'
 
 const WelcomeNavigator = createStackNavigator(
     {
@@ -12,8 +11,8 @@ const WelcomeNavigator = createStackNavigator(
                 header: null,
             },
         },
-        DetailsNavigator: {
-            screen: DetailsNavigator,
+        ProductListNavigator: {
+            screen: ProductListNavigator,
             navigationOptions: {
                 header: null,
             },

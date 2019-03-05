@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, TouchableNativeFeedback } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView,  } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { UIActivityIndicator } from 'react-native-indicators';
 import { Searchbar } from 'react-native-paper';
@@ -25,7 +25,7 @@ class Dashboard extends Component {
             visible={this.state.spinner}
             textStyle={{ color: '#FFF' }}
             customIndicator={<UIActivityIndicator color='#00DE95' />}
-        />
+        />        
         this.setState({ spinner: false })
     }
     render() {
@@ -43,7 +43,7 @@ class Dashboard extends Component {
                     icon={require('../../assets/images/ic_search.png')}
                 />
                 <ScrollView
-                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
                 >
                     <View style={{ flex: 1, alignItems: 'center', margin: 10 }}>
                         <View style={{ width: wp('90%') }}>
@@ -52,60 +52,66 @@ class Dashboard extends Component {
                     </View>
                     <ScrollView
                         horizontal={true}
-                        style={{ flex: 1, }}
+                        style={{  }}
                         showsHorizontalScrollIndicator={false}
                     >
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}>
                             <TouchableOpacity
-                            onPress={()=> this.props.navigation.navigate('Tent')}
+                                onPress={() => this.props.navigation.navigate('DetailsNavigator')}                                
                             >
-                                <View style={{ alignItems: 'center', justifyContent: 'center', height: wp('50%'), width: wp('70%'), elevation: 30, marginHorizontal: 20, }}>
+                                <View style={{ alignItems: 'center', justifyContent: 'center', height: wp('50%'), width: wp('70%'), marginHorizontal: 10 }}>
                                     <View style={{ zIndex: 2, position: 'absolute', alignItems: 'center' }}>
                                         <Text style={{ fontSize: 25, color: '#EEE', fontWeight: 'bold', textAlign: 'center' }}>Image 1</Text>
                                         <Text style={{ fontSize: 18, color: '#EEE', fontWeight: 'bold', textAlign: 'center' }}>0 item</Text>
                                     </View>
-                                    <View style={{ height: wp('50%'), width: wp('70%'), backgroundColor: '#00000099', position: 'absolute', zIndex: 1 }}></View>
+                                    <View style={{ height: wp('50%'), width: wp('70%'), backgroundColor: '#00000099', position: 'absolute', zIndex: 1,borderRadius:20 }}></View>
                                     <Image
                                         source={require('../../assets/images/demo.jpeg')}
-                                        style={{ height: wp('50%'), width: wp('70%'), margin: 20, zIndex: 0, position: 'absolute' }}
+                                        style={{ height: wp('50%'), width: wp('70%'), margin: 20, zIndex: 0, position: 'absolute',borderRadius:20 }}
                                     />
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity>
-                                <View style={{ alignItems: 'center', justifyContent: 'center', height: wp('50%'), width: wp('70%'), elevation: 300, marginHorizontal: 20, }}>
+                            <TouchableOpacity
+                                onPress={() => this.props.navigation.navigate('DetailsNavigator')}                                
+                            >
+                                <View style={{ alignItems: 'center', justifyContent: 'center', height: wp('50%'), width: wp('70%'), marginHorizontal: 10 }}>
                                     <View style={{ zIndex: 2, position: 'absolute', alignItems: 'center' }}>
                                         <Text style={{ fontSize: 25, color: '#EEE', fontWeight: 'bold', textAlign: 'center' }}>Image 1</Text>
                                         <Text style={{ fontSize: 18, color: '#EEE', fontWeight: 'bold', textAlign: 'center' }}>0 item</Text>
                                     </View>
-                                    <View style={{ height: wp('50%'), width: wp('70%'), backgroundColor: '#00000099', position: 'absolute', zIndex: 1 }}></View>
+                                    <View style={{ height: wp('50%'), width: wp('70%'), backgroundColor: '#00000099', position: 'absolute', zIndex: 1,borderRadius:20 }}></View>
                                     <Image
                                         source={require('../../assets/images/demo.jpeg')}
-                                        style={{ height: wp('50%'), width: wp('70%'), margin: 20, zIndex: 0, position: 'absolute' }}
+                                        style={{ height: wp('50%'), width: wp('70%'), margin: 20, zIndex: 0, position: 'absolute',borderRadius:20 }}
                                     />
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity>
-                                <View style={{ alignItems: 'center', justifyContent: 'center', height: wp('50%'), width: wp('70%'), elevation: 300, marginHorizontal: 20, }}>
+                            <TouchableOpacity
+                                onPress={() => this.props.navigation.navigate('DetailsNavigator')}                                
+                            >
+                                <View style={{ alignItems: 'center', justifyContent: 'center', height: wp('50%'), width: wp('70%'), marginHorizontal: 10 }}>
                                     <View style={{ zIndex: 2, position: 'absolute', alignItems: 'center' }}>
                                         <Text style={{ fontSize: 25, color: '#EEE', fontWeight: 'bold', textAlign: 'center' }}>Image 1</Text>
                                         <Text style={{ fontSize: 18, color: '#EEE', fontWeight: 'bold', textAlign: 'center' }}>0 item</Text>
                                     </View>
-                                    <View style={{ height: wp('50%'), width: wp('70%'), backgroundColor: '#00000099', position: 'absolute', zIndex: 1 }}></View>
+                                    <View style={{ height: wp('50%'), width: wp('70%'), backgroundColor: '#00000099', position: 'absolute', zIndex: 1,borderRadius:20 }}></View>
                                     <Image
                                         source={require('../../assets/images/demo.jpeg')}
-                                        style={{ height: wp('50%'), width: wp('70%'), margin: 20, zIndex: 0, position: 'absolute' }}
+                                        style={{ height: wp('50%'), width: wp('70%'), margin: 20, zIndex: 0, position: 'absolute',borderRadius:20 }}
                                     />
                                 </View>
-                            </TouchableOpacity>
+                            </TouchableOpacity> 
                         </View>
                     </ScrollView>
-                    <View style={{ flex: 1, alignItems: 'center', margin: 10 }}>
+                    <View style={{ flex: 1, alignItems: 'center', marginVertical:5 }}>
                         <View style={{ width: wp('90%') }}>
                             <Text style={{ fontSize: 25, fontWeight: 'bold', color: '#164349' }}>Items</Text>
                         </View>
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', margin: 10 }}>
-                        <TouchableOpacity>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                        <TouchableOpacity
+                            onPress={() => this.props.navigation.navigate('TentDetail')}
+                        >
                             <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                                 <Image
                                     source={require('../../assets/images/camera.png')}

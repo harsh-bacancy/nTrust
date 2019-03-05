@@ -1,25 +1,25 @@
 import { createAppContainer, createStackNavigator } from 'react-navigation'
 
-import Tent from '../../screens/details/Tent'
-import Dashboard from '../../screens/dashboard'
+import Tent from '../../screens/categories/Tent'
+import TentDetail from '../../screens/details/TentDetail'
 
 const DetailsNavigator = createStackNavigator(
     {
-        Dashboard: {
-            screen: Dashboard,
+        Tent: {
+            screen: Tent,
             navigationOptions: {
                 header: null,
             },
         },
-        Tent: {
-            screen: Tent,
+        TentDetail: {
+            screen: TentDetail,
             navigationOptions: {
                 header: null,
             },
         }
     },
     {
-        initialRouteName: 'Dashboard'
+        initialRouteName: 'Tent'
     }
 );
 export default createAppContainer(DetailsNavigator)

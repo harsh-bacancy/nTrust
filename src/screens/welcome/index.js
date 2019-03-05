@@ -58,7 +58,7 @@ class Welcome extends Component {
                         start={{ x: 0.0, y: 0.25 }} end={{ x: 0.99, y: 1.0 }}
                     >
                         <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate('DetailsNavigator')}
+                            onPress={() => this.props.navigation.navigate('ProductListNavigator')}
                         >
                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: hp('7%'), width: wp('70%') }}>
                                 <Image

@@ -9,24 +9,29 @@ class Tent extends Component {
         return (
             <View style={styles.container}>
                 <View >
-                    <TouchableOpacity
-                        style={{ zIndex: 1,position: 'absolute', }}
-                        onPress={() => this.props.navigation.goBack()}
-                    >
-                        <View>
-                            <Image
-                                source={require('../../assets/images/back_arrow.png')}
-                                style={{  height: 30, width: 30, margin: 15 }}
-                            />
-                        </View>
-                    </TouchableOpacity>
                     <Image
                         source={require('../../assets/images/demo.jpeg')}
                         style={{ height: hp('30%'), width: wp('100%'), zIndex: 0 }}
                     />
+                    <View style={{ height: hp('30%'), width: wp('100%'), zIndex: 1, position: 'absolute', backgroundColor: '#00000099' }}></View>
+                    <View style={{ height: hp('30%'), width: wp('100%'), alignItems: 'center', justifyContent: 'center', zIndex: 2, position: 'absolute', }}>
+                        <Text style={{ fontSize: 25, color: '#EEE', fontWeight: 'bold', textAlign: 'center' }}>Image 1</Text>
+                        <Text style={{ fontSize: 18, color: '#EEE', fontWeight: 'bold', textAlign: 'center' }}>0 item</Text>
+                    </View>
+                    <TouchableOpacity
+                        style={{ zIndex: 3, position: 'absolute', }}
+                        onPress={() => this.props.navigation.navigate('Dashboard')}
+                    >
+                        <Image
+                            source={require('../../assets/images/back_arrow.png')}
+                            style={{ height: 30, width: 30, margin: 15, }}
+                        />
+                    </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', margin: 10 }}>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                    onPress={()=> this.props.navigation.navigate('TentDetail')}
+                    >
                         <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                             <Image
                                 source={require('../../assets/images/camera.png')}
