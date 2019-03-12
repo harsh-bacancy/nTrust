@@ -1,81 +1,82 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
+
+import { styles } from './styles'
 
 // create a component
 class Tent extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View >
+                <View style={{ borderBottomWidth: .1, elevation: 6, borderBottomColor: '#000' }}>
                     <Image
                         source={require('../../assets/images/demo.jpeg')}
-                        style={{ height: hp('30%'), width: wp('100%'), zIndex: 0 }}
+                        style={styles.HeaderImage}
                     />
-                    <View style={{ height: hp('30%'), width: wp('100%'), zIndex: 1, position: 'absolute', backgroundColor: '#00000099' }}></View>
-                    <View style={{ height: hp('30%'), width: wp('100%'), alignItems: 'center', justifyContent: 'center', zIndex: 2, position: 'absolute', }}>
-                        <Text style={{ fontSize: 25, color: '#EEE', fontWeight: 'bold', textAlign: 'center' }}>Image 1</Text>
-                        <Text style={{ fontSize: 18, color: '#EEE', fontWeight: 'bold', textAlign: 'center' }}>0 item</Text>
+                    <View style={styles.HeaderBlackLayer}></View>
+                    <View style={styles.HeaderView}>
+                        <Text style={styles.HeaderText}> Image 1</Text>
+                        <Text style={styles.SubHeaderText}>0 item</Text>
                     </View>
                     <TouchableOpacity
                         style={{ zIndex: 3, position: 'absolute', }}
-                        onPress={() => this.props.navigation.navigate('Dashboard')}
+                        onPress={() => this.props.navigation.goBack()}
                     >
                         <Image
                             source={require('../../assets/images/back_arrow.png')}
-                            style={{ height: 30, width: 30, margin: 15, }}
+                            style={styles.BackButton}
                         />
                     </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', margin: 10 }}>
                     <TouchableOpacity
-                    onPress={()=> this.props.navigation.navigate('TentDetail')}
+                        onPress={() => this.props.navigation.navigate('TentDetail')}
                     >
-                        <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+                        <View style={styles.ItemView}>
                             <Image
                                 source={require('../../assets/images/camera.png')}
-                                style={{ height: 100, width: 100 }}
+                                style={styles.ItemImage}
                             />
-                            <Text style={{ fontSize: 17, fontWeight: 'bold' }}>Tent</Text>
-                            <Text style={{ fontSize: 17 }}>Camping</Text>
-                            <Text style={{ fontSize: 17, color: '#00DE95', fontWeight: 'bold' }}>$14/Day</Text>
+                            <Text style={styles.ItemName}>Tent</Text>
+                            <Text style={styles.ItemCategory}>Camping</Text>
+                            <Text style={styles.ItemPrice}>$14/Day</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('TentDetail')}
+                    >
+                        <View style={styles.ItemView}>
                             <Image
                                 source={require('../../assets/images/camera.png')}
-                                style={{ height: 100, width: 100 }}
+                                style={styles.ItemImage}
                             />
-                            <Text style={{ fontSize: 17, fontWeight: 'bold' }}>Tent</Text>
-                            <Text style={{ fontSize: 17 }}>Camping</Text>
-                            <Text style={{ fontSize: 17, color: '#00DE95', fontWeight: 'bold' }}>$14/Day</Text>
+                            <Text style={styles.ItemName}>Tent</Text>
+                            <Text style={styles.ItemCategory}>Camping</Text>
+                            <Text style={styles.ItemPrice}>$14/Day</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('TentDetail')}
+                    >
+                        <View style={styles.ItemView}>
                             <Image
                                 source={require('../../assets/images/camera.png')}
-                                style={{ height: 100, width: 100 }}
+                                style={styles.ItemImage}
                             />
-                            <Text style={{ fontSize: 17, fontWeight: 'bold' }}>Tent</Text>
-                            <Text style={{ fontSize: 17 }}>Camping</Text>
-                            <Text style={{ fontSize: 17, color: '#00DE95', fontWeight: 'bold' }}>$14/Day</Text>
+                            <Text style={styles.ItemName}>Tent</Text>
+                            <Text style={styles.ItemCategory}>Camping</Text>
+                            <Text style={styles.ItemPrice}>$14/Day</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </View >
         );
     }
 }
 
 // define your styles
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-});
 
 //make this component available to the app
 export default Tent;

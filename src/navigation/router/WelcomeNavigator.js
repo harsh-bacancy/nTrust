@@ -11,12 +11,12 @@ const WelcomeNavigator = createStackNavigator(
                 header: null,
             },
         },
-        ProductListNavigator: {
+        ProductListNavigator:{
             screen: ProductListNavigator,
             navigationOptions: {
                 header: null,
             },
-        }
+        },
     },
     {
         initialRouteName: 'Welcome'

@@ -16,10 +16,12 @@ const DetailsNavigator = createStackNavigator(
             navigationOptions: {
                 header: null,
             },
-        }
+        },
     },
     {
-        initialRouteName: 'Tent'
+        initialRouteName: 'Tent',
+        headerMode:'none',
+        headerVisible:false
     }
 );
 export default createAppContainer(DetailsNavigator)

@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Swiper from 'react-native-swiper'
 import LinearGradient from 'react-native-linear-gradient';
@@ -33,7 +33,7 @@ class Welcome extends Component {
     }
     render() {
         return (
-            <LinearGradient colors={BackgroundColors} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ flex: 1 }}>               
+            <LinearGradient colors={BackgroundColors} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ flex: 1 }}>
                 <View style={{ padding: 20, alignItems: 'center' }}>
                     <Image
                         source={require('./../../assets/images/nTrust_logo_header.png')}
@@ -58,7 +58,7 @@ class Welcome extends Component {
                         start={{ x: 0.0, y: 0.25 }} end={{ x: 0.99, y: 1.0 }}
                     >
                         <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate('ProductListNavigator')}
+                            onPress={() => this.props.navigation.navigate('TabNavigator')}
                         >
                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: hp('7%'), width: wp('70%') }}>
                                 <Image
@@ -70,6 +70,7 @@ class Welcome extends Component {
                         </TouchableOpacity>
                     </LinearGradient>
                     <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('TabNavigator')}
                         style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: hp('7%'), width: wp('70%') }}
                     >
                         <Text style={{ fontSize: 11, paddingHorizontal: 10, textDecorationLine: 'underline', color: '#FFF' }}>SKIP FOR LATER</Text>

@@ -1,14 +1,11 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView,  } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView, } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { UIActivityIndicator } from 'react-native-indicators';
 import { Searchbar } from 'react-native-paper';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
-
-
-import PopupModal from '../../container/modal'
+import { styles } from './styles'
 
 // create a component
 class Dashboard extends Component {
@@ -21,11 +18,15 @@ class Dashboard extends Component {
         }
     }
     componentDidMount() {
+        this.timer = setInterval(
+            () => this.setState(prevState => ({ test: !prevState.test })),
+            5000,
+        );
         <Spinner
             visible={this.state.spinner}
             textStyle={{ color: '#FFF' }}
             customIndicator={<UIActivityIndicator color='#00DE95' />}
-        />        
+        />
         this.setState({ spinner: false })
     }
     render() {
@@ -47,101 +48,102 @@ class Dashboard extends Component {
                 >
                     <View style={{ flex: 1, alignItems: 'center', margin: 10 }}>
                         <View style={{ width: wp('90%') }}>
-                            <Text style={{ fontSize: 25, fontWeight: 'bold', color: '#164349' }}>Experiences</Text>
+                            <Text style={styles.Heading}>Experiences</Text>
                         </View>
                     </View>
                     <ScrollView
                         horizontal={true}
-                        style={{  }}
+                        style={{ flex: 1 }}
+                        contentContainerStyle={{ flexGrow: 1 }}
                         showsHorizontalScrollIndicator={false}
                     >
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}>
                             <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate('DetailsNavigator')}                                
+                                onPress={() => this.props.navigation.navigate('Tent')}
                             >
-                                <View style={{ alignItems: 'center', justifyContent: 'center', height: wp('50%'), width: wp('70%'), marginHorizontal: 10 }}>
+                                <View style={styles.Cards}>
                                     <View style={{ zIndex: 2, position: 'absolute', alignItems: 'center' }}>
-                                        <Text style={{ fontSize: 25, color: '#EEE', fontWeight: 'bold', textAlign: 'center' }}>Image 1</Text>
-                                        <Text style={{ fontSize: 18, color: '#EEE', fontWeight: 'bold', textAlign: 'center' }}>0 item</Text>
+                                        <Text style={styles.CardHeadingText}>Image 1</Text>
+                                        <Text style={styles.CardSubHeadingText}>0 item</Text>
                                     </View>
-                                    <View style={{ height: wp('50%'), width: wp('70%'), backgroundColor: '#00000099', position: 'absolute', zIndex: 1,borderRadius:20 }}></View>
+                                    <View style={styles.CardBlackLayer}></View>
                                     <Image
                                         source={require('../../assets/images/demo.jpeg')}
-                                        style={{ height: wp('50%'), width: wp('70%'), margin: 20, zIndex: 0, position: 'absolute',borderRadius:20 }}
+                                        style={styles.CardImage}
                                     />
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate('DetailsNavigator')}                                
+                                onPress={() => this.props.navigation.navigate('Tent')}
                             >
-                                <View style={{ alignItems: 'center', justifyContent: 'center', height: wp('50%'), width: wp('70%'), marginHorizontal: 10 }}>
+                                <View style={styles.Cards}>
                                     <View style={{ zIndex: 2, position: 'absolute', alignItems: 'center' }}>
-                                        <Text style={{ fontSize: 25, color: '#EEE', fontWeight: 'bold', textAlign: 'center' }}>Image 1</Text>
-                                        <Text style={{ fontSize: 18, color: '#EEE', fontWeight: 'bold', textAlign: 'center' }}>0 item</Text>
+                                        <Text style={styles.CardHeadingText}>Image 1</Text>
+                                        <Text style={styles.CardSubHeadingText}>0 item</Text>
                                     </View>
-                                    <View style={{ height: wp('50%'), width: wp('70%'), backgroundColor: '#00000099', position: 'absolute', zIndex: 1,borderRadius:20 }}></View>
+                                    <View style={styles.CardBlackLayer}></View>
                                     <Image
                                         source={require('../../assets/images/demo.jpeg')}
-                                        style={{ height: wp('50%'), width: wp('70%'), margin: 20, zIndex: 0, position: 'absolute',borderRadius:20 }}
+                                        style={styles.CardImage}
                                     />
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate('DetailsNavigator')}                                
+                                onPress={() => this.props.navigation.navigate('Tent')}
                             >
-                                <View style={{ alignItems: 'center', justifyContent: 'center', height: wp('50%'), width: wp('70%'), marginHorizontal: 10 }}>
+                                <View style={styles.Cards}>
                                     <View style={{ zIndex: 2, position: 'absolute', alignItems: 'center' }}>
-                                        <Text style={{ fontSize: 25, color: '#EEE', fontWeight: 'bold', textAlign: 'center' }}>Image 1</Text>
-                                        <Text style={{ fontSize: 18, color: '#EEE', fontWeight: 'bold', textAlign: 'center' }}>0 item</Text>
+                                        <Text style={styles.CardHeadingText}>Image 1</Text>
+                                        <Text style={styles.CardSubHeadingText}>0 item</Text>
                                     </View>
-                                    <View style={{ height: wp('50%'), width: wp('70%'), backgroundColor: '#00000099', position: 'absolute', zIndex: 1,borderRadius:20 }}></View>
+                                    <View style={styles.CardBlackLayer}></View>
                                     <Image
                                         source={require('../../assets/images/demo.jpeg')}
-                                        style={{ height: wp('50%'), width: wp('70%'), margin: 20, zIndex: 0, position: 'absolute',borderRadius:20 }}
+                                        style={styles.CardImage}
                                     />
                                 </View>
-                            </TouchableOpacity> 
+                            </TouchableOpacity>
                         </View>
                     </ScrollView>
-                    <View style={{ flex: 1, alignItems: 'center', marginVertical:5 }}>
+                    <View style={{ flex: 1, alignItems: 'center', marginVertical: 5 }}>
                         <View style={{ width: wp('90%') }}>
-                            <Text style={{ fontSize: 25, fontWeight: 'bold', color: '#164349' }}>Items</Text>
+                            <Text style={styles.Heading}>Items</Text>
                         </View>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
                         <TouchableOpacity
                             onPress={() => this.props.navigation.navigate('TentDetail')}
                         >
-                            <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+                            <View style={styles.ItemView}>
                                 <Image
                                     source={require('../../assets/images/camera.png')}
                                     style={{ height: 100, width: 100 }}
                                 />
-                                <Text style={{ fontSize: 17, fontWeight: 'bold' }}>Tent</Text>
-                                <Text style={{ fontSize: 17 }}>Camping</Text>
-                                <Text style={{ fontSize: 17, color: '#00DE95', fontWeight: 'bold' }}>$14/Day</Text>
+                                <Text style={styles.ItemName}>Tent</Text>
+                                <Text style={styles.ItemCategory}>Camping</Text>
+                                <Text style={styles.ItemPrice}>$14/Day</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity>
-                            <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+                            <View style={styles.ItemView}>
                                 <Image
                                     source={require('../../assets/images/camera.png')}
                                     style={{ height: 100, width: 100 }}
                                 />
-                                <Text style={{ fontSize: 17, fontWeight: 'bold' }}>Tent</Text>
-                                <Text style={{ fontSize: 17 }}>Camping</Text>
-                                <Text style={{ fontSize: 17, color: '#00DE95', fontWeight: 'bold' }}>$14/Day</Text>
+                                <Text style={styles.ItemName}>Tent</Text>
+                                <Text style={styles.ItemCategory}>Camping</Text>
+                                <Text style={styles.ItemPrice}>$14/Day</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity>
-                            <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+                            <View style={styles.ItemView}>
                                 <Image
                                     source={require('../../assets/images/camera.png')}
                                     style={{ height: 100, width: 100 }}
                                 />
-                                <Text style={{ fontSize: 17, fontWeight: 'bold' }}>Tent</Text>
-                                <Text style={{ fontSize: 17 }}>Camping</Text>
-                                <Text style={{ fontSize: 17, color: '#00DE95', fontWeight: 'bold' }}>$14/Day</Text>
+                                <Text style={styles.ItemName}>Tent</Text>
+                                <Text style={styles.ItemCategory}>Camping</Text>
+                                <Text style={styles.ItemPrice}>$14/Day</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -152,9 +154,9 @@ class Dashboard extends Component {
                                     source={require('../../assets/images/camera.png')}
                                     style={{ height: 100, width: 100 }}
                                 />
-                                <Text style={{ fontSize: 17, fontWeight: 'bold' }}>Tent</Text>
-                                <Text style={{ fontSize: 17 }}>Camping</Text>
-                                <Text style={{ fontSize: 17, color: '#00DE95', fontWeight: 'bold' }}>$14/Day</Text>
+                                <Text style={styles.ItemName}>Tent</Text>
+                                <Text style={styles.ItemCategory}>Camping</Text>
+                                <Text style={styles.ItemPrice}>$14/Day</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity>
@@ -174,33 +176,12 @@ class Dashboard extends Component {
                                     source={require('../../assets/images/camera.png')}
                                     style={{ height: 100, width: 100 }}
                                 />
-                                <Text style={{ fontSize: 17, fontWeight: 'bold' }}>Tent</Text>
-                                <Text style={{ fontSize: 17 }}>Camping</Text>
-                                <Text style={{ fontSize: 17, color: '#00DE95', fontWeight: 'bold' }}>$14/Day</Text>
+                                <Text style={styles.ItemName}>Tent</Text>
+                                <Text style={styles.ItemCategory}>Camping</Text>
+                                <Text style={styles.ItemPrice}>$14/Day</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
-
-                    <View style={{ flex: 1, backgroundColor: 'red' }}>
-                        <TouchableOpacity
-                            onPress={() => {
-                                this.setState({ setModalVisible: !setModalVisible })
-                            }}
-                        >
-                            <Text>Show modal</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    <PopupModal
-                        setModalVisible={setModalVisible}
-                        onClose={() => {
-                            this.setState({ setModalVisible: !setModalVisible })
-                        }}
-                        HeadingText='Heading Text'
-                        AgreeButtonText='Agree'
-                        CloseButtonText='Cancel'
-                        ViewHere={<View><Text style={{ fontSize: 17, color: '#008EDE', marginHorizontal: 30, textAlign: 'center', paddingVertical: 30, }}>Custom View</Text></View>}
-                    />
                 </ScrollView>
             </View>
         );
@@ -208,14 +189,7 @@ class Dashboard extends Component {
 }
 
 // define your styles
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        // justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#FFF',
-    },
-});
+
 
 //make this component available to the app
-export default Dashboard;
+export default Dashboard
