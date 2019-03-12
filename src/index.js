@@ -4,6 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux'
 // import { createAppContainer } from 'react-navigation'
 
+import store from './redux/store'
 import ProductListNavigator from './navigation/router/ProductListNavigator'
 
 
@@ -11,9 +12,11 @@ import ProductListNavigator from './navigation/router/ProductListNavigator'
 class App extends Component {
     render() {
         return (
-            <View style={styles.container}>
-                <ProductListNavigator />
-            </View>
+            <Provider store={store}>
+                <View style={styles.container}>
+                    <ProductListNavigator />
+                </View>
+            </Provider>
         );
     }
 }

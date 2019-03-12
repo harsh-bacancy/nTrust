@@ -57,6 +57,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#16434999',
 
+    },
+    BoxShadow:{
+        shadowColor: "#333333",
+        shadowOpacity: 1,
+        shadowRadius: 2,
+        shadowOffset: {
+          height: 1,
+          width: 1
+        }
     }
 });
 

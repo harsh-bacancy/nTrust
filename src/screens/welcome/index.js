@@ -65,7 +65,7 @@ class Welcome extends Component {
                                     source={require('./../../assets/images/icon_facebook.png')}
                                     style={{ height: 30, width: 30, paddingHorizontal: 5 }}
                                 />
-                                <Text style={{ fontSize: 15, paddingHorizontal: 10, color: '#FFF' }}>SIGN IN WITH FACEBOOK</Text>
+                                <Text style={{ fontSize: wp('4%'), paddingHorizontal: 10, color: '#FFF' }}>SIGN IN WITH FACEBOOK</Text>
                             </View>
                         </TouchableOpacity>
                     </LinearGradient>
