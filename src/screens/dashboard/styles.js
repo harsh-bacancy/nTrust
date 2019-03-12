@@ -65,6 +65,15 @@ export const styles = StyleSheet.create({
         fontSize: 17,
         color: '#00DE95',
         fontWeight: 'bold'
+    },
+    CardShadow:{
+        shadowColor: "#333333",
+        shadowOpacity: 1,
+        shadowRadius: 2,
+        shadowOffset: {
+          height: 5,
+          width: 5
+        }
     }
 
 

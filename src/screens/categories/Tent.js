@@ -10,7 +10,7 @@ class Tent extends Component {
     render() {
         return (
             <View style={[styles.container,]}>
-                <View style={{ borderBottomWidth: .1, elevation: 6, borderBottomColor: '#000' }}>
+                <View style={[{ borderBottomWidth: .1, elevation: 6,},styles.CardShadow]}>
                     <Image
                         source={require('../../assets/images/demo.jpeg')}
                         style={styles.HeaderImage}

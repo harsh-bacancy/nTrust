@@ -61,7 +61,7 @@ class Dashboard extends Component {
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate('Tent')}
                             >
-                                <View style={styles.Cards}>
+                                <View style={[styles.Cards,styles.CardShadow]}>
                                     <View style={{ zIndex: 2, position: 'absolute', alignItems: 'center' }}>
                                         <Text style={styles.CardHeadingText}>Image 1</Text>
                                         <Text style={styles.CardSubHeadingText}>0 item</Text>
@@ -76,7 +76,7 @@ class Dashboard extends Component {
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate('Tent')}
                             >
-                                <View style={styles.Cards}>
+                                <View style={[styles.Cards,styles.CardShadow]}>
                                     <View style={{ zIndex: 2, position: 'absolute', alignItems: 'center' }}>
                                         <Text style={styles.CardHeadingText}>Image 1</Text>
                                         <Text style={styles.CardSubHeadingText}>0 item</Text>
@@ -91,7 +91,7 @@ class Dashboard extends Component {
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate('Tent')}
                             >
-                                <View style={styles.Cards}>
+                                <View style={[styles.Cards,styles.CardShadow]}>
                                     <View style={{ zIndex: 2, position: 'absolute', alignItems: 'center' }}>
                                         <Text style={styles.CardHeadingText}>Image 1</Text>
                                         <Text style={styles.CardSubHeadingText}>0 item</Text>

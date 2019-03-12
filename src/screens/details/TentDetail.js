@@ -31,7 +31,7 @@ class TentDetails extends Component {
                 />
                 <TouchableOpacity
                     onPress={() => this.props.navigation.goBack()}
-                    style={[styles.BackButton,Platform.OS === 'ios' ? { paddingTop: 35 } : null]}
+                    style={[styles.BackButton, Platform.OS === 'ios' ? { paddingTop: 35 } : null]}
                 >
                     <Image
                         source={require('../../assets/images/arrow_dark.png')}
@@ -53,9 +53,9 @@ class TentDetails extends Component {
                         />
                     </View>
                 </View>
-                <View style={styles.DetailSelecter}>
+                <View style={[styles.DetailSelecter,styles.BoxShadow]}>
                     <TouchableOpacity
-                        style={{ flexDirection: 'row', alignItems: 'center', }}
+                        style={{ flexDirection: 'row', alignItems: 'center',  }}
                     >
                         <Image
                             source={require('../../assets/images/arrow-darkloc.png')}
@@ -64,7 +64,7 @@ class TentDetails extends Component {
                         <Text style={{ fontSize: 15, fontWeight: 'bold', paddingHorizontal: 10 }}>Location</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.DetailSelecter}>
+                <View style={[styles.DetailSelecter,styles.BoxShadow]}>
                     <TouchableOpacity
                         style={{ flexDirection: 'row', alignItems: 'center', }}
                     >
@@ -75,7 +75,7 @@ class TentDetails extends Component {
                         <Text style={{ fontSize: 15, fontWeight: 'bold', paddingHorizontal: 10 }}>Date</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.DetailSelecter}>
+                <View style={[styles.DetailSelecter,styles.BoxShadow]}>
                     <TouchableOpacity
                         style={{ flexDirection: 'row', alignItems: 'center', }}
                     >

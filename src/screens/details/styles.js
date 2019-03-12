@@ -19,12 +19,23 @@ export const styles = StyleSheet.create({
         margin: 10,
         height: hp('8%'),
         justifyContent: 'center',
-        borderWidth: .01
+        // borderWidth: 1,
+        // borderColor:'#000',
+        backgroundColor:'#FFF'
     },
     BottomButton: {
         bottom: 0,
         position: 'absolute',
         width: wp('100%'),
         height: hp('10%')
+    },
+    BoxShadow:{
+        shadowColor: "#333333",
+        shadowOpacity: 1,
+        shadowRadius: 2,
+        shadowOffset: {
+          height: 1,
+          width: 1
+        }
     }
 });
