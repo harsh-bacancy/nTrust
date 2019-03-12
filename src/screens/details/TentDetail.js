@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Platform } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import LinearGradient from 'react-native-linear-gradient'
 
@@ -18,7 +18,7 @@ class TentDetails extends Component {
     render() {
         const { setModalVisible } = this.state
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, Platform.OS === 'ios' ? { paddingTop: 35 } : null]}>
                 <PopupModal
                     setModalVisible={setModalVisible}
                     onClose={() => {
@@ -31,7 +31,7 @@ class TentDetails extends Component {
                 />
                 <TouchableOpacity
                     onPress={() => this.props.navigation.goBack()}
-                    style={styles.BackButton}
+                    style={[styles.BackButton,Platform.OS === 'ios' ? { paddingTop: 35 } : null]}
                 >
                     <Image
                         source={require('../../assets/images/arrow_dark.png')}

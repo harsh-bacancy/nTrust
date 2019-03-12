@@ -28,14 +28,14 @@ export const styles = StyleSheet.create({
     },
     SwitchSubView: {
         flex: 1,
-        width:wp('100%'),
+        width: wp('100%'),
         justifyContent: 'center',
         alignItems: 'center',
-        height:hp('8%'),
-        flexDirection:'column'
+        height: hp('8%'),
+        flexDirection: 'column'
     },
-    SwitchText:{
-        fontSize:20,
-        color:'#000'
+    SwitchText: {
+        fontSize: 20,
+        color: '#000'
     },
 });

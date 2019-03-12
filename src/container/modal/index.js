@@ -26,8 +26,8 @@ const PopupModal = ({ setModalVisible, onClose, ViewHere, HeadingText, AgreeButt
                         <TouchableOpacity
                         // onPress={() => this.props.navigation.navigate('Dashboard')}
                         >
-                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: hp('7%'), width: wp('70%'), paddingVertical: 25 }}>
-                                <Text style={{ fontSize: 20, paddingHorizontal: 10, color: '#FFF' }}>{AgreeButtonText}</Text>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: hp('5%'), width: wp('70%'),  }}>
+                                <Text style={{ fontSize: wp('5%'), paddingHorizontal: 10, color: '#FFF' }}>{AgreeButtonText}</Text>
                             </View>
                         </TouchableOpacity>
                     </LinearGradient>

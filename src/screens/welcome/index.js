@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Platform } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Swiper from 'react-native-swiper'
 import LinearGradient from 'react-native-linear-gradient';
@@ -33,11 +33,11 @@ class Welcome extends Component {
     }
     render() {
         return (
-            <LinearGradient colors={BackgroundColors} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ flex: 1 }}>
+            <LinearGradient colors={BackgroundColors} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={[{ flex: 1 }, Platform.OS === 'ios' ? { paddingTop: 35 } : null]}>
                 <View style={{ padding: 20, alignItems: 'center' }}>
                     <Image
                         source={require('./../../assets/images/nTrust_logo_header.png')}
-                        style={{ height: 100, width: 100 }}
+                        style={{ height: wp('35%'), width: wp('35%') }}
                     />
                     <Text style={styles.nTrusttext}>nTrust</Text>
                 </View>

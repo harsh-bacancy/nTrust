@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView, } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView,Platform } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { UIActivityIndicator } from 'react-native-indicators';
 import { Searchbar } from 'react-native-paper';
@@ -33,7 +33,7 @@ class Dashboard extends Component {
         const { setModalVisible, searchText } = this.state
 
         return (
-            <View style={styles.container}>
+            <View style={[styles.container,Platform.OS === 'ios' ? { paddingTop: 35 } : null]}>
                 <Searchbar
                     placeholder="Search for item you'd to like to rent"
                     onChangeText={(searchText) => { this.setState({ searchText: searchText }) }}

@@ -20,7 +20,7 @@ const User = () => {
                 <Text style={{ fontSize: 15, color: '#000' }}>Disctription</Text>
                 <Text style={{ fontSize: 15, color: Green, fontWeight: 'bold' }}>Notice</Text>
             </View>
-            <Badge style={{ alignSelf: 'center' }}>1</Badge>
+            <Badge style={{ alignSelf: 'center',fontSize: wp('3%') }}>1</Badge>
         </TouchableOpacity>
     );
 };

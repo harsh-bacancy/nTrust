@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity,Platform } from 'react-native';
 
 
 import { styles } from './styles'
@@ -9,7 +9,7 @@ import { styles } from './styles'
 class Tent extends Component {
     render() {
         return (
-            <View style={styles.container}>
+            <View style={[styles.container,]}>
                 <View style={{ borderBottomWidth: .1, elevation: 6, borderBottomColor: '#000' }}>
                     <Image
                         source={require('../../assets/images/demo.jpeg')}
@@ -21,7 +21,7 @@ class Tent extends Component {
                         <Text style={styles.SubHeaderText}>0 item</Text>
                     </View>
                     <TouchableOpacity
-                        style={{ zIndex: 3, position: 'absolute', }}
+                        style={[{ zIndex: 3, position: 'absolute', },Platform.OS === 'ios' ? { paddingTop: 35 } : null]}
                         onPress={() => this.props.navigation.goBack()}
                     >
                         <Image
