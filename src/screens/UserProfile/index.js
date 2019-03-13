@@ -16,20 +16,6 @@ class UserProfile extends Component {
             onPress: props.onPress
         }
     }
-
-    // componentDidMount() {
-    //     if (this.props.setVisibility.text == 'true') {
-    //         this.setState({ setModalVisible: true })
-    //     } else {
-    //         this.setState({ setModalVisible: false })
-    //     }
-    // }
-
-    // changeModalVisible = () => {
-    //     let setModalVisible = this.state.setModalVisible;
-    //     this.setState({ setModalVisible: !setModalVisible });
-    //     this.props.onChange(setModalVisible)
-    // }
     render() {
         return (
             <Modal

@@ -1,8 +1,10 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, Platform } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { View, Text, Image, TouchableOpacity, Platform, } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient'
+import { Searchbar } from 'react-native-paper'
+import Spinner from 'react-native-loading-spinner-overlay';
+import { UIActivityIndicator } from 'react-native-indicators';
 
 import { nTrustColor } from '../../hepler/Constant'
 import PopupModal from '../../container/modal'
@@ -12,22 +14,127 @@ class TentDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            setModalVisible: false
+            setModalVisible: false,
+            setModalVisibleLocation: false,
+            setModalVisibleDate: false,
+            setModalVisibleTime: false,
+            spinner: false,
+            location: '',
+            date: '',
+            time: ''
         }
     }
+    async _onSubmit() {
+        console.warn('start')
+        // await this.setState({ spinner: true })
+        // await setTimeout(() => {
+        //     this.setState({ spinner: false })
+        //     console.warn('in')
+        // }
+        //     , 250
+        // );
+        // this.setState({spinner: false})
+        console.warn('stop')
+
+    }
     render() {
-        const { setModalVisible } = this.state
+        const { setModalVisibleLocation, location, setModalVisibleDate, setModalVisibleTime, spinner } = this.state
+        console.warn('spinner',spinner)
+        const Locaionpicker = () => {
+            return (
+                <View style={{ width: '100%', alignItems: 'center' }}>
+                    <View style={{ alignItems: 'center', width: '80%', marginVertical: 10 }}>
+                        <Searchbar
+                            placeholder='Enter a location'
+                            onChangeText={(location) => { this.setState({ location: location }) }}
+                            value={location}
+                        />
+                    </View>
+                    <View style={{ alignItems: 'center', width: '80%', marginVertical: 10 }}>
+                        <Text>or</Text>
+                    </View>
+                    <View style={{ alignItems: 'center', width: '80%', marginVertical: 10 }}>
+                        <TouchableOpacity
+                            style={{ width: '100%' }}
+                        >
+                            <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomColor: '#000', borderBottomWidth: 1, borderTopColor: '#000', borderTopWidth: 1 }}>
+                                <Image
+                                    source={require('../../assets/images/arrow-darkloc.png')}
+                                    style={{ height: 35, width: 35, margin: 10 }}
+                                />
+                                <Text>Use Current Location</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            );
+        }
+        const DatePicker = () => {
+            return (
+                <View style={{ width: '100%', alignItems: 'center' }} >
+                    <View style={{ alignItems: 'center', width: '80%', marginVertical: 10 }}>
+                        <TouchableOpacity
+                            style={{ width: '100%' }}
+                        >
+                            <View style={{ alignItems: 'center', borderBottomColor: '#000', borderBottomWidth: 1, borderTopColor: '#000', borderTopWidth: 1 }}>
+                                <Text>Date Picker</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View >
+            )
+        }
+        const TimePicker = () => {
+            return (
+                <View style={{ width: '100%', alignItems: 'center' }} >
+                    <View style={{ alignItems: 'center', width: '80%', marginVertical: 10 }}>
+                        <TouchableOpacity
+                            style={{ width: '100%' }}
+                        >
+                            <View style={{ alignItems: 'center', borderBottomColor: '#000', borderBottomWidth: 1, borderTopColor: '#000', borderTopWidth: 1 }}>
+                                <Text>Time Picker</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View >
+            )
+        }
         return (
-            <View style={[styles.container, Platform.OS === 'ios' ? { paddingTop: 35 } : null]}>
+            <View style={[styles.container, Platform.OS === 'ios' ? { paddingTop: 35 } : null]} >
+                <Spinner
+                    visible={spinner}
+                    textStyle={{ color: '#FFF' }}
+                    customIndicator={<UIActivityIndicator color='#00DE95' />}
+                />
                 <PopupModal
-                    setModalVisible={setModalVisible}
+                    setModalVisible={setModalVisibleLocation}
                     onClose={() => {
-                        this.setState({ setModalVisible: !setModalVisible })
+                        this.setState({ setModalVisibleLocation: !setModalVisibleLocation })
                     }}
-                    HeadingText='Heading Text'
-                    AgreeButtonText='Agree'
+                    HeadingText='Select a location'
+                    AgreeButtonText='Apply'
                     CloseButtonText='Cancel'
-                    ViewHere={<View><Text style={{ fontSize: 17, color: '#008EDE', marginHorizontal: 30, textAlign: 'center', paddingVertical: 30, }}>Custom View{'\n'}☺</Text></View>}
+                    ViewHere={<Locaionpicker />}
+                />
+                <PopupModal
+                    setModalVisible={setModalVisibleDate}
+                    onClose={() => {
+                        this.setState({ setModalVisibleDate: !setModalVisibleDate })
+                    }}
+                    HeadingText='Select a Date'
+                    AgreeButtonText='Apply'
+                    CloseButtonText='Cancel'
+                    ViewHere={<DatePicker />}
+                />
+                <PopupModal
+                    setModalVisible={setModalVisibleTime}
+                    onClose={() => {
+                        this.setState({ setModalVisibleTime: !setModalVisibleTime })
+                    }}
+                    HeadingText='Select a Date'
+                    AgreeButtonText='Apply'
+                    CloseButtonText='Cancel'
+                    ViewHere={<TimePicker />}
                 />
                 <TouchableOpacity
                     onPress={() => this.props.navigation.goBack()}
@@ -53,9 +160,12 @@ class TentDetails extends Component {
                         />
                     </View>
                 </View>
-                <View style={[styles.DetailSelecter,styles.BoxShadow]}>
+                <View style={[styles.DetailSelecter, styles.BoxShadow]}>
                     <TouchableOpacity
-                        style={{ flexDirection: 'row', alignItems: 'center',  }}
+                        style={{ flexDirection: 'row', alignItems: 'center', }}
+                        onPress={() => {
+                            this.setState({ setModalVisibleLocation: !setModalVisibleLocation })
+                        }}
                     >
                         <Image
                             source={require('../../assets/images/arrow-darkloc.png')}
@@ -64,9 +174,12 @@ class TentDetails extends Component {
                         <Text style={{ fontSize: 15, fontWeight: 'bold', paddingHorizontal: 10 }}>Location</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={[styles.DetailSelecter,styles.BoxShadow]}>
+                <View style={[styles.DetailSelecter, styles.BoxShadow]}>
                     <TouchableOpacity
                         style={{ flexDirection: 'row', alignItems: 'center', }}
+                        onPress={() => {
+                            this.setState({ setModalVisibleDate: !setModalVisibleDate })
+                        }}
                     >
                         <Image
                             source={require('../../assets/images/arrow-darkcalendar.png')}
@@ -75,9 +188,12 @@ class TentDetails extends Component {
                         <Text style={{ fontSize: 15, fontWeight: 'bold', paddingHorizontal: 10 }}>Date</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={[styles.DetailSelecter,styles.BoxShadow]}>
+                <View style={[styles.DetailSelecter, styles.BoxShadow]}>
                     <TouchableOpacity
                         style={{ flexDirection: 'row', alignItems: 'center', }}
+                        onPress={() => {
+                            this.setState({ setModalVisibleTime: !setModalVisibleTime })
+                        }}
                     >
                         <Image
                             source={require('../../assets/images/arrow-darktime.png')}
@@ -93,9 +209,7 @@ class TentDetails extends Component {
                         start={{ x: 0.0, y: 0.25 }} end={{ x: 0.99, y: 1.0 }}
                     >
                         <TouchableOpacity
-                            onPress={() => {
-                                this.setState({ setModalVisible: !setModalVisible })
-                            }}
+                            onPress={() => this._onSubmit}
                         >
                             <View style={{ alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
                                 <Text style={{ color: '#FFF', fontSize: 25, fontWeight: 'bold', }}>SEE MATCHES</Text>

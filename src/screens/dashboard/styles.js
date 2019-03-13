@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         height: wp('50%'),
         width: wp('70%'),
-        marginHorizontal: 10
+        marginHorizontal: 10,
     },
     CardHeadingText: {
         fontSize: 25,
@@ -73,7 +73,7 @@ export const styles = StyleSheet.create({
         shadowOffset: {
           height: 5,
           width: 5
-        }
+        },
     }
 
 

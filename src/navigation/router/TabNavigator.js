@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Entypo'
 
 
 import Dashboard from '../../screens/dashboard'
-import Welcome from '../../screens/welcome'
+import DashboardLend from '../../screens/Lend/dashboard'
 import NBox from '../../screens/nBox/nBox'
 
 const TabNavigator = createBottomTabNavigator(
@@ -23,8 +23,8 @@ const TabNavigator = createBottomTabNavigator(
                 )
             })
         },
-        Welcome: {
-            screen: Welcome,
+        DashboardLend: {
+            screen: DashboardLend,
             navigationOptions: () => ({
                 title: 'Lend',
                 tabBarVisible: false,

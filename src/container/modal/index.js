@@ -22,11 +22,12 @@ const PopupModal = ({ setModalVisible, onClose, ViewHere, HeadingText, AgreeButt
                     <LinearGradient
                         colors={nTrustColor}
                         start={{ x: 0.0, y: 0.25 }} end={{ x: 0.99, y: 1.0 }}
+                        style={{marginTop:20}}
                     >
-                        <TouchableOpacity
+                        <TouchableOpacity                        
                         // onPress={() => this.props.navigation.navigate('Dashboard')}
                         >
-                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: hp('5%'), width: wp('70%'),  }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: hp('7%'), width: wp('70%'),  }}>
                                 <Text style={{ fontSize: wp('5%'), paddingHorizontal: 10, color: '#FFF' }}>{AgreeButtonText}</Text>
                             </View>
                         </TouchableOpacity>

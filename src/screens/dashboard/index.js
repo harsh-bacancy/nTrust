@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView,Platform } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView, Platform } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { UIActivityIndicator } from 'react-native-indicators';
 import { Searchbar } from 'react-native-paper';
@@ -22,18 +22,18 @@ class Dashboard extends Component {
             () => this.setState(prevState => ({ test: !prevState.test })),
             5000,
         );
-        <Spinner
-            visible={this.state.spinner}
-            textStyle={{ color: '#FFF' }}
-            customIndicator={<UIActivityIndicator color='#00DE95' />}
-        />
         this.setState({ spinner: false })
     }
     render() {
-        const { setModalVisible, searchText } = this.state
+        const { searchText } = this.state
 
         return (
-            <View style={[styles.container,Platform.OS === 'ios' ? { paddingTop: 35 } : null]}>
+            <View style={[styles.container, Platform.OS === 'ios' ? { paddingTop: 35 } : null]}>
+                <Spinner
+                    visible={this.state.spinner}
+                    textStyle={{ color: '#FFF' }}
+                    customIndicator={<UIActivityIndicator color='#00DE95' />}
+                />
                 <Searchbar
                     placeholder="Search for item you'd to like to rent"
                     onChangeText={(searchText) => { this.setState({ searchText: searchText }) }}
@@ -61,7 +61,7 @@ class Dashboard extends Component {
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate('Tent')}
                             >
-                                <View style={[styles.Cards,styles.CardShadow]}>
+                                <View style={[styles.Cards, styles.CardShadow]}>
                                     <View style={{ zIndex: 2, position: 'absolute', alignItems: 'center' }}>
                                         <Text style={styles.CardHeadingText}>Image 1</Text>
                                         <Text style={styles.CardSubHeadingText}>0 item</Text>
@@ -76,7 +76,7 @@ class Dashboard extends Component {
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate('Tent')}
                             >
-                                <View style={[styles.Cards,styles.CardShadow]}>
+                                <View style={[styles.Cards, styles.CardShadow]}>
                                     <View style={{ zIndex: 2, position: 'absolute', alignItems: 'center' }}>
                                         <Text style={styles.CardHeadingText}>Image 1</Text>
                                         <Text style={styles.CardSubHeadingText}>0 item</Text>
@@ -91,7 +91,7 @@ class Dashboard extends Component {
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate('Tent')}
                             >
-                                <View style={[styles.Cards,styles.CardShadow]}>
+                                <View style={[styles.Cards, styles.CardShadow]}>
                                     <View style={{ zIndex: 2, position: 'absolute', alignItems: 'center' }}>
                                         <Text style={styles.CardHeadingText}>Image 1</Text>
                                         <Text style={styles.CardSubHeadingText}>0 item</Text>

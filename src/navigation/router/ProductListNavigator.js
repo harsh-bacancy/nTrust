@@ -2,7 +2,6 @@ import { createAppContainer, createStackNavigator } from 'react-navigation'
 
 
 import Dashboard from '../../screens/dashboard'
-import DetailsNavigator from './DetailsNavigator'
 import TabNavigator from './TabNavigator'
 import Tent from '../../screens/categories/Tent'
 import TentDetail from '../../screens/details/TentDetail'
