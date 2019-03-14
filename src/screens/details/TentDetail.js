@@ -5,10 +5,13 @@ import LinearGradient from 'react-native-linear-gradient'
 import { Searchbar } from 'react-native-paper'
 import Spinner from 'react-native-loading-spinner-overlay';
 import { UIActivityIndicator } from 'react-native-indicators';
+import { WheelPicker, TimePicker, DatePicker } from 'react-native-wheel-picker-android'
+
 
 import { nTrustColor } from '../../hepler/Constant'
 import PopupModal from '../../container/modal'
 import { styles } from './styles'
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 // create a component
 class TentDetails extends Component {
     constructor(props) {
@@ -21,7 +24,8 @@ class TentDetails extends Component {
             spinner: false,
             location: '',
             date: '',
-            time: ''
+            time: '',
+            selectedItem: 0
         }
     }
     async _onSubmit() {
@@ -37,9 +41,18 @@ class TentDetails extends Component {
         console.warn('stop')
 
     }
+    onItemSelected = selectedItem => {
+        this.setState({ selectedItem })
+    }
+
+    onPress = () => {
+        this.setState({ selectedItem: 3 })
+    }
+
     render() {
         const { setModalVisibleLocation, location, setModalVisibleDate, setModalVisibleTime, spinner } = this.state
-        console.warn('spinner',spinner)
+        const wheelPickerData = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+        console.warn('spinner', spinner)
         const Locaionpicker = () => {
             return (
                 <View style={{ width: '100%', alignItems: 'center' }}>
@@ -72,14 +85,18 @@ class TentDetails extends Component {
         const DatePicker = () => {
             return (
                 <View style={{ width: '100%', alignItems: 'center' }} >
-                    <View style={{ alignItems: 'center', width: '80%', marginVertical: 10 }}>
-                        <TouchableOpacity
+                    <View style={{ alignItems: 'center', width: '90%', marginVertical: 10 }}>
+                        {/* <TouchableOpacity
                             style={{ width: '100%' }}
-                        >
-                            <View style={{ alignItems: 'center', borderBottomColor: '#000', borderBottomWidth: 1, borderTopColor: '#000', borderTopWidth: 1 }}>
-                                <Text>Date Picker</Text>
+                        > */}
+                            <View style={{alignItems: 'center', borderBottomColor: '#000', borderBottomWidth: 1, borderTopColor: '#000', borderTopWidth: 1 }}>
+                                <WheelPicker
+                                    selectedItem={this.state.selectedItem}
+                                    data={wheelPickerData}
+                                    onItemSelected={() => this.onItemSelected}
+                                />
                             </View>
-                        </TouchableOpacity>
+                        {/* </TouchableOpacity> */}
                     </View>
                 </View >
             )
@@ -92,7 +109,7 @@ class TentDetails extends Component {
                             style={{ width: '100%' }}
                         >
                             <View style={{ alignItems: 'center', borderBottomColor: '#000', borderBottomWidth: 1, borderTopColor: '#000', borderTopWidth: 1 }}>
-                                <Text>Time Picker</Text>
+                                {/* <TimePicker  /> */}
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -203,6 +220,7 @@ class TentDetails extends Component {
                     </TouchableOpacity>
                 </View>
                 <Text style={{ fontSize: 12, marginVertical: 20 }}>You will not charged until you select a lender</Text>
+                {/* <TimePicker /> */}
                 <View style={styles.BottomButton}>
                     <LinearGradient
                         colors={nTrustColor}
