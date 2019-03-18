@@ -56,10 +56,15 @@ export const styles = StyleSheet.create({
     },
     ItemName: {
         fontSize: 17,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        textAlign:'center',
+        width:'60%'
     },
     ItemCategory: {
-        fontSize: 17
+        fontSize: 17,
+        textAlign:'center',
+        width:'60%',
+        padding:1,
     },
     ItemPrice: {
         fontSize: 17,

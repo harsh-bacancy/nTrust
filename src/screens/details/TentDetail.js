@@ -51,6 +51,7 @@ class TentDetails extends Component {
 
     render() {
         const { setModalVisibleLocation, location, setModalVisibleDate, setModalVisibleTime, spinner } = this.state
+        const item = this.props.navigation.getParam('item','data')
         const wheelPickerData = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
         console.warn('spinner', spinner)
         const Locaionpicker = () => {
@@ -164,13 +165,13 @@ class TentDetails extends Component {
                 </TouchableOpacity>
                 <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                     <Image
-                        source={require('../../assets/images/camera.png')}
+                        source={{ uri: `${item.icon}` }}
                         style={{ height: 125, width: 125 }}
                     />
-                    <Text style={{ fontSize: 25, fontWeight: 'bold', color: '#164349', fontWeight: 'bold' }}>Tent</Text>
-                    <Text style={{ fontSize: 17, color: '#00DE95', fontWeight: 'bold', marginTop: 15 }}>Current Price you''ll pay: $14/Day</Text>
+                    <Text style={{ fontSize: 25, fontWeight: 'bold', color: '#164349', fontWeight: 'bold' }}>{item.name}</Text>
+                    <Text style={{ fontSize: 17, color: '#00DE95', fontWeight: 'bold', marginTop: 15 }}>Current Price you''ll pay: ${item.value}/Day</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Text style={{ fontSize: 17, color: '#164349', fontWeight: 'bold' }}>Deposit: $10</Text>
+                        <Text style={{ fontSize: 17, color: '#164349', fontWeight: 'bold' }}>Deposit: ${item.deposit}</Text>
                         <Image
                             source={require('../../assets/images/icon_question_mark.png')}
                             style={{ height: 15, width: 15, margin: 8 }}

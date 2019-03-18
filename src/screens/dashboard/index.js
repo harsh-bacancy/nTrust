@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView, Platform, FlatList } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { UIActivityIndicator } from 'react-native-indicators';
 import { Searchbar } from 'react-native-paper';
@@ -14,19 +14,32 @@ class Dashboard extends Component {
         this.state = {
             setModalVisible: false,
             spinner: true,
-            searchText: ''
+            searchText: '',
+            Experiences: [],
+            PopularItem: [],
         }
     }
     componentDidMount() {
-        this.timer = setInterval(
-            () => this.setState(prevState => ({ test: !prevState.test })),
-            5000,
-        );
-        this.setState({ spinner: false })
+        // this.timer = setInterval(
+        //     () => this.setState(prevState => ({ test: !prevState.test })),
+        //     5000,
+        // );
+        // this.setState({ spinner: false })
+        return fetch('http://192.168.1.63:3001/api/v1/users/dashboard', { method: 'GET' })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({ Experiences: responseJson.Data.Experiences });
+                this.setState({ PopularItem: responseJson.Data.PopularItem });
+                this.setState({ spinner: false });
+                // console.warn('Message:', this.state.dataSource)
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
     render() {
         const { searchText } = this.state
-
+        // console.log('data:', this.state.dataSource)
         return (
             <View style={[styles.container, Platform.OS === 'ios' ? { paddingTop: 35 } : null]}>
                 <Spinner
@@ -51,66 +64,72 @@ class Dashboard extends Component {
                             <Text style={styles.Heading}>Experiences</Text>
                         </View>
                     </View>
-                    <ScrollView
+                    {/* <ScrollView
                         horizontal={true}
                         style={{ flex: 1 }}
                         contentContainerStyle={{ flexGrow: 1 }}
                         showsHorizontalScrollIndicator={false}
-                    >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}>
-                            <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate('Tent')}
-                            >
-                                <View style={[styles.Cards, styles.CardShadow]}>
-                                    <View style={{ zIndex: 2, position: 'absolute', alignItems: 'center' }}>
-                                        <Text style={styles.CardHeadingText}>Image 1</Text>
-                                        <Text style={styles.CardSubHeadingText}>0 item</Text>
+                    > */}
+                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}>
+
+                        <FlatList
+                            data={this.state.Experiences}
+                            renderItem={({ item }) =>
+                                <TouchableOpacity
+                                    onPress={() => this.props.navigation.navigate('Tent')}
+                                >
+                                    <View style={[styles.Cards, styles.CardShadow]}>
+                                        <View style={{ zIndex: 2, position: 'absolute', alignItems: 'center' }}>
+                                            <Text style={styles.CardHeadingText}>{item.name}</Text>
+                                            <Text style={styles.CardSubHeadingText}>{item.count} item</Text>
+                                        </View>
+                                        <View style={styles.CardBlackLayer}></View>
+                                        <Image
+                                            source={{ uri: `${item.icon}` }}
+                                            style={styles.CardImage}
+                                            resizeMode='center'
+                                        />
                                     </View>
-                                    <View style={styles.CardBlackLayer}></View>
-                                    <Image
-                                        source={require('../../assets/images/demo.jpeg')}
-                                        style={styles.CardImage}
-                                    />
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate('Tent')}
-                            >
-                                <View style={[styles.Cards, styles.CardShadow]}>
-                                    <View style={{ zIndex: 2, position: 'absolute', alignItems: 'center' }}>
-                                        <Text style={styles.CardHeadingText}>Image 1</Text>
-                                        <Text style={styles.CardSubHeadingText}>0 item</Text>
-                                    </View>
-                                    <View style={styles.CardBlackLayer}></View>
-                                    <Image
-                                        source={require('../../assets/images/demo.jpeg')}
-                                        style={styles.CardImage}
-                                    />
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate('Tent')}
-                            >
-                                <View style={[styles.Cards, styles.CardShadow]}>
-                                    <View style={{ zIndex: 2, position: 'absolute', alignItems: 'center' }}>
-                                        <Text style={styles.CardHeadingText}>Image 1</Text>
-                                        <Text style={styles.CardSubHeadingText}>0 item</Text>
-                                    </View>
-                                    <View style={styles.CardBlackLayer}></View>
-                                    <Image
-                                        source={require('../../assets/images/demo.jpeg')}
-                                        style={styles.CardImage}
-                                    />
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    </ScrollView>
+                                </TouchableOpacity>
+
+                            }
+                            keyExtractor={(_id, index) => _id}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
+                    {/* </ScrollView> */}
                     <View style={{ flex: 1, alignItems: 'center', marginVertical: 5 }}>
                         <View style={{ width: wp('90%') }}>
                             <Text style={styles.Heading}>Items</Text>
                         </View>
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                    <View>
+                        <FlatList
+                            data={this.state.PopularItem}
+                            renderItem={({ item }) =>
+                                <View style={{ flex: 1, justifyContent: 'space-evenly', alignItems: 'center', marginVertical: 5 }}>
+                                    <TouchableOpacity
+                                        onPress={() => this.props.navigation.navigate('TentDetail', { item: item })}
+                                    >
+                                        <View style={styles.ItemView}>
+                                            <Image
+                                                source={{ uri: `${item.icon}` }}
+                                                style={{ height: 100, width: 100, margin: 3 }}
+                                                resizeMode='center'
+                                            />
+                                            <Text style={styles.ItemName}>{item.name}</Text>
+                                            <Text style={styles.ItemCategory}>{item.expName}</Text>
+                                            <Text style={styles.ItemPrice}>${item.value}/Day</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                            }
+                            keyExtractor={(_id, index) => _id}
+                            numColumns={3}
+                        />
+                    </View>
+                    {/* <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
                         <TouchableOpacity
                             onPress={() => this.props.navigation.navigate('TentDetail')}
                         >
@@ -181,7 +200,7 @@ class Dashboard extends Component {
                                 <Text style={styles.ItemPrice}>$14/Day</Text>
                             </View>
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
                 </ScrollView>
             </View>
         );

@@ -82,6 +82,29 @@ class UserProfile extends Component {
                             </TouchableOpacity>
                         </View>
                     </View>
+                    <View style={{ width: '100%', bottom: 0, position: 'absolute', flexDirection: 'row', justifyContent: 'space-around' }}>
+                        <View>
+                            <TouchableOpacity>
+                                <Text style={{ fontSize: 15, fontWeight: 'bold', color: 'red', margin: 15 }}>
+                                    Sign Out
+                        </Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
+                            <TouchableOpacity>
+                                <Image
+                                    source={require('../../assets/images/ico-facebook.png')}
+                                    style={{ height: 30, width: 30, marginHorizontal: 10 }}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <Image
+                                    source={require('../../assets/images/ico-instagram.png')}
+                                    style={{ height: 30, width: 30, marginHorizontal: 10 }}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                 </View>
             </Modal>
         );

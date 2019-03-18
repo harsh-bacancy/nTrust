@@ -1,16 +1,44 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import Spinner from 'react-native-loading-spinner-overlay';
+import { UIActivityIndicator } from 'react-native-indicators';
 
 import { DarkBlue, Blue } from '../../../hepler/Constant'
-import { ScrollView } from 'react-native-gesture-handler';
+// import { ScrollView } from 'react-native-gesture-handler';
 
 // create a component
 class DashboardLend extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            Experiences: [],
+            spinner: ''
+        }
+    }
+
+
+    componentDidMount() {
+        return fetch('http://192.168.1.63:3001/api/v1/users/dashboard', { method: 'GET' })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({ Experiences: responseJson.Data.Experiences });
+                this.setState({ spinner: false });
+                // console.warn('Message:', this.state.dataSource)
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
     render() {
         return (
             <View style={styles.container}>
+                <Spinner
+                    visible={this.state.spinner}
+                    textStyle={{ color: '#FFF' }}
+                    customIndicator={<UIActivityIndicator color='#00DE95' />}
+                />
                 <View style={{ width: wp('100%'), height: hp('10%'), backgroundColor: '#EEE', alignItems: 'center', flexDirection: 'row' }}>
                     <View style={{ flex: 1, alignItems: 'flex-start', }}>
                         <TouchableOpacity
@@ -29,7 +57,25 @@ class DashboardLend extends Component {
                 <View style={{ alignItems: 'center' }}>
                     <Text style={{ fontSize: 20, color: Blue, fontWeight: 'bold' }}>Select Item you'd like to lend</Text>
                 </View>
-                <ScrollView showsVerticalScrollIndicator={false}>
+                <FlatList
+                    data={this.state.Experiences}
+                    renderItem={({ item }) =>
+                        <TouchableOpacity
+                            onPress={() => this.props.navigation.navigate('Tent', { item })}
+                        >
+                            <View style={styles.ItemView}>
+                                <Image
+                                    source={{ uri: `${item.icon}` }}
+                                    style={{ height: 100, width: 100 }}
+                                />
+                                <Text style={styles.ItemName}>{item.name}</Text>
+                            </View>
+                        </TouchableOpacity>
+                    }
+                    keyExtractor={(_id, index) => _id}
+                    numColumns={2}
+                />
+                {/* <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{ flexDirection: 'row' }}>
                         <TouchableOpacity
 
@@ -150,7 +196,7 @@ class DashboardLend extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
-                </ScrollView>
+                </ScrollView> */}
             </View>
         );
     }
