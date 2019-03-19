@@ -6,6 +6,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import { UIActivityIndicator } from 'react-native-indicators';
 
 import { DarkBlue, Blue } from '../../../hepler/Constant'
+import { Dashboard } from '../../../api'
 // import { ScrollView } from 'react-native-gesture-handler';
 
 // create a component
@@ -20,7 +21,7 @@ class DashboardLend extends Component {
 
 
     componentDidMount() {
-        return fetch('http://192.168.1.63:3001/api/v1/users/dashboard', { method: 'GET' })
+        return fetch(Dashboard, { method: 'GET' })
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({ Experiences: responseJson.Data.Experiences });
@@ -61,12 +62,13 @@ class DashboardLend extends Component {
                     data={this.state.Experiences}
                     renderItem={({ item }) =>
                         <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate('Tent', { item })}
+                            onPress={() => this.props.navigation.navigate('Categories', { item })}
                         >
                             <View style={styles.ItemView}>
                                 <Image
                                     source={{ uri: `${item.icon}` }}
                                     style={{ height: 100, width: 100 }}
+                                    resizeMode='center'
                                 />
                                 <Text style={styles.ItemName}>{item.name}</Text>
                             </View>
@@ -74,129 +76,8 @@ class DashboardLend extends Component {
                     }
                     keyExtractor={(_id, index) => _id}
                     numColumns={2}
+                    showsVerticalScrollIndicator={false}
                 />
-                {/* <ScrollView showsVerticalScrollIndicator={false}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <TouchableOpacity
-
-                        >
-                            <View style={styles.ItemView}>
-                                <Image
-                                    source={require('../../../assets/images/camera.png')}
-                                    style={{ height: 100, width: 100 }}
-                                />
-                                <Text style={styles.ItemName}>Tent</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-
-                        >
-                            <View style={styles.ItemView}>
-                                <Image
-                                    source={require('../../../assets/images/camera.png')}
-                                    style={{ height: 100, width: 100 }}
-                                />
-                                <Text style={styles.ItemName}>Tent</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ flexDirection: 'row' }}>
-                        <TouchableOpacity
-
-                        >
-                            <View style={styles.ItemView}>
-                                <Image
-                                    source={require('../../../assets/images/camera.png')}
-                                    style={{ height: 100, width: 100 }}
-                                />
-                                <Text style={styles.ItemName}>Tent</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-
-                        >
-                            <View style={styles.ItemView}>
-                                <Image
-                                    source={require('../../../assets/images/camera.png')}
-                                    style={{ height: 100, width: 100 }}
-                                />
-                                <Text style={styles.ItemName}>Tent</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ flexDirection: 'row' }}>
-                        <TouchableOpacity
-
-                        >
-                            <View style={styles.ItemView}>
-                                <Image
-                                    source={require('../../../assets/images/camera.png')}
-                                    style={{ height: 100, width: 100 }}
-                                />
-                                <Text style={styles.ItemName}>Tent</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-
-                        >
-                            <View style={styles.ItemView}>
-                                <Image
-                                    source={require('../../../assets/images/camera.png')}
-                                    style={{ height: 100, width: 100 }}
-                                />
-                                <Text style={styles.ItemName}>Tent</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ flexDirection: 'row' }}>
-                        <TouchableOpacity
-
-                        >
-                            <View style={styles.ItemView}>
-                                <Image
-                                    source={require('../../../assets/images/camera.png')}
-                                    style={{ height: 100, width: 100 }}
-                                />
-                                <Text style={styles.ItemName}>Tent</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-
-                        >
-                            <View style={styles.ItemView}>
-                                <Image
-                                    source={require('../../../assets/images/camera.png')}
-                                    style={{ height: 100, width: 100 }}
-                                />
-                                <Text style={styles.ItemName}>Tent</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ flexDirection: 'row' }}>
-                        <TouchableOpacity
-
-                        >
-                            <View style={styles.ItemView}>
-                                <Image
-                                    source={require('../../../assets/images/camera.png')}
-                                    style={{ height: 100, width: 100 }}
-                                />
-                                <Text style={styles.ItemName}>Tent</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-
-                        >
-                            <View style={styles.ItemView}>
-                                <Image
-                                    source={require('../../../assets/images/camera.png')}
-                                    style={{ height: 100, width: 100 }}
-                                />
-                                <Text style={styles.ItemName}>Tent</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                </ScrollView> */}
             </View>
         );
     }

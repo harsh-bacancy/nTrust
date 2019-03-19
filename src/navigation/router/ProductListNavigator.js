@@ -6,11 +6,15 @@ import TabNavigator from './TabNavigator'
 import Tent from '../../screens/categories/Tent'
 import TentDetail from '../../screens/details/TentDetail'
 import Welcome from '../../screens/welcome'
+import AdditemDetails from '../../screens/Lend/details/AddItemDetails'
+import Categories from '../../screens/Lend/categories/Categories'
+
 
 const FirstScreen = {
-    dashboard: 'Dashboard',
+    AdditemDetails: 'AdditemDetails',
     welcome: 'Welcome'
 }
+
 const ProductListNavigator = createStackNavigator(
     {
         Welcome: {
@@ -42,10 +46,22 @@ const ProductListNavigator = createStackNavigator(
             navigationOptions: {
                 header: null,
             },
-        }
+        },
+        AdditemDetails: {
+            screen: AdditemDetails,
+            navigationOptions: {
+                header: null,
+            },
+        },
+        Categories: {
+            screen: Categories,
+            navigationOptions: {
+                header: null,
+            },
+        },
     },
     {
-        initialRouteName: false ? FirstScreen.dashboard : FirstScreen.welcome,
+        initialRouteName: true ? FirstScreen.AdditemDetails : FirstScreen.welcome,
         headerMode: 'none',
         headerVisible: false
     }
