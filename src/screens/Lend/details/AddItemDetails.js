@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView, TextInput, Platform } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import LinearGradient from 'react-native-linear-gradient'
-import ImagePicker from 'react-native-image-picker'
+// import ImagePicker from 'react-native-image-picker'
 // import Swiper from 'react-native-swiper'
 
-// import ImagePicker from 'react-native-image-crop-picker'
+import ImagePicker from 'react-native-image-crop-picker'
 
 
 
@@ -31,33 +31,36 @@ class AdditemDetails extends Component {
     }
 
     handleChoosePhoto = () => {
-        ImagePicker.showImagePicker((response) => {
-            console.log('Response = ', response);
+        // ImagePicker.showImagePicker((response) => {
+        //     console.log('Response = ', response);
 
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-            } else {
-                const source = { uri: response.uri };
+        //     if (response.didCancel) {
+        //         console.log('User cancelled image picker');
+        //     } else if (response.error) {
+        //         console.log('ImagePicker Error: ', response.error);
+        //     } else if (response.customButton) {
+        //         console.log('User tapped custom button: ', response.customButton);
+        //     } else {
+        //         const source = { uri: response.uri };
 
-                // You can also display the image using data:
-                // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+        //         // You can also display the image using data:
+        //         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
 
-                this.setState({
-                    ImageSource: source,
-                });
-            }
-        });
-        // ImagePicker.openCamera({
-        //     width: 300,
-        //     height: 400,
-        //     cropping: true,
-        // }).then(image => {
-        //     console.log(image);
+        //         this.setState({
+        //             ImageSource: source,
+        //         });
+        //     }
         // });
+        ImagePicker.openPicker({
+            width: 400,
+            height: 400,
+            cropping: true
+        }).then(image => {
+            console.log('--', image);
+            this.setState({
+                ImageSource: image,
+            });
+        });
         // ImagePicker.openCropper({
         //     path: '../../../assets/images/icon_calendar_color.png',
         //     width: 300,
@@ -69,7 +72,7 @@ class AdditemDetails extends Component {
 
     render() {
         const { good, verygood, excellent, ImageSource } = this.state
-        console.warn('uri', ImageSource.uri)
+        console.warn('uri', ImageSource)
         return (
             <View style={[styles.container, Platform.OS === 'ios' ? { paddingTop: 35 } : null]}>
                 <View style={{ width: wp('100%'), height: hp('10%'), backgroundColor: '#FFF', flexDirection: 'row', alignItems: 'center' }}>
@@ -93,7 +96,7 @@ class AdditemDetails extends Component {
                             <TouchableOpacity
                                 onPress={this.handleChoosePhoto}
                             >
-                                <View style={{ height: wp('18%'), width: wp('18%'), backgroundColor: '#333', alignItems: 'center', justifyContent: 'center', }}>
+                                <View style={{ height: wp('18%'), width: wp('18%'), backgroundColor: '#333', alignItems: 'center', justifyContent: 'center', borderRadius: 20 }}>
                                     <Image
                                         source={require('../../../assets/images/ico_take_photo.png')}
                                         style={{ height: wp('8%'), width: wp('8%') }}
@@ -104,7 +107,7 @@ class AdditemDetails extends Component {
 
                             <View style={{ height: '100%', width: '100%', backgroundColor: '#333', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}>
                                 <Image
-                                    source={{ uri: `${ImageSource.uri}` }}
+                                    source={{ uri: Platform.OS === 'ios' ? `${ImageSource.sourceURL}` : `${ImageSource.path}` }}
                                     style={{ height: '100%', width: '100%' }}
                                 />
                                 <TouchableOpacity
