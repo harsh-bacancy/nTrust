@@ -20,6 +20,8 @@ export const styles = StyleSheet.create({
         height: wp('50%'),
         width: wp('70%'),
         marginHorizontal: 10,
+        backgroundColor:'#FFF',
+        borderRadius: 20
     },
     CardHeadingText: {
         fontSize: 25,

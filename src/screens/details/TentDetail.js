@@ -167,6 +167,7 @@ class TentDetails extends Component {
                     <Image
                         source={{ uri: `${item.icon}` }}
                         style={{ height: 125, width: 125 }}
+                        resizeMode="center"
                     />
                     <Text style={{ fontSize: 25, fontWeight: 'bold', color: '#164349', fontWeight: 'bold' }}>{item.name}</Text>
                     <Text style={{ fontSize: 17, color: '#00DE95', fontWeight: 'bold', marginTop: 15 }}>Current Price you''ll pay: ${item.value}/Day</Text>

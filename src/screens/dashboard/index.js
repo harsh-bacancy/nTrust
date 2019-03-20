@@ -71,7 +71,6 @@ class Dashboard extends Component {
                         showsHorizontalScrollIndicator={false}
                     > */}
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}>
-
                         <FlatList
                             data={this.state.Experiences}
                             renderItem={({ item }) =>
@@ -128,79 +127,7 @@ class Dashboard extends Component {
                             keyExtractor={(_id, index) => _id}
                             numColumns={3}
                         />
-                    </View>
-                    {/* <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                        <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate('TentDetail')}
-                        >
-                            <View style={styles.ItemView}>
-                                <Image
-                                    source={require('../../assets/images/camera.png')}
-                                    style={{ height: 100, width: 100 }}
-                                />
-                                <Text style={styles.ItemName}>Tent</Text>
-                                <Text style={styles.ItemCategory}>Camping</Text>
-                                <Text style={styles.ItemPrice}>$14/Day</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <View style={styles.ItemView}>
-                                <Image
-                                    source={require('../../assets/images/camera.png')}
-                                    style={{ height: 100, width: 100 }}
-                                />
-                                <Text style={styles.ItemName}>Tent</Text>
-                                <Text style={styles.ItemCategory}>Camping</Text>
-                                <Text style={styles.ItemPrice}>$14/Day</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <View style={styles.ItemView}>
-                                <Image
-                                    source={require('../../assets/images/camera.png')}
-                                    style={{ height: 100, width: 100 }}
-                                />
-                                <Text style={styles.ItemName}>Tent</Text>
-                                <Text style={styles.ItemCategory}>Camping</Text>
-                                <Text style={styles.ItemPrice}>$14/Day</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', margin: 10 }}>
-                        <TouchableOpacity>
-                            <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-                                <Image
-                                    source={require('../../assets/images/camera.png')}
-                                    style={{ height: 100, width: 100 }}
-                                />
-                                <Text style={styles.ItemName}>Tent</Text>
-                                <Text style={styles.ItemCategory}>Camping</Text>
-                                <Text style={styles.ItemPrice}>$14/Day</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-                                <Image
-                                    source={require('../../assets/images/camera.png')}
-                                    style={{ height: 100, width: 100 }}
-                                />
-                                <Text style={{ fontSize: 17, fontWeight: 'bold' }}>Tent</Text>
-                                <Text style={{ fontSize: 17 }}>Camping</Text>
-                                <Text style={{ fontSize: 17, color: '#00DE95', fontWeight: 'bold' }}>$14/Day</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-                                <Image
-                                    source={require('../../assets/images/camera.png')}
-                                    style={{ height: 100, width: 100 }}
-                                />
-                                <Text style={styles.ItemName}>Tent</Text>
-                                <Text style={styles.ItemCategory}>Camping</Text>
-                                <Text style={styles.ItemPrice}>$14/Day</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View> */}
+                    </View>                
                 </ScrollView>
             </View>
         );

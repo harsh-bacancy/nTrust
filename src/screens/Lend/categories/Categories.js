@@ -9,7 +9,7 @@ import { styles } from './styles'
 class Categories extends Component {
     render() {
         return (
-            <View style={[styles.container,]}>
+            <View style={[styles.container, ]}>
                 <View style={[{ borderBottomWidth: .1, elevation: 6, }, styles.CardShadow]}>
                     <Image
                         source={require('../../../assets/images/demo.jpeg')}

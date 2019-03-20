@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView, TextInput } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView, TextInput, Platform } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import LinearGradient from 'react-native-linear-gradient'
 import ImagePicker from 'react-native-image-picker'
@@ -47,7 +47,7 @@ class AdditemDetails extends Component {
                 // const source = { uri: 'data:image/jpeg;base64,' + response.data };
 
                 this.setState({
-                    ImageSource: source.uri,
+                    ImageSource: source,
                 });
             }
         });
@@ -69,16 +69,18 @@ class AdditemDetails extends Component {
 
     render() {
         const { good, verygood, excellent, ImageSource } = this.state
-        // console.warn('uri', ImageSource)
+        console.warn('uri', ImageSource.uri)
         return (
-            <View style={styles.container}>
-                <View style={{ width: wp('100%'), height: hp('10%'), backgroundColor: '#FFF', flexDirection: 'row' }}>
-                    <View style={{ flex: 1 }}>
+            <View style={[styles.container, Platform.OS === 'ios' ? { paddingTop: 35 } : null]}>
+                <View style={{ width: wp('100%'), height: hp('10%'), backgroundColor: '#FFF', flexDirection: 'row', alignItems: 'center' }}>
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.goBack()}
+                        style={{ flex: 1 }}>
                         <Image
                             source={require('../../../assets/images/arrow_dark.png')}
                             style={{ height: 30, width: 30, margin: 20 }}
                         />
-                    </View>
+                    </TouchableOpacity>
                     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                         <Text style={{ fontSize: 25, fontWeight: 'bold', color: '#000' }}>Item Name</Text>
                     </View>
@@ -102,7 +104,7 @@ class AdditemDetails extends Component {
 
                             <View style={{ height: '100%', width: '100%', backgroundColor: '#333', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}>
                                 <Image
-                                    source={{ uri: `${ImageSource}` }}
+                                    source={{ uri: `${ImageSource.uri}` }}
                                     style={{ height: '100%', width: '100%' }}
                                 />
                                 <TouchableOpacity
@@ -113,6 +115,16 @@ class AdditemDetails extends Component {
                                 </TouchableOpacity>
                             </View>
                         }
+                        {/* <TouchableOpacity
+                            onPress={this.handleChoosePhoto}
+                        >
+                            <View style={{ height: wp('18%'), width: wp('18%'), backgroundColor: '#333', alignItems: 'center', justifyContent: 'center', }}>
+                                <Image
+                                    source={require('../../../assets/images/ico_take_photo.png')}
+                                    style={{ height: wp('8%'), width: wp('8%') }}
+                                />
+                            </View>
+                        </TouchableOpacity> */}
                     </View>
                     <View style={{ padding: 5, width: wp('100%') }}>
                         <View style={{ marginLeft: 10 }}>
