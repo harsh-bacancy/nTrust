@@ -11,7 +11,7 @@ import Categories from '../../screens/Lend/categories/Categories'
 
 
 const FirstScreen = {
-    Dashboard: 'Dashboard',
+    AdditemDetails: 'AdditemDetails',
     welcome: 'Welcome'
 }
 
@@ -61,7 +61,7 @@ const ProductListNavigator = createStackNavigator(
         },
     },
     {
-        initialRouteName: false ? FirstScreen.Dashboard : FirstScreen.welcome,
+        initialRouteName: true ? FirstScreen.AdditemDetails : FirstScreen.welcome,
         headerMode: 'none',
         headerVisible: false
     }

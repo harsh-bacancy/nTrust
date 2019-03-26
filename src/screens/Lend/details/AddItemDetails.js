@@ -4,7 +4,7 @@ import { View, Text, Image, TouchableOpacity, ScrollView, TextInput, Platform } 
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import LinearGradient from 'react-native-linear-gradient'
 // import ImagePicker from 'react-native-image-picker'
-// import Swiper from 'react-native-swiper'
+import Swiper from 'react-native-swiper'
 
 import ImagePicker from 'react-native-image-crop-picker'
 
@@ -13,8 +13,7 @@ import ImagePicker from 'react-native-image-crop-picker'
 
 import { styles } from './styles'
 import { nTrustColor, Green, Grey } from '../../../hepler/Constant'
-// import { TextInput } from 'react-native-paper';
-// import { ScrollView } from 'react-native-gesture-handler';
+
 
 // create a component
 class AdditemDetails extends Component {
@@ -26,53 +25,61 @@ class AdditemDetails extends Component {
             good: true,
             verygood: false,
             excellent: false,
-            ImageSource: ''
+            ImageSource: '',
+            valueArray: [],
         }
+        this.index = 0;
+    }
+
+    addView(ImageSource) {
+        let newlyAddedValue = { uriPath: ImageSource.path }
+        // console.log('Value ', JSON.stringify(newlyAddedValue));
+
+        this.setState(
+            { index: this.state.index + 1, valueArray: [...this.state.valueArray, newlyAddedValue] },
+            () => { this.index = this.index + 1 }
+        );
+        // console.warn('array', this.state.valueArray)
     }
 
     handleChoosePhoto = () => {
-        // ImagePicker.showImagePicker((response) => {
-        //     console.log('Response = ', response);
-
-        //     if (response.didCancel) {
-        //         console.log('User cancelled image picker');
-        //     } else if (response.error) {
-        //         console.log('ImagePicker Error: ', response.error);
-        //     } else if (response.customButton) {
-        //         console.log('User tapped custom button: ', response.customButton);
-        //     } else {
-        //         const source = { uri: response.uri };
-
-        //         // You can also display the image using data:
-        //         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-        //         this.setState({
-        //             ImageSource: source,
-        //         });
-        //     }
-        // });
         ImagePicker.openPicker({
             width: 400,
             height: 400,
             cropping: true
         }).then(image => {
-            console.log('--', image);
+            // console.log('--', image);
             this.setState({
                 ImageSource: image,
+                valueArray: [...this.state.valueArray, image]
             });
+            // this.addView(this.state.ImageSource)
         });
-        // ImagePicker.openCropper({
-        //     path: '../../../assets/images/icon_calendar_color.png',
-        //     width: 300,
-        //     height: 400
-        // }).then(image => {
-        //     console.warn(image);
-        // });
     }
 
     render() {
         const { good, verygood, excellent, ImageSource } = this.state
-        console.warn('uri', ImageSource)
+
+        // console.warn('index-', this.index)
+        {
+            ImageSource
+                ?
+                console.log('Value in render', this.state.valueArray)
+                :
+                null
+        }
+        let photoView = this.state.valueArray.map((item, key) => {
+            console.log('key-', key, 'source-', `${item.path}`)
+            return (
+                <View key={key} style={{ height: '100%', width: '100%', backgroundColor: '#333', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}>
+                    <Image
+                        source={{ uri: Platform.OS === 'ios' ? `${item.sourceURL}` : `${item.path}` }}
+                        style={{ height: '100%', width: '100%' }}
+                    />
+                </View>
+            )
+        }
+        )
         return (
             <View style={[styles.container, Platform.OS === 'ios' ? { paddingTop: 35 } : null]}>
                 <View style={{ width: wp('100%'), height: hp('10%'), backgroundColor: '#FFF', flexDirection: 'row', alignItems: 'center' }}>
@@ -85,14 +92,15 @@ class AdditemDetails extends Component {
                         />
                     </TouchableOpacity>
                     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 25, fontWeight: 'bold', color: '#000' }}>Item Name</Text>
+                        <Text style={{ fontSize: wp('6%'), fontWeight: 'bold', color: '#000' }}>Item Name</Text>
                     </View>
                     <View style={{ flex: 1 }}></View>
                 </View>
                 <ScrollView>
-                    <View style={{ width: wp('100%'), height: hp('25%'), backgroundColor: Grey, alignItems: 'center', justifyContent: 'center' }}>
-                        {!ImageSource
-                            ?
+
+                    {!ImageSource
+                        ?
+                        <View style={{ width: wp('100%'), height: wp('100%'), backgroundColor: Grey, alignItems: 'center', justifyContent: 'center' }}>
                             <TouchableOpacity
                                 onPress={this.handleChoosePhoto}
                             >
@@ -103,61 +111,52 @@ class AdditemDetails extends Component {
                                     />
                                 </View>
                             </TouchableOpacity>
-                            :
+                        </View>
+                        :
+                        <View style={{ width: wp('100%'), height: wp('100%') }}>
 
-                            <View style={{ height: '100%', width: '100%', backgroundColor: '#333', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}>
-                                <Image
-                                    source={{ uri: Platform.OS === 'ios' ? `${ImageSource.sourceURL}` : `${ImageSource.path}` }}
-                                    style={{ height: '100%', width: '100%' }}
-                                />
-                                <TouchableOpacity
-                                    style={{ zIndex: 2, position: 'absolute', bottom: 0, left: 0, margin: 15 }}
-                                    onPress={this.handleChoosePhoto}
-                                >
-                                    <Text>Add</Text>
-                                </TouchableOpacity>
-                            </View>
-                        }
-                        {/* <TouchableOpacity
-                            onPress={this.handleChoosePhoto}
-                        >
-                            <View style={{ height: wp('18%'), width: wp('18%'), backgroundColor: '#333', alignItems: 'center', justifyContent: 'center', }}>
-                                <Image
-                                    source={require('../../../assets/images/ico_take_photo.png')}
-                                    style={{ height: wp('8%'), width: wp('8%') }}
-                                />
-                            </View>
-                        </TouchableOpacity> */}
-                    </View>
-                    <View style={{ padding: 5, width: wp('100%') }}>
+                            <Swiper showsPagination={false} loop={false} style={{ width: wp('100%'), height: hp('25%'), backgroundColor: Grey, alignItems: 'center', justifyContent: 'center' }}>
+                                {
+                                    photoView
+                                }
+                            </Swiper>
+                            <TouchableOpacity
+                                style={{ zIndex: 2, position: 'absolute', bottom: 0, left: 0, margin: 15 }}
+                                onPress={this.handleChoosePhoto}
+                            >
+                                <Text>Add</Text>
+                            </TouchableOpacity>
+                        </View>
+                    }
+                    <View style={styles.NewView}>
                         <View style={{ marginLeft: 10 }}>
-                            <Text style={{ fontSize: wp('4%'), padding: 5, fontWeight: 'bold', color: '#000' }}>Condition</Text>
+                            <Text style={styles.SubViewHeader}>Condition</Text>
                         </View>
                         <View style={{ width: '100%', height: hp('10%'), flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly' }}>
                             <TouchableOpacity
-                                style={[{ width: '30%', borderRadius: 30, height: '80%', alignItems: 'center', justifyContent: 'center' }, good ? { backgroundColor: Green } : { backgroundColor: Grey }]}
+                                style={[styles.ConditionView, good ? { backgroundColor: Green } : { backgroundColor: Grey }]}
                                 onPress={() => this.setState({ good: true, verygood: false, excellent: false })}
                             >
-                                <Text>Good</Text>
+                                <Text style={styles.ConditionFont}>Good</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                style={[{ width: '30%', borderRadius: 30, height: '80%', alignItems: 'center', justifyContent: 'center' }, verygood ? { backgroundColor: Green } : { backgroundColor: Grey }]}
+                                style={[styles.ConditionView, verygood ? { backgroundColor: Green } : { backgroundColor: Grey }]}
                                 onPress={() => this.setState({ good: false, verygood: true, excellent: false })}
                             >
-                                <Text> Very Good</Text>
+                                <Text style={styles.ConditionFont}> Very Good</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                style={[{ width: '30%', borderRadius: 30, height: '80%', alignItems: 'center', justifyContent: 'center' }, excellent ? { backgroundColor: Green } : { backgroundColor: Grey }]}
+                                style={[styles.ConditionView, excellent ? { backgroundColor: Green } : { backgroundColor: Grey }]}
                                 onPress={() => this.setState({ good: false, verygood: false, excellent: true })}
                             >
-                                <Text>Excellent</Text>
+                                <Text style={styles.ConditionFont}>Excellent</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={{ width: wp('100%'), height: hp('.5%'), backgroundColor: Grey, marginVertical: 5 }}></View>
-                    <View style={{ padding: 5, width: wp('100%') }}>
+                    <View style={styles.LineView} />
+                    <View style={styles.NewView}>
                         <View style={{ marginLeft: 10 }}>
-                            <Text style={{ fontSize: wp('4%'), padding: 5, fontWeight: 'bold', color: '#000' }}>Discription</Text>
+                            <Text style={styles.SubViewHeader}>Description</Text>
                         </View>
                         <View style={{ alignItems: 'center', }}>
                             <TextInput
@@ -169,10 +168,10 @@ class AdditemDetails extends Component {
                             />
                         </View>
                     </View>
-                    <View style={{ width: wp('100%'), height: hp('.5%'), backgroundColor: Grey, marginVertical: 5 }}></View>
-                    <View style={{ padding: 5, width: wp('100%') }}>
+                    <View style={styles.LineView} />
+                    <View style={styles.NewView}>
                         <View style={{ marginLeft: 10 }}>
-                            <Text style={{ fontSize: wp('4%'), padding: 5, fontWeight: 'bold', color: '#000' }}>Item Location</Text>
+                            <Text style={styles.SubViewHeader}>Item Location</Text>
                         </View>
                         <View style={{ alignItems: 'center', }}>
                             <TextInput
@@ -184,23 +183,23 @@ class AdditemDetails extends Component {
                             />
                         </View>
                     </View>
-                    <View style={{ width: wp('100%'), height: hp('.5%'), backgroundColor: Grey, marginVertical: 5 }}></View>
-                    <View style={{ padding: 5, width: wp('100%') }}>
+                    <View style={styles.LineView} />
+                    <View style={styles.NewView}>
                         <View style={{ marginLeft: 10 }}>
-                            <Text style={{ fontSize: wp('4%'), padding: 5, fontWeight: 'bold', color: '#000' }}>Condition</Text>
+                            <Text style={styles.SubViewHeader}>Prize</Text>
                         </View>
                         <View style={{ width: '100%', height: hp('10%'), flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly' }}>
 
                             <TouchableOpacity
-                                style={{ width: '40%', backgroundColor: Green, borderRadius: 30, height: '70%', alignItems: 'center', justifyContent: 'center' }}
+                                style={styles.PrizeView}
                             >
-                                <Text>$15</Text>
+                                <Text style={styles.PrizeText}>$15</Text>
                             </TouchableOpacity>
-                            <Text style={{ fontSize: 25 }}>+</Text>
+                            <Text style={{ fontSize: wp('6%') }}>+</Text>
                             <TouchableOpacity
-                                style={{ width: '40%', backgroundColor: Green, borderRadius: 30, height: '70%', alignItems: 'center', justifyContent: 'center' }}
+                                style={styles.PrizeView}
                             >
-                                <Text>$15</Text>
+                                <Text style={styles.PrizeText}>$15</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
