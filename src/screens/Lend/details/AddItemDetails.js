@@ -12,7 +12,7 @@ import ImagePicker from 'react-native-image-crop-picker'
 
 
 import { styles } from './styles'
-import { nTrustColor, Green, Grey } from '../../../hepler/Constant'
+import { NTRUSTCOLOR, GREEN, GREY } from '../../../hepler/Constant'
 
 
 // create a component
@@ -39,7 +39,6 @@ class AdditemDetails extends Component {
             { index: this.state.index + 1, valueArray: [...this.state.valueArray, newlyAddedValue] },
             () => { this.index = this.index + 1 }
         );
-        // console.warn('array', this.state.valueArray)
     }
 
     handleChoosePhoto = () => {
@@ -53,7 +52,6 @@ class AdditemDetails extends Component {
                 ImageSource: image,
                 valueArray: [...this.state.valueArray, image]
             });
-            // this.addView(this.state.ImageSource)
         });
     }
 
@@ -100,7 +98,7 @@ class AdditemDetails extends Component {
 
                     {!ImageSource
                         ?
-                        <View style={{ width: wp('100%'), height: wp('100%'), backgroundColor: Grey, alignItems: 'center', justifyContent: 'center' }}>
+                        <View style={{ width: wp('100%'), height: wp('100%'), backgroundColor: GREY, alignItems: 'center', justifyContent: 'center' }}>
                             <TouchableOpacity
                                 onPress={this.handleChoosePhoto}
                             >
@@ -115,7 +113,7 @@ class AdditemDetails extends Component {
                         :
                         <View style={{ width: wp('100%'), height: wp('100%') }}>
 
-                            <Swiper showsPagination={false} loop={false} style={{ width: wp('100%'), height: hp('25%'), backgroundColor: Grey, alignItems: 'center', justifyContent: 'center' }}>
+                            <Swiper showsPagination={false} loop={false} style={{ width: wp('100%'), height: hp('25%'), backgroundColor: GREY, alignItems: 'center', justifyContent: 'center' }}>
                                 {
                                     photoView
                                 }
@@ -134,19 +132,19 @@ class AdditemDetails extends Component {
                         </View>
                         <View style={{ width: '100%', height: hp('10%'), flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly' }}>
                             <TouchableOpacity
-                                style={[styles.ConditionView, good ? { backgroundColor: Green } : { backgroundColor: Grey }]}
+                                style={[styles.ConditionView, good ? { backgroundColor: GREEN } : { backgroundColor: GREY }]}
                                 onPress={() => this.setState({ good: true, verygood: false, excellent: false })}
                             >
                                 <Text style={styles.ConditionFont}>Good</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                style={[styles.ConditionView, verygood ? { backgroundColor: Green } : { backgroundColor: Grey }]}
+                                style={[styles.ConditionView, verygood ? { backgroundColor: GREEN } : { backgroundColor: GREY }]}
                                 onPress={() => this.setState({ good: false, verygood: true, excellent: false })}
                             >
                                 <Text style={styles.ConditionFont}> Very Good</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                style={[styles.ConditionView, excellent ? { backgroundColor: Green } : { backgroundColor: Grey }]}
+                                style={[styles.ConditionView, excellent ? { backgroundColor: GREEN } : { backgroundColor: GREY }]}
                                 onPress={() => this.setState({ good: false, verygood: false, excellent: true })}
                             >
                                 <Text style={styles.ConditionFont}>Excellent</Text>
@@ -160,7 +158,7 @@ class AdditemDetails extends Component {
                         </View>
                         <View style={{ alignItems: 'center', }}>
                             <TextInput
-                                style={{ backgroundColor: Grey, width: wp('90%'), height: hp('15%'), borderRadius: 5, textAlignVertical: 'top', padding: 10, margin: 5 }}
+                                style={{ backgroundColor: GREY, width: wp('90%'), height: hp('15%'), borderRadius: 5, textAlignVertical: 'top', padding: 10, margin: 5 }}
                                 placeholder="(Optional)"
                                 onChangeText={(discription) => this.setState({ discription: discription })}
                                 value={this.state.discription}
@@ -175,7 +173,7 @@ class AdditemDetails extends Component {
                         </View>
                         <View style={{ alignItems: 'center', }}>
                             <TextInput
-                                style={{ backgroundColor: Grey, width: wp('50%'), height: hp('5%'), borderRadius: 5, textAlign: 'center', padding: 10, margin: 5 }}
+                                style={{ backgroundColor: GREY, width: wp('50%'), height: hp('5%'), borderRadius: 5, textAlign: 'center', padding: 10, margin: 5 }}
                                 placeholder="12345"
                                 onChangeText={(zipcode) => this.setState({ zipcode: zipcode })}
                                 value={this.state.zipcode}
@@ -206,7 +204,7 @@ class AdditemDetails extends Component {
                 </ScrollView>
                 <View style={styles.BottomButton}>
                     <LinearGradient
-                        colors={nTrustColor}
+                        colors={NTRUSTCOLOR}
                         start={{ x: 0.0, y: 0.25 }} end={{ x: 0.99, y: 1.0 }}
                     >
                         <TouchableOpacity

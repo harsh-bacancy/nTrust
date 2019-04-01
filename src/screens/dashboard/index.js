@@ -6,7 +6,8 @@ import { UIActivityIndicator } from 'react-native-indicators';
 import { Searchbar } from 'react-native-paper';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { styles } from './styles'
-
+import { BLUE, WHITE, GREEN } from '../../hepler/Constant'
+import { DASHBOARD } from '../../api/index'
 // create a component
 class Dashboard extends Component {
     constructor(props) {
@@ -14,128 +15,68 @@ class Dashboard extends Component {
         this.state = {
             setModalVisible: false,
             spinner: true,
-            searchText: '',
             Experiences: [],
             PopularItem: [],
         }
     }
     componentDidMount() {
-        // this.timer = setInterval(
-        //     () => this.setState(prevState => ({ test: !prevState.test })),
-        //     5000,
-        // );
-        // this.setState({ spinner: false })
-        return fetch('http://192.168.1.63:3001/api/v1/users/dashboard', { method: 'GET' })
+        return fetch(DASHBOARD, { method: 'GET' })
             .then((response) => response.json())
             .then((responseJson) => {
-                this.setState({ Experiences: responseJson.Data.Experiences });
-                this.setState({ PopularItem: responseJson.Data.PopularItem });
+                this.setState({ Experiences: responseJson.Data.allExperience });
                 this.setState({ spinner: false });
-                // console.warn('Message:', this.state.dataSource)
+                console.warn('Message:', this.state.Experiences)
             })
             .catch((error) => {
                 console.error(error);
             });
     }
     render() {
-        const { searchText } = this.state
-        // console.log('data:', this.state.dataSource)
         return (
             <View style={[styles.container, Platform.OS === 'ios' ? { paddingTop: 35 } : null]}>
                 <Spinner
                     visible={this.state.spinner}
-                    textStyle={{ color: '#FFF' }}
-                    customIndicator={<UIActivityIndicator color='#00DE95' />}
+                    textStyle={{ color: WHITE }}
+                    customIndicator={<UIActivityIndicator color={GREEN} />}
                 />
-                <Searchbar
-                    placeholder="Search for item you'd to like to rent"
-                    onChangeText={(searchText) => { this.setState({ searchText: searchText }) }}
-                    value={searchText}
-                    style={{ width: wp('90%'), marginVertical: 20 }}
-                    numberOfLines={1}
-                    ellipsizeMode='tail'
-                    icon={require('../../assets/images/ic_search.png')}
-                />
-                <ScrollView
+                <View style={{ width: wp('100%'), height: hp('10%'), backgroundColor: '#EEE', alignItems: 'center', flexDirection: 'row' }}>
+                    <View style={{ flex: 1, }}>
+                    </View>
+                    <View style={{ flex: 1, alignItems: 'center', }}>
+                        <Image
+                            source={require('../../assets/images/nTrust_logo_header.png')}
+                            style={{ height: 70, width: 70 }}
+                        />
+                    </View>
+                    <View style={{ flex: 1, backgroundColor: 'grey', }} />
+                </View>
+                <View style={{ alignItems: 'center' }}>
+                    <Text style={{ fontSize: 20, color: BLUE, fontWeight: 'bold' }}>Availabel Now on nTrust</Text>
+                </View>
+                <FlatList
+                    data={this.state.Experiences}
+                    renderItem={({ item }) =>
+                        <TouchableOpacity
+                            onPress={() => this.props.navigation.navigate('Tent', { item })}
+                        >
+                            <View style={styles.ItemView}>
+                                <Image
+                                    source={{ uri: `${item.icon}` }}
+                                    style={{ height: 100, width: 100 }}
+                                    resizeMode='center'
+                                />
+                                <Text style={styles.ItemName}>{item.name}</Text>
+                            </View>
+                        </TouchableOpacity>
+                    }
+                    keyExtractor={(_id, index) => _id}
+                    numColumns={2}
                     showsVerticalScrollIndicator={false}
-                >
-                    <View style={{ flex: 1, alignItems: 'center', margin: 10 }}>
-                        <View style={{ width: wp('90%') }}>
-                            <Text style={styles.Heading}>Experiences</Text>
-                        </View>
-                    </View>
-                    {/* <ScrollView
-                        horizontal={true}
-                        style={{ flex: 1 }}
-                        contentContainerStyle={{ flexGrow: 1 }}
-                        showsHorizontalScrollIndicator={false}
-                    > */}
-                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}>
-                        <FlatList
-                            data={this.state.Experiences}
-                            renderItem={({ item }) =>
-                                <TouchableOpacity
-                                    onPress={() => this.props.navigation.navigate('Tent')}
-                                >
-                                    <View style={[styles.Cards, styles.CardShadow]}>
-                                        <View style={{ zIndex: 2, position: 'absolute', alignItems: 'center' }}>
-                                            <Text style={styles.CardHeadingText}>{item.name}</Text>
-                                            <Text style={styles.CardSubHeadingText}>{item.count} item</Text>
-                                        </View>
-                                        <View style={styles.CardBlackLayer}></View>
-                                        <Image
-                                            source={{ uri: `${item.icon}` }}
-                                            style={styles.CardImage}
-                                            resizeMode='center'
-                                        />
-                                    </View>
-                                </TouchableOpacity>
-
-                            }
-                            keyExtractor={(_id, index) => _id}
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                        />
-                    </View>
-                    {/* </ScrollView> */}
-                    <View style={{ flex: 1, alignItems: 'center', marginVertical: 5 }}>
-                        <View style={{ width: wp('90%') }}>
-                            <Text style={styles.Heading}>Items</Text>
-                        </View>
-                    </View>
-                    <View>
-                        <FlatList
-                            data={this.state.PopularItem}
-                            renderItem={({ item }) =>
-                                <View style={{ flex: 1, justifyContent: 'space-evenly', alignItems: 'center', marginVertical: 5 }}>
-                                    <TouchableOpacity
-                                        onPress={() => this.props.navigation.navigate('TentDetail', { item: item })}
-                                    >
-                                        <View style={styles.ItemView}>
-                                            <Image
-                                                source={{ uri: `${item.icon}` }}
-                                                style={{ height: 100, width: 100, margin: 3 }}
-                                                resizeMode='center'
-                                            />
-                                            <Text style={styles.ItemName}>{item.name}</Text>
-                                            <Text style={styles.ItemCategory}>{item.expName}</Text>
-                                            <Text style={styles.ItemPrice}>${item.value}/Day</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                            }
-                            keyExtractor={(_id, index) => _id}
-                            numColumns={3}
-                        />
-                    </View>                
-                </ScrollView>
+                />
             </View>
         );
     }
 }
-
-// define your styles
-
 
 //make this component available to the app
 export default Dashboard

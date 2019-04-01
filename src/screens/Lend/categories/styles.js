@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { GREEN, WHITE } from '../../../hepler/Constant'
 
 export const styles = StyleSheet.create({
     container: {
@@ -27,13 +28,13 @@ export const styles = StyleSheet.create({
     },
     HeaderText: {
         fontSize: 25,
-        color: '#EEE',
+        color: WHITE,
         fontWeight: 'bold',
         textAlign: 'center'
     },
     SubHeaderText: {
         fontSize: 18,
-        color: '#EEE',
+        color: WHITE,
         fontWeight: 'bold',
         textAlign: 'center'
     },
@@ -60,16 +61,16 @@ export const styles = StyleSheet.create({
     },
     ItemPrice: {
         fontSize: 17,
-        color: '#00DE95',
+        color: GREEN,
         fontWeight: 'bold'
     },
-    CardShadow:{
+    CardShadow: {
         shadowColor: "#333333",
         shadowOpacity: 1,
         shadowRadius: 2,
         shadowOffset: {
-          height: 3,
-          width: 0
+            height: 3,
+            width: 0
         }
     }
 });

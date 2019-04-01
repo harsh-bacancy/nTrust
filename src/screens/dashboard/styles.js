@@ -1,18 +1,18 @@
 import { StyleSheet } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+import { DARKBLUE, WHITE, GREEN } from '../../hepler/Constant'
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        // justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#FFF',
     },
     Heading: {
         fontSize: 25,
         fontWeight: 'bold',
-        color: '#164349'
+        color: DARKBLUE,
     },
     Cards: {
         alignItems: 'center',
@@ -20,18 +20,18 @@ export const styles = StyleSheet.create({
         height: wp('50%'),
         width: wp('70%'),
         marginHorizontal: 10,
-        backgroundColor:'#FFF',
+        backgroundColor: WHITE,
         borderRadius: 20
     },
     CardHeadingText: {
         fontSize: 25,
-        color: '#EEE',
+        color: WHITE,
         fontWeight: 'bold',
         textAlign: 'center'
     },
     CardSubHeadingText: {
         fontSize: 18,
-        color: '#EEE',
+        color: WHITE,
         fontWeight: 'bold',
         textAlign: 'center'
     },
@@ -54,34 +54,34 @@ export const styles = StyleSheet.create({
     ItemView: {
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        backgroundColor: '#EEE',
+        margin: 5,
+        width: wp('45%'),
+        height: wp('40%'),
+        borderRadius: 20
     },
     ItemName: {
         fontSize: 17,
         fontWeight: 'bold',
-        textAlign:'center',
-        width:'60%'
+        marginTop: 10
     },
     ItemCategory: {
-        fontSize: 17,
-        textAlign:'center',
-        width:'60%',
-        padding:1,
+        fontSize: 17
     },
     ItemPrice: {
         fontSize: 17,
         color: '#00DE95',
         fontWeight: 'bold'
     },
-    CardShadow:{
+    CardShadow: {
         shadowColor: "#333333",
         shadowOpacity: 1,
         shadowRadius: 2,
         shadowOffset: {
-          height: 5,
-          width: 5
+            height: 5,
+            width: 5
         },
     }
-
 
 });

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import {Green, Grey } from '../../../hepler/Constant'
+import { GREEN, GREY } from '../../../hepler/Constant'
 
 
 export const styles = StyleSheet.create({
@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
     LineView: {
         width: wp('100%'),
         height: hp('.5%'),
-        backgroundColor: Grey,
+        backgroundColor: GREY,
         marginVertical: 5
     },
     SubViewHeader: {
@@ -42,13 +42,13 @@ export const styles = StyleSheet.create({
     },
     PrizeView: {
         width: '40%',
-        backgroundColor: Green,
+        backgroundColor: GREEN,
         borderRadius: 30,
         height: '70%',
         alignItems: 'center',
         justifyContent: 'center'
     },
-    PrizeText:{
+    PrizeText: {
         fontSize: wp('5%'),
     }
 });

@@ -61,7 +61,7 @@ const ProductListNavigator = createStackNavigator(
         },
     },
     {
-        initialRouteName: true ? FirstScreen.AdditemDetails : FirstScreen.welcome,
+        initialRouteName: false ? FirstScreen.AdditemDetails : FirstScreen.welcome,
         headerMode: 'none',
         headerVisible: false
     }

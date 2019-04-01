@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+import { WHITE } from '../../hepler/Constant'
 
 export const styles = StyleSheet.create({
     container: {
@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     },
     InfoText: {
         textAlign: 'center',
-        color: '#FFF',
+        color: WHITE,
         fontSize: wp('4%')
     },
     InfoDetails: {

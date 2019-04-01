@@ -8,10 +8,9 @@ import { UIActivityIndicator } from 'react-native-indicators';
 import { WheelPicker, TimePicker, DatePicker } from 'react-native-wheel-picker-android'
 
 
-import { nTrustColor } from '../../hepler/Constant'
+import { NTRUSTCOLOR } from '../../hepler/Constant'
 import PopupModal from '../../container/modal'
 import { styles } from './styles'
-import { heightPercentageToDP } from 'react-native-responsive-screen';
 // create a component
 class TentDetails extends Component {
     constructor(props) {
@@ -28,19 +27,7 @@ class TentDetails extends Component {
             selectedItem: 0
         }
     }
-    async _onSubmit() {
-        console.warn('start')
-        // await this.setState({ spinner: true })
-        // await setTimeout(() => {
-        //     this.setState({ spinner: false })
-        //     console.warn('in')
-        // }
-        //     , 250
-        // );
-        // this.setState({spinner: false})
-        console.warn('stop')
 
-    }
     onItemSelected = selectedItem => {
         this.setState({ selectedItem })
     }
@@ -51,9 +38,8 @@ class TentDetails extends Component {
 
     render() {
         const { setModalVisibleLocation, location, setModalVisibleDate, setModalVisibleTime, spinner } = this.state
-        const item = this.props.navigation.getParam('item','data')
+        const item = this.props.navigation.getParam('item', 'data')
         const wheelPickerData = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
-        console.warn('spinner', spinner)
         const Locaionpicker = () => {
             return (
                 <View style={{ width: '100%', alignItems: 'center' }}>
@@ -90,13 +76,13 @@ class TentDetails extends Component {
                         {/* <TouchableOpacity
                             style={{ width: '100%' }}
                         > */}
-                            <View style={{alignItems: 'center', borderBottomColor: '#000', borderBottomWidth: 1, borderTopColor: '#000', borderTopWidth: 1 }}>
-                                <WheelPicker
-                                    selectedItem={this.state.selectedItem}
-                                    data={wheelPickerData}
-                                    onItemSelected={() => this.onItemSelected}
-                                />
-                            </View>
+                        <View style={{ alignItems: 'center', borderBottomColor: '#000', borderBottomWidth: 1, borderTopColor: '#000', borderTopWidth: 1 }}>
+                            <WheelPicker
+                                selectedItem={this.state.selectedItem}
+                                data={wheelPickerData}
+                                onItemSelected={() => this.onItemSelected}
+                            />
+                        </View>
                         {/* </TouchableOpacity> */}
                     </View>
                 </View >
@@ -119,41 +105,6 @@ class TentDetails extends Component {
         }
         return (
             <View style={[styles.container, Platform.OS === 'ios' ? { paddingTop: 35 } : null]} >
-                <Spinner
-                    visible={spinner}
-                    textStyle={{ color: '#FFF' }}
-                    customIndicator={<UIActivityIndicator color='#00DE95' />}
-                />
-                <PopupModal
-                    setModalVisible={setModalVisibleLocation}
-                    onClose={() => {
-                        this.setState({ setModalVisibleLocation: !setModalVisibleLocation })
-                    }}
-                    HeadingText='Select a location'
-                    AgreeButtonText='Apply'
-                    CloseButtonText='Cancel'
-                    ViewHere={<Locaionpicker />}
-                />
-                <PopupModal
-                    setModalVisible={setModalVisibleDate}
-                    onClose={() => {
-                        this.setState({ setModalVisibleDate: !setModalVisibleDate })
-                    }}
-                    HeadingText='Select a Date'
-                    AgreeButtonText='Apply'
-                    CloseButtonText='Cancel'
-                    ViewHere={<DatePicker />}
-                />
-                <PopupModal
-                    setModalVisible={setModalVisibleTime}
-                    onClose={() => {
-                        this.setState({ setModalVisibleTime: !setModalVisibleTime })
-                    }}
-                    HeadingText='Select a Date'
-                    AgreeButtonText='Apply'
-                    CloseButtonText='Cancel'
-                    ViewHere={<TimePicker />}
-                />
                 <TouchableOpacity
                     onPress={() => this.props.navigation.goBack()}
                     style={[styles.BackButton, Platform.OS === 'ios' ? { paddingTop: 35 } : null]}
@@ -225,7 +176,7 @@ class TentDetails extends Component {
                 {/* <TimePicker /> */}
                 <View style={styles.BottomButton}>
                     <LinearGradient
-                        colors={nTrustColor}
+                        colors={NTRUSTCOLOR}
                         start={{ x: 0.0, y: 0.25 }} end={{ x: 0.99, y: 1.0 }}
                     >
                         <TouchableOpacity
@@ -237,6 +188,41 @@ class TentDetails extends Component {
                         </TouchableOpacity>
                     </LinearGradient>
                 </View>
+                <Spinner
+                    visible={spinner}
+                    textStyle={{ color: '#FFF' }}
+                    customIndicator={<UIActivityIndicator color='#00DE95' />}
+                />
+                <PopupModal
+                    setModalVisible={setModalVisibleLocation}
+                    onClose={() => {
+                        this.setState({ setModalVisibleLocation: !setModalVisibleLocation })
+                    }}
+                    HeadingText='Select a location'
+                    AgreeButtonText='Apply'
+                    CloseButtonText='Cancel'
+                    ViewHere={<Locaionpicker />}
+                />
+                <PopupModal
+                    setModalVisible={setModalVisibleDate}
+                    onClose={() => {
+                        this.setState({ setModalVisibleDate: !setModalVisibleDate })
+                    }}
+                    HeadingText='Select a Date'
+                    AgreeButtonText='Apply'
+                    CloseButtonText='Cancel'
+                    ViewHere={<DatePicker />}
+                />
+                <PopupModal
+                    setModalVisible={setModalVisibleTime}
+                    onClose={() => {
+                        this.setState({ setModalVisibleTime: !setModalVisibleTime })
+                    }}
+                    HeadingText='Select a Date'
+                    AgreeButtonText='Apply'
+                    CloseButtonText='Cancel'
+                    ViewHere={<TimePicker />}
+                />
             </View>
         );
     }

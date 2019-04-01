@@ -6,7 +6,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { connect } from 'react-redux'
 
 
-import { Blue, Green } from '../../hepler/Constant'
+import { BLUE, GREEN } from '../../hepler/Constant'
 import { styles } from './styles'
 import User from '../../container/Chat/User'
 import UserProfile from '../UserProfile'
@@ -43,7 +43,7 @@ class NBox extends Component {
                     </View>
                     <View style={{ flex: 1, alignItems: 'flex-end', }}>
                         <TouchableOpacity
-                             onPress={() => this.props.setModalVisible(true)}
+                            onPress={() => this.props.setModalVisible(true)}
                         >
                             <Image
                                 source={require('../../assets/images/ic_profile.png')}
@@ -58,14 +58,14 @@ class NBox extends Component {
                         onPress={() => this.setState({ chatSwtich: false })}
                     >
                         <Text style={[styles.SwitchText, !chatSwtich ? { fontWeight: 'bold' } : null]}>Borrowing</Text>
-                        <View style={[{ height: hp('1%'), width: '100%', marginTop: 5 }, chatSwtich ? { backgroundColor: '#FFF' } : { backgroundColor: Green }]}></View>
+                        <View style={[{ height: hp('1%'), width: '100%', marginTop: 5 }, chatSwtich ? { backgroundColor: '#FFF' } : { backgroundColor: GREEN }]}></View>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.SwitchSubView}
                         onPress={() => this.setState({ chatSwtich: true })}
                     >
                         <Text style={[styles.SwitchText, chatSwtich ? { fontWeight: 'bold' } : null]}>Lending</Text>
-                        <View style={[{ height: hp('1%'), width: '100%', marginTop: 5 }, chatSwtich ? { backgroundColor: Blue } : { backgroundColor: '#FFF' }]}></View>
+                        <View style={[{ height: hp('1%'), width: '100%', marginTop: 5 }, chatSwtich ? { backgroundColor: BLUE } : { backgroundColor: '#FFF' }]}></View>
                     </TouchableOpacity>
                 </View>
                 <Searchbar
@@ -76,7 +76,7 @@ class NBox extends Component {
                     numberOfLines={1}
                     ellipsizeMode='tail'
                     icon={require('../../assets/images/ic_search.png')}
-                />              
+                />
                 {chatSwtich
                     ?
                     <ScrollView showsVerticalScrollIndicator={false}>
@@ -94,7 +94,7 @@ class NBox extends Component {
                         <User />
                         <User />
                     </View>
-                }        
+                }
             </View >
         );
     }

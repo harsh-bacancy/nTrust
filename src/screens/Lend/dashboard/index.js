@@ -5,8 +5,8 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import Spinner from 'react-native-loading-spinner-overlay';
 import { UIActivityIndicator } from 'react-native-indicators';
 
-import { DarkBlue, Blue } from '../../../hepler/Constant'
-import { Dashboard } from '../../../api'
+import { DARKBLUE, BLUE } from '../../../hepler/Constant'
+import { DASHBOARD } from '../../../api'
 // import { ScrollView } from 'react-native-gesture-handler';
 
 // create a component
@@ -21,10 +21,10 @@ class DashboardLend extends Component {
 
 
     componentDidMount() {
-        return fetch(Dashboard, { method: 'GET' })
+        return fetch(DASHBOARD, { method: 'GET' })
             .then((response) => response.json())
             .then((responseJson) => {
-                this.setState({ Experiences: responseJson.Data.Experiences });
+                this.setState({ Experiences: responseJson.Data.allExperience });
                 this.setState({ spinner: false });
                 // console.warn('Message:', this.state.dataSource)
             })
@@ -49,14 +49,14 @@ class DashboardLend extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={{ flex: 1, alignItems: 'center', }}>
-                        <Text style={{ fontSize: 30, color: DarkBlue, fontWeight: 'bold' }}>
+                        <Text style={{ fontSize: 30, color: DARKBLUE, fontWeight: 'bold' }}>
                             Lend
                         </Text>
                     </View>
                     <View style={{ flex: 1, backgroundColor: 'grey', }} />
                 </View>
                 <View style={{ alignItems: 'center' }}>
-                    <Text style={{ fontSize: 20, color: Blue, fontWeight: 'bold' }}>Select Item you'd like to lend</Text>
+                    <Text style={{ fontSize: 20, color: BLUE, fontWeight: 'bold' }}>Select Item you'd like to lend</Text>
                 </View>
                 <FlatList
                     data={this.state.Experiences}

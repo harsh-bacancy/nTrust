@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-import { DarkBlue } from '../../hepler/Constant'
+import { DARKBLUE } from '../../hepler/Constant'
 
 export const styles = StyleSheet.create({
     container: {
@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     },
     HeaderText: {
         fontSize: 25,
-        color: DarkBlue,
+        color: DARKBLUE,
         fontWeight: 'bold'
     },
     SwitchView: {
