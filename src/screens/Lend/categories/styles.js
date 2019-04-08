@@ -54,7 +54,8 @@ export const styles = StyleSheet.create({
     },
     ItemName: {
         fontSize: 17,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        textAlign:'center'
     },
     ItemCategory: {
         fontSize: 17

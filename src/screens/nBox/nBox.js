@@ -1,9 +1,11 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView, Platform } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView, Platform, AsyncStorage } from 'react-native';
 import { Searchbar } from 'react-native-paper'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { connect } from 'react-redux'
+import { LoginManager } from "react-native-fbsdk";
+
 
 
 import { BLUE, GREEN } from '../../hepler/Constant'
@@ -11,6 +13,8 @@ import { styles } from './styles'
 import User from '../../container/Chat/User'
 import UserProfile from '../UserProfile'
 import { setModalVisible } from '../../redux/actions'
+import { LOGOUT } from '../../api/index'
+
 
 // create a component
 class NBox extends Component {
@@ -19,12 +23,35 @@ class NBox extends Component {
         this.state = {
             chatSwtich: false,
             username: '',
-            settingVisible: false
+            settingVisible: false,
+
         }
     }
-
     componentDidMount() {
         this.props.setModalVisible(false)
+    }
+    _StandardLogout = async () => {
+        authorizationToken = await AsyncStorage.getItem('authToken') || 'none';
+        authToken = JSON.parse(authorizationToken)
+        console.warn('auth:', typeof authToken, '--', authToken.token)
+        await LoginManager.logOut()
+        await fetch(LOGOUT, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': authToken.token
+            },
+        }).then((response) => response.json())
+            .then((responseJson) => {
+                // const authToken = responseJson
+                console.warn('response of signout:', responseJson)
+                //this._stoteAccessToken(responseJson)
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        await this.props.navigation.navigate('Welcome')
     }
     render() {
         const { chatSwtich, username, settingVisible } = this.state
@@ -35,6 +62,8 @@ class NBox extends Component {
                     setModalVisible={settingVisible}
                     // onClose={() => this.setState({ settingVisible: false })}
                     onPress={() => this.props.setModalVisible(false)}
+                    onSignout={() => this._StandardLogout()}
+
                 />
                 <View style={styles.HeaderView}>
                     <View style={{ flex: 1, }}></View>

@@ -33,6 +33,11 @@ allprojects {
         }
          maven { url 'https://maven.google.com' }
          maven { url "https://jitpack.io" }
+         configurations.all {
+            resolutionStrategy {
+                force 'com.facebook.android:facebook-android-sdk:4.28.0'
+            }
+        }
     }
 }
 

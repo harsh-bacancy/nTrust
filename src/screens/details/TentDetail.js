@@ -5,7 +5,8 @@ import LinearGradient from 'react-native-linear-gradient'
 import { Searchbar } from 'react-native-paper'
 import Spinner from 'react-native-loading-spinner-overlay';
 import { UIActivityIndicator } from 'react-native-indicators';
-import { WheelPicker, TimePicker, DatePicker } from 'react-native-wheel-picker-android'
+import { TimePicker, DatePicker } from 'react-native-wheel-picker-android'
+import CalendarPicker from 'react-native-calendar-picker'
 
 
 import { NTRUSTCOLOR } from '../../hepler/Constant'
@@ -39,7 +40,8 @@ class TentDetails extends Component {
     render() {
         const { setModalVisibleLocation, location, setModalVisibleDate, setModalVisibleTime, spinner } = this.state
         const item = this.props.navigation.getParam('item', 'data')
-        const wheelPickerData = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+        const minDate = new Date(); // Today
+        const maxDate = new Date(2020, 6, 3);
         const Locaionpicker = () => {
             return (
                 <View style={{ width: '100%', alignItems: 'center' }}>
@@ -69,36 +71,46 @@ class TentDetails extends Component {
                 </View>
             );
         }
-        const DatePicker = () => {
+        const DatePickerModal = () => {
             return (
                 <View style={{ width: '100%', alignItems: 'center' }} >
                     <View style={{ alignItems: 'center', width: '90%', marginVertical: 10 }}>
                         {/* <TouchableOpacity
                             style={{ width: '100%' }}
                         > */}
-                        <View style={{ alignItems: 'center', borderBottomColor: '#000', borderBottomWidth: 1, borderTopColor: '#000', borderTopWidth: 1 }}>
-                            <WheelPicker
+                        {/* <View style={{ alignItems: 'center', borderBottomColor: '#000', borderBottomWidth: 1, borderTopColor: '#000', borderTopWidth: 1 }}> */}
+                        {/* <WheelPicker
                                 selectedItem={this.state.selectedItem}
                                 data={wheelPickerData}
                                 onItemSelected={() => this.onItemSelected}
-                            />
-                        </View>
+                            /> */}
+                        <CalendarPicker
+                            style={{width:'100%'}}
+                            startFromMonday={true}
+                            allowRangeSelection={true}
+                            minDate={minDate}
+                            maxDate={maxDate}
+                            todayBackgroundColor="#f2e6ff"
+                            selectedDayColor="#7300e6"
+                            selectedDayTextColor="#FFFFFF"
+                        />
+                        {/* </View> */}
                         {/* </TouchableOpacity> */}
                     </View>
                 </View >
             )
         }
-        const TimePicker = () => {
+        const TimePickerModal = () => {
             return (
                 <View style={{ width: '100%', alignItems: 'center' }} >
                     <View style={{ alignItems: 'center', width: '80%', marginVertical: 10 }}>
-                        <TouchableOpacity
+                        {/* <TouchableOpacity
                             style={{ width: '100%' }}
-                        >
-                            <View style={{ alignItems: 'center', borderBottomColor: '#000', borderBottomWidth: 1, borderTopColor: '#000', borderTopWidth: 1 }}>
-                                {/* <TimePicker  /> */}
-                            </View>
-                        </TouchableOpacity>
+                        > */}
+                        <View style={{ alignItems: 'center', borderBottomColor: '#000', borderBottomWidth: 1, borderTopColor: '#000', borderTopWidth: 1 }}>
+                            <TimePicker />
+                        </View>
+                        {/* </TouchableOpacity> */}
                     </View>
                 </View >
             )
@@ -211,7 +223,7 @@ class TentDetails extends Component {
                     HeadingText='Select a Date'
                     AgreeButtonText='Apply'
                     CloseButtonText='Cancel'
-                    ViewHere={<DatePicker />}
+                    ViewHere={<DatePickerModal />}
                 />
                 <PopupModal
                     setModalVisible={setModalVisibleTime}
@@ -221,7 +233,7 @@ class TentDetails extends Component {
                     HeadingText='Select a Date'
                     AgreeButtonText='Apply'
                     CloseButtonText='Cancel'
-                    ViewHere={<TimePicker />}
+                    ViewHere={<TimePickerModal />}
                 />
             </View>
         );

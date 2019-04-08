@@ -27,5 +27,23 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         padding: 7
+    },
+    slide: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    login: {
+        height: hp('20%'),
+        width: wp('100%'),
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: -15
+    },
+    nTrusttext: {
+        color: WHITE,
+        fontSize: 30,
+        fontWeight: 'bold',
+        marginTop: -15
     }
 });

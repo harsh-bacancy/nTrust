@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Modal, TouchableOpacity } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import LinearGradient from 'react-native-linear-gradient';
 
-import { nTrustColor } from '../../hepler/Constant'
+import { NTRUSTCOLOR } from '../../hepler/Constant'
 
 // create a component
 const PopupModal = ({ setModalVisible, onClose, ViewHere, HeadingText, AgreeButtonText, CloseButtonText }) => {
@@ -20,7 +20,7 @@ const PopupModal = ({ setModalVisible, onClose, ViewHere, HeadingText, AgreeButt
                     <Text style={{ fontSize: 20, paddingVertical: 20, color: '#008EDE', fontWeight: '700' }}>{HeadingText}</Text>            
                     {ViewHere}
                     <LinearGradient
-                        colors={nTrustColor}
+                        colors={NTRUSTCOLOR}
                         start={{ x: 0.0, y: 0.25 }} end={{ x: 0.99, y: 1.0 }}
                         style={{marginTop:20}}
                     >

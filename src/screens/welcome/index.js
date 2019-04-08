@@ -1,13 +1,13 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Platform } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Platform, AsyncStorage } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Swiper from 'react-native-swiper'
 import LinearGradient from 'react-native-linear-gradient';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { UIActivityIndicator } from 'react-native-indicators';
-// import { LoginManager } from "react-native-fbsdk";
-import { LoginButton, AccessToken } from 'react-native-fbsdk';
+import { LoginManager, AccessToken } from "react-native-fbsdk";
+
 
 
 
@@ -15,7 +15,8 @@ import SlideOne from './SlideOne'
 import SlideTwo from './SlideTwo'
 import SlideThree from './SlideThree'
 import { BACKGROUNDCOLOR, NTRUSTCOLOR, BLUE, GREEN, WHITE } from '../../hepler/Constant'
-
+import { styles } from './styles'
+import { LOGIN } from '../../api/index'
 
 
 // create a component
@@ -26,17 +27,80 @@ class Welcome extends Component {
             spinner: false
         }
     }
-    componentDidMount() {
-        <Spinner
-            visible={this.state.spinner}
-            textStyle={{ color: '#FFF' }}
-            customIndicator={<UIActivityIndicator color={GREEN} />}
-        />
-        this.setState({ spinner: false })
+
+    _stoteAccessToken = async (authToken) => {
+        try {
+            await AsyncStorage.setItem('authToken', JSON.stringify(authToken));
+            console.warn('successfuly saved')
+            // userId = await AsyncStorage.getItem('authToken') || 'none';
+            // console.warn('authTokenHere:', userId)
+            this.setState({ spinner: false })
+            this.props.navigation.navigate('TabNavigator')
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    _standardLogin(data) {
+        this.setState({ spinner: true })
+        return fetch(LOGIN, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                access_token: data
+            })
+        }).then((response) => response.json())
+            .then((responseJson) => {
+                // const authToken = responseJson
+                console.warn('Backend Token:', responseJson)
+                this._stoteAccessToken(responseJson)
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    _facebookLogin() {
+        LoginManager.logOut();
+        LoginManager.logInWithReadPermissions([
+            "email",
+            "public_profile",
+        ]).then(result => {
+            if (result.isCancelled) {
+                console.log("Login canceled");
+            } else {
+                AccessToken.getCurrentAccessToken().then(data => {
+                    const accessToken = data.accessToken;
+                    console.warn('accessToken:::', accessToken)
+                    this._standardLogin(accessToken);
+                    const responseInfoCallback = (error, info) => {
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            console.log(info);
+                        }
+                    };
+                    const infoRequest = new GraphRequest(
+                        "/me",
+                        { accessToken },
+                        responseInfoCallback
+                    );
+                    new GraphRequestManager().addRequest(infoRequest).start();
+                });
+            }
+        });
+
     }
     render() {
         return (
             <LinearGradient colors={BACKGROUNDCOLOR} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={[{ flex: 1 }, Platform.OS === 'ios' ? { paddingTop: 35 } : null]}>
+                <Spinner
+                    visible={this.state.spinner}
+                    textStyle={{ color: WHITE }}
+                    customIndicator={<UIActivityIndicator color={GREEN} />}
+                />
                 <View style={{ padding: 20, alignItems: 'center' }}>
                     <Image
                         source={require('./../../assets/images/nTrust_logo_header.png')}
@@ -61,7 +125,7 @@ class Welcome extends Component {
                         start={{ x: 0.0, y: 0.25 }} end={{ x: 0.99, y: 1.0 }}
                     >
                         <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate('TabNavigator')}
+                            onPress={() => this._facebookLogin()}
                         >
                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: hp('7%'), width: wp('70%') }}>
                                 <Image
@@ -72,23 +136,6 @@ class Welcome extends Component {
                             </View>
                         </TouchableOpacity>
                     </LinearGradient>
-                    <LoginButton
-                        onLoginFinished={
-                            (error, result) => {
-                                if (error) {
-                                    console.log("login has error: " + result.error);
-                                } else if (result.isCancelled) {
-                                    console.log("login is cancelled.");
-                                } else {
-                                    AccessToken.getCurrentAccessToken().then(
-                                        (data) => {
-                                            console.log(data.accessToken.toString())
-                                        }
-                                    )
-                                }
-                            }
-                        }
-                        onLogoutFinished={() => console.log("logout.")} />
                     <TouchableOpacity
                         onPress={() => this.props.navigation.navigate('TabNavigator')}
                         style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: hp('7%'), width: wp('70%') }}
@@ -101,32 +148,6 @@ class Welcome extends Component {
     }
 }
 
-// define your styles
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    slide: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    login: {
-        height: hp('20%'),
-        width: wp('100%'),
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: -15
-    },
-    nTrusttext: {
-        color: WHITE,
-        fontSize: 30,
-        fontWeight: 'bold',
-        marginTop: -15
-    }
-});
 
 //make this component available to the app
 export default Welcome;

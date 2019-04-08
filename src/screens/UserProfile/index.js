@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, Modal, TouchableOpacity, Image, Platform } from
 import { connect } from 'react-redux'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
+
 import { DarkBlue } from '../../hepler/Constant'
 import { setModalVisible } from '../../redux/actions'
 
@@ -13,9 +14,11 @@ class UserProfile extends Component {
         super(props);
         this.state = {
             setModalVisible: false,
-            onPress: props.onPress
+            onPress: props.onPress,
+            onSignout: props.onSignout
         }
     }
+   
     render() {
         return (
             <Modal
@@ -84,7 +87,9 @@ class UserProfile extends Component {
                     </View>
                     <View style={{ width: '100%', bottom: 0, position: 'absolute', flexDirection: 'row', justifyContent: 'space-around' }}>
                         <View>
-                            <TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={this.props.onSignout}
+                            >
                                 <Text style={{ fontSize: 15, fontWeight: 'bold', color: 'red', margin: 15 }}>
                                     Sign Out
                         </Text>
@@ -106,7 +111,7 @@ class UserProfile extends Component {
                         </View>
                     </View>
                 </View>
-            </Modal>
+            </Modal >
         );
     }
 }

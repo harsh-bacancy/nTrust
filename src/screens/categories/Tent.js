@@ -2,17 +2,20 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity, Platform, FlatList } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+import Spinner from 'react-native-loading-spinner-overlay';
+import { UIActivityIndicator } from 'react-native-indicators';
 
 import { SUB_CATEGORIES } from '../../api/index'
 import { styles } from './styles'
+import { WHITE, GREEN } from '../../hepler/Constant'
 
 // create a component
 class Tent extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            SubExperiences: ''
+            SubExperiences: '',
+            spinner: true,
         }
     }
 
@@ -31,11 +34,24 @@ class Tent extends Component {
                 console.error(error);
             });
     }
+
+    _isEmpty(obj) {
+        for(var key in obj) {
+            if(obj.hasOwnProperty(key))
+                return false;
+        }
+        return true;
+    }
     render() {
         const { SubExperiences } = this.state
         const item = this.props.navigation.getParam('item', 'data')
         return (
             <View style={[styles.container,]}>
+                <Spinner
+                    visible={this.state.spinner}
+                    textStyle={{ color: WHITE }}
+                    customIndicator={<UIActivityIndicator color={GREEN} />}
+                />
                 <View style={[{ borderBottomWidth: .1, elevation: 3, }, styles.CardShadow]}>
                     <Image
                         source={{ uri: `${item.icon}` }}
@@ -56,7 +72,7 @@ class Tent extends Component {
                         />
                     </TouchableOpacity>
                 </View>
-                {SubExperiences != []
+                {!this._isEmpty(SubExperiences)
                     ?
                     <FlatList
                         data={SubExperiences}
@@ -72,8 +88,6 @@ class Tent extends Component {
                                             resizeMode='center'
                                         />
                                         <Text style={styles.ItemName}>{item.name}</Text>
-                                        {/* <Text style={styles.ItemCategory}>{item.expName}</Text> */}
-                                        {/* <Text style={styles.ItemPrice}>${item.value}/Day</Text> */}
                                     </View>
                                 </TouchableOpacity>
                             </View>

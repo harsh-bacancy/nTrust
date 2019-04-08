@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">nTrust</string>
-    <string name="facebook_app_id">2377626845604418</string>
+   <string name="facebook_app_id">2377626845604418</string>
+<string name="fb_login_protocol_scheme">fb2377626845604418</string>
 </resources>

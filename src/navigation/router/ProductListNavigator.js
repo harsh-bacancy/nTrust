@@ -4,14 +4,15 @@ import { createAppContainer, createStackNavigator } from 'react-navigation'
 import Dashboard from '../../screens/dashboard'
 import TabNavigator from './TabNavigator'
 import Tent from '../../screens/categories/Tent'
-import TentDetail from '../../screens/details/TentDetail'
+import TentDetails from '../../screens/details/TentDetail'
 import Welcome from '../../screens/welcome'
 import AdditemDetails from '../../screens/Lend/details/AddItemDetails'
 import Categories from '../../screens/Lend/categories/Categories'
+import NBox from '../../screens/nBox/nBox'
 
 
 const FirstScreen = {
-    AdditemDetails: 'AdditemDetails',
+    TentDetails: 'TentDetails',
     welcome: 'Welcome'
 }
 
@@ -41,8 +42,8 @@ const ProductListNavigator = createStackNavigator(
                 header: null,
             },
         },
-        TentDetail: {
-            screen: TentDetail,
+        TentDetails: {
+            screen: TentDetails,
             navigationOptions: {
                 header: null,
             },
@@ -59,9 +60,15 @@ const ProductListNavigator = createStackNavigator(
                 header: null,
             },
         },
+        NBox: {
+            screen: NBox,
+            navigationOptions: {
+                header: null,
+            },
+        },
     },
     {
-        initialRouteName: false ? FirstScreen.AdditemDetails : FirstScreen.welcome,
+        initialRouteName: false ? FirstScreen.TentDetails : FirstScreen.welcome,
         headerMode: 'none',
         headerVisible: false
     }

@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image, ScrollView, Platform, FlatList } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { UIActivityIndicator } from 'react-native-indicators';
-import { Searchbar } from 'react-native-paper';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { styles } from './styles'
 import { BLUE, WHITE, GREEN } from '../../hepler/Constant'

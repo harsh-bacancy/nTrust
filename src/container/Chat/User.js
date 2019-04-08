@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { Badge } from 'react-native-paper'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-import { Blue, Green } from '../../hepler/Constant'
+import { GREEN } from '../../hepler/Constant'
 // create a component
 const User = () => {
     return (
@@ -18,7 +18,7 @@ const User = () => {
             <View style={{ width: '80%', flexDirection: 'column', padding: 10 }}>
                 <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#000' }}>Goods name</Text>
                 <Text style={{ fontSize: 15, color: '#000' }}>Disctription</Text>
-                <Text style={{ fontSize: 15, color: Green, fontWeight: 'bold' }}>Notice</Text>
+                <Text style={{ fontSize: 15, color: GREEN, fontWeight: 'bold' }}>Notice</Text>
             </View>
             <Badge style={{ alignSelf: 'center', fontSize: wp('3%') }}>1</Badge>
         </TouchableOpacity>
