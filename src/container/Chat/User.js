@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { Badge } from 'react-native-paper'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-import { GREEN } from '../../hepler/Constant'
+import { GREEN, WHITE } from '../../hepler/Constant'
 // create a component
 const User = () => {
     return (
@@ -28,21 +28,22 @@ const User = () => {
 // define your styles
 const styles = StyleSheet.create({
     container: {
+        elevation: 3,
         width: wp('85%'),
         height: hp('11%'),
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         marginVertical: 10,
-        backgroundColor: '#FFF'
+        backgroundColor: WHITE
     },
     BoxShadow: {
         shadowColor: "#333333",
         shadowOpacity: 1,
         shadowRadius: 2,
         shadowOffset: {
-            height: .5,
-            width: .5
+            height: 1,
+            width: 1
         }
     }
 });

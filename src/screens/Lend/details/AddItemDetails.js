@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView, TextInput, Platform } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView, TextInput, Platform, Modal } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import LinearGradient from 'react-native-linear-gradient'
 // import ImagePicker from 'react-native-image-picker'
@@ -12,7 +12,7 @@ import ImagePicker from 'react-native-image-crop-picker'
 
 
 import { styles } from './styles'
-import { NTRUSTCOLOR, GREEN, GREY, WHITE } from '../../../hepler/Constant'
+import { NTRUSTCOLOR, GREEN, GREY, WHITE, DARKBLUE, DISABLE } from '../../../hepler/Constant'
 
 
 // create a component
@@ -30,7 +30,9 @@ class AdditemDetails extends Component {
             Rent: '',
             Deposit: '',
             isPhoto: false,
-            photoCount: 0
+            photoCount: 0,
+            photoPickerModel: false,
+            listItem: true
         }
         this.index = 0;
     }
@@ -75,29 +77,56 @@ class AdditemDetails extends Component {
                 valueArray: [...this.state.valueArray, image],
                 isPhoto: true,
                 photoCount: this.state.photoCount + 1,
+                photoPickerModel: false
             });
         });
     }
 
-
+    _handleCameraChoosePhoto = () => {
+        ImagePicker.openCamera({
+            width: 400,
+            height: 400,
+            cropping: true,
+        }).then(image => {
+            // console.log('--', image);
+            this.setState({
+                ImageSource: image,
+                valueArray: [...this.state.valueArray, image],
+                isPhoto: true,
+                photoCount: this.state.photoCount + 1,
+                photoPickerModel: false
+            });
+        });
+    }
 
     _removeItem = (index) => {
         const { valueArray, photoCount } = this.state
         const data = Object.assign([], valueArray)
         data.splice(index, 1)
         this.setState({ photoCount: photoCount - 1 })
-        console.warn('photo count is', this.state.photoCount)
+        console.warn('photo count is', (photoCount))
+        if (photoCount === 1) {
+            console.warn('1')
+            this.setState({ listItem: true })
+        }
         this.setState({ valueArray: data })
     }
 
     render() {
-        const { good, verygood, excellent, ImageSource, Rent, Deposit, valueArray, isPhoto, photoCount } = this.state
+        const { good, verygood, excellent, ImageSource, Rent, Deposit, valueArray, isPhoto, photoCount, photoPickerModel, listItem, zipcode } = this.state
         const item = this.props.navigation.getParam('item', 'data')
         // if (this.state.photoCount == 0) {
         //     this.setState({ isPhoto: false })
         // }
-        console.warn('index-', 'valueArray', 'pc', photoCount, 'phot', isPhoto)      
-
+        if (!zipcode.length === 5 && !listItem) {
+            console.warn('lenght', zipcode.length)
+            this.setState({ listItem: true })
+        }
+        else if (!photoCount == 0 && zipcode.length === 5 && listItem) {
+            this.setState({ listItem: false })
+        }
+        // console.warn('index-', 'valueArray', 'pc', photoCount, 'phot', isPhoto)
+        // console.warn('lenght', zipcode.length)
         let photoView = valueArray.map((item, key) => {
             // console.warn('key-', key, 'source-', `${item.path}`)
             return (
@@ -107,13 +136,15 @@ class AdditemDetails extends Component {
                         style={{ height: '100%', width: '100%' }}
                     />
                     <TouchableOpacity
-                        onPress={() => this._removeItem(this, key)}
+                        onPress={() => this._removeItem(key)}
                         style={{ top: 0, right: 0, position: 'absolute', margin: 10 }}
                     >
-                        <Image
-                            source={require('../../../assets/images/ic_delete.png')}
-                            style={{ height: wp('8%'), width: wp('8%') }}
-                        />
+                        <View style={{ backgroundColor: '#FFFFFF99', width: wp('12%'), height: wp('12%'), borderRadius: 30, alignItems: 'center', justifyContent: 'center' }}>
+                            <Image
+                                source={require('../../../assets/images/ic_delete.png')}
+                                style={{ height: wp('8%'), width: wp('8%') }}
+                            />
+                        </View>
                     </TouchableOpacity>
                 </View>
             )
@@ -137,11 +168,11 @@ class AdditemDetails extends Component {
                 </View>
                 <ScrollView>
 
-                    {!isPhoto || this.state.photoCount == 0
+                    {!isPhoto || photoCount == 0
                         ?
                         <View style={{ width: wp('100%'), height: wp('100%'), backgroundColor: GREY, alignItems: 'center', justifyContent: 'center' }}>
                             <TouchableOpacity
-                                onPress={this._handleChoosePhoto}
+                                onPress={() => this.setState({ photoPickerModel: true })}
                             >
                                 <View style={{ height: wp('18%'), width: wp('18%'), backgroundColor: '#333', alignItems: 'center', justifyContent: 'center', borderRadius: 20 }}>
                                     <Image
@@ -161,12 +192,14 @@ class AdditemDetails extends Component {
                             </Swiper>
                             <TouchableOpacity
                                 style={{ zIndex: 2, position: 'absolute', bottom: 0, left: 0, margin: 15 }}
-                                onPress={this._handleChoosePhoto}
+                                onPress={() => this.setState({ photoPickerModel: true })}
                             >
-                                <Image
-                                    source={require('../../../assets/images/ic_plus.png')}
-                                    style={{ height: wp('5%'), width: wp('5%') }}
-                                />
+                                <View style={{ backgroundColor: '#FFFFFF99', width: wp('12%'), height: wp('12%'), borderRadius: 30, alignItems: 'center', justifyContent: 'center' }}>
+                                    <Image
+                                        source={require('../../../assets/images/ic_plus.png')}
+                                        style={{ height: wp('5%'), width: wp('5%') }}
+                                    />
+                                </View>
                             </TouchableOpacity>
                         </View>
                     }
@@ -222,6 +255,7 @@ class AdditemDetails extends Component {
                                 onChangeText={(zipcode) => this.setState({ zipcode: zipcode })}
                                 value={this.state.zipcode}
                                 maxLength={5}
+                                keyboardType='number-pad'
                             />
                         </View>
                     </View>
@@ -248,11 +282,12 @@ class AdditemDetails extends Component {
                 </ScrollView>
                 <View style={styles.BottomButton}>
                     <LinearGradient
-                        colors={NTRUSTCOLOR}
+                        colors={listItem ? DISABLE : NTRUSTCOLOR}
                         start={{ x: 0.0, y: 0.25 }} end={{ x: 0.99, y: 1.0 }}
                     >
                         <TouchableOpacity
                             onPress={() => this._onSubmit}
+                            disabled={listItem}
                         >
                             <View style={{ alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
                                 <Text style={{ color: WHITE, fontSize: 25, fontWeight: 'bold', }}>LIST ITEM</Text>
@@ -260,6 +295,37 @@ class AdditemDetails extends Component {
                         </TouchableOpacity>
                     </LinearGradient>
                 </View>
+                {/* Model Start */}
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={photoPickerModel}
+                >
+                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00000099' }}>
+                        <View style={{ width: wp('90%'), backgroundColor: WHITE, justifyContent: 'center', borderRadius: 20, elevation: 6 }}>
+                            <Text style={{ fontSize: 25, fontWeight: 'bold', margin: 10, color: DARKBLUE }}>Photos</Text>
+                            <Text style={{ fontSize: 20, marginBottom: 20, marginHorizontal: 10 }}>Please let us access your Camera and Gallery</Text>
+                            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-around', padding: 20 }}>
+                                <TouchableOpacity
+                                    onPress={this._handleChoosePhoto}
+                                >
+                                    <Text style={{ fontSize: wp('4%'), color: DARKBLUE }}>Select from Gallery</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={this._handleCameraChoosePhoto}
+                                >
+                                    <Text style={{ fontSize: wp('4%'), color: DARKBLUE }}>Open Camera</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => this.setState({ photoPickerModel: false })}
+                                >
+                                    <Text style={{ fontSize: wp('4%'), color: DARKBLUE }}>Cancle</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+                {/* Model End */}
             </View >
         );
     }

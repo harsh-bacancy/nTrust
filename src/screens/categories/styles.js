@@ -1,34 +1,25 @@
 import { StyleSheet } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { WHITE, GREEN } from '../../hepler/Constant'
+import { WHITE, GREEN, BLACK, DARKBLUE, GREY } from '../../hepler/Constant'
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
     HeaderImage: {
-        height: hp('30%'),
-        width: wp('100%'),
-        zIndex: 0
-    },
-    HeaderBlackLayer: {
-        height: hp('30%'),
-        width: wp('100%'),
-        zIndex: 1,
-        position: 'absolute',
-        backgroundColor: '#00000099'
+        height: hp('20%'),
+        width: hp('25%'),
     },
     HeaderView: {
-        height: hp('30%'),
+        height: hp('10%'),
         width: wp('100%'),
         alignItems: 'center',
         justifyContent: 'center',
-        zIndex: 2,
-        position: 'absolute',
+        flex: 2
     },
     HeaderText: {
         fontSize: 25,
-        color: WHITE,
+        color: DARKBLUE,
         fontWeight: 'bold',
         textAlign: 'center'
     },
@@ -46,7 +37,12 @@ export const styles = StyleSheet.create({
     ItemView: {
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        height: hp('12%'),
+        width: wp('47%'),
+        backgroundColor: GREY,
+        borderRadius: 20,
+        margin: 2
     },
     ItemImage: {
         height: 100,
@@ -54,7 +50,8 @@ export const styles = StyleSheet.create({
     },
     ItemName: {
         fontSize: 17,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        textAlign: 'center'
     },
     ItemCategory: {
         fontSize: 17

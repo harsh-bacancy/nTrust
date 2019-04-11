@@ -7,7 +7,7 @@ import { UIActivityIndicator } from 'react-native-indicators';
 
 import { DARKBLUE, BLUE } from '../../../hepler/Constant'
 import { DASHBOARD } from '../../../api'
-// import { ScrollView } from 'react-native-gesture-handler';
+
 
 // create a component
 class DashboardLend extends Component {
@@ -45,7 +45,7 @@ class DashboardLend extends Component {
                         <TouchableOpacity
                             onPress={() => this.props.navigation.goBack()}
                         >
-                            <Text style={{ fontSize: 15, padding: 20 }}>Cancle</Text>
+                            <Text style={{ fontSize: 17, padding: 20 }}>Cancle</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{ flex: 1, alignItems: 'center', }}>

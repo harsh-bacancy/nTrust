@@ -7,7 +7,7 @@ import { UIActivityIndicator } from 'react-native-indicators';
 
 import { SUB_CATEGORIES } from '../../api/index'
 import { styles } from './styles'
-import { WHITE, GREEN } from '../../hepler/Constant'
+import { WHITE, GREEN, BLACK, GREY } from '../../hepler/Constant'
 
 // create a component
 class Tent extends Component {
@@ -36,8 +36,8 @@ class Tent extends Component {
     }
 
     _isEmpty(obj) {
-        for(var key in obj) {
-            if(obj.hasOwnProperty(key))
+        for (var key in obj) {
+            if (obj.hasOwnProperty(key))
                 return false;
         }
         return true;
@@ -52,25 +52,29 @@ class Tent extends Component {
                     textStyle={{ color: WHITE }}
                     customIndicator={<UIActivityIndicator color={GREEN} />}
                 />
-                <View style={[{ borderBottomWidth: .1, elevation: 3, }, styles.CardShadow]}>
-                    <Image
-                        source={{ uri: `${item.icon}` }}
-                        style={styles.HeaderImage}
-                        resizeMode='center'
-                    />
-                    <View style={styles.HeaderBlackLayer}></View>
-                    <View style={styles.HeaderView}>
-                        <Text style={styles.HeaderText}>{item.name}</Text>
+                <View style={[{ borderBottomWidth: 1, borderBottomColor: GREY }]}>
+                    <View style={{ alignItems: 'center', borderBottomColor: GREY, borderBottomWidth: 1, height: hp('10%'), flexDirection: 'row', width: '100%' }}>
+                        <TouchableOpacity
+                            style={[{ flex: 1 }, Platform.OS === 'ios' ? { paddingTop: 35 } : null]}
+                            onPress={() => this.props.navigation.goBack()}
+                        >
+                            <Image
+                                source={require('../../assets/images/arrow_dark.png')}
+                                style={styles.BackButton}
+                            />
+                        </TouchableOpacity>
+                        <View style={styles.HeaderView}>
+                            <Text style={styles.HeaderText}>{item.name}</Text>
+                        </View>
+                        <View style={{ flex: 1 }}></View>
                     </View>
-                    <TouchableOpacity
-                        style={[{ zIndex: 3, position: 'absolute', }, Platform.OS === 'ios' ? { paddingTop: 35 } : null]}
-                        onPress={() => this.props.navigation.goBack()}
-                    >
+                    <View style={{ justifyContent: 'center', alignItems: 'center', height: hp('25%') }}>
                         <Image
-                            source={require('../../assets/images/back_arrow.png')}
-                            style={styles.BackButton}
+                            source={{ uri: `${item.icon}` }}
+                            style={styles.HeaderImage}
+                            resizeMode='center'
                         />
-                    </TouchableOpacity>
+                    </View>
                 </View>
                 {!this._isEmpty(SubExperiences)
                     ?
@@ -79,21 +83,16 @@ class Tent extends Component {
                         renderItem={({ item }) =>
                             <View style={{ flex: 1, justifyContent: 'space-evenly', alignItems: 'center', marginVertical: 5 }}>
                                 <TouchableOpacity
-                                    onPress={() => this.props.navigation.navigate('TentDetail', { item: item })}
+                                    onPress={() => this.props.navigation.navigate('TentDetails', { item: item })}
                                 >
                                     <View style={styles.ItemView}>
-                                        <Image
-                                            source={{ uri: `${item.icon}` }}
-                                            style={{ height: 100, width: 100, margin: 3 }}
-                                            resizeMode='center'
-                                        />
                                         <Text style={styles.ItemName}>{item.name}</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
                         }
                         keyExtractor={(_id) => _id}
-                        numColumns={3}
+                        numColumns={2}
                     />
                     :
                     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

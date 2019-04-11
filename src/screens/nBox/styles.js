@@ -1,20 +1,23 @@
 import { StyleSheet } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-import { DARKBLUE } from '../../hepler/Constant'
+import { DARKBLUE, GREY, WHITE } from '../../hepler/Constant'
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: WHITE,
     },
     HeaderView: {
+        flex:1,
         width: wp('100%'),
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 10
+        padding: 10,
+        backgroundColor: GREY
+
     },
     HeaderText: {
         fontSize: 25,
@@ -22,9 +25,10 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     SwitchView: {
+        flex:1,
         flexDirection: 'row',
         width: wp('100%'),
-        // backgroundColor: 'red'
+        backgroundColor: GREY,
     },
     SwitchSubView: {
         flex: 1,

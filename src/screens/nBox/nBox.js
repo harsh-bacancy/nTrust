@@ -8,7 +8,7 @@ import { LoginManager } from "react-native-fbsdk";
 
 
 
-import { BLUE, GREEN } from '../../hepler/Constant'
+import { BLUE, GREEN, GREY } from '../../hepler/Constant'
 import { styles } from './styles'
 import User from '../../container/Chat/User'
 import UserProfile from '../UserProfile'
@@ -65,37 +65,39 @@ class NBox extends Component {
                     onSignout={() => this._StandardLogout()}
 
                 />
-                <View style={styles.HeaderView}>
-                    <View style={{ flex: 1, }}></View>
-                    <View style={{ flex: 1, alignItems: 'center' }}>
-                        <Text style={styles.HeaderText}>nBox</Text>
+                <View style={{ height: hp('15%') }}>
+                    <View style={styles.HeaderView}>
+                        <View style={{ flex: 1, }}></View>
+                        <View style={{ flex: 1, alignItems: 'center' }}>
+                            <Text style={styles.HeaderText}>nBox</Text>
+                        </View>
+                        <View style={{ flex: 1, alignItems: 'flex-end', }}>
+                            <TouchableOpacity
+                                onPress={() => this.props.setModalVisible(true)}
+                            >
+                                <Image
+                                    source={require('../../assets/images/ic_profile.png')}
+                                    style={{ height: 35, width: 35, marginHorizontal: 20 }}
+                                />
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    <View style={{ flex: 1, alignItems: 'flex-end', }}>
+                    <View style={styles.SwitchView}>
                         <TouchableOpacity
-                            onPress={() => this.props.setModalVisible(true)}
+                            style={styles.SwitchSubView}
+                            onPress={() => this.setState({ chatSwtich: false })}
                         >
-                            <Image
-                                source={require('../../assets/images/ic_profile.png')}
-                                style={{ height: 35, width: 35, marginHorizontal: 20 }}
-                            />
+                            <Text style={[styles.SwitchText, !chatSwtich ? { fontWeight: 'bold' } : null]}>Borrowing</Text>
+                            <View style={[{ height: '15%', width: '100%', marginTop: 5 }, chatSwtich ? { backgroundColor: GREY } : { backgroundColor: BLUE }]}></View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.SwitchSubView}
+                            onPress={() => this.setState({ chatSwtich: true })}
+                        >
+                            <Text style={[styles.SwitchText, chatSwtich ? { fontWeight: 'bold' } : null]}>Lending</Text>
+                            <View style={[{ height: '15%', width: '100%', marginTop: 5 }, chatSwtich ? { backgroundColor: GREEN } : { backgroundColor: GREY }]}></View>
                         </TouchableOpacity>
                     </View>
-                </View>
-                <View style={styles.SwitchView}>
-                    <TouchableOpacity
-                        style={styles.SwitchSubView}
-                        onPress={() => this.setState({ chatSwtich: false })}
-                    >
-                        <Text style={[styles.SwitchText, !chatSwtich ? { fontWeight: 'bold' } : null]}>Borrowing</Text>
-                        <View style={[{ height: hp('1%'), width: '100%', marginTop: 5 }, chatSwtich ? { backgroundColor: '#FFF' } : { backgroundColor: GREEN }]}></View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.SwitchSubView}
-                        onPress={() => this.setState({ chatSwtich: true })}
-                    >
-                        <Text style={[styles.SwitchText, chatSwtich ? { fontWeight: 'bold' } : null]}>Lending</Text>
-                        <View style={[{ height: hp('1%'), width: '100%', marginTop: 5 }, chatSwtich ? { backgroundColor: BLUE } : { backgroundColor: '#FFF' }]}></View>
-                    </TouchableOpacity>
                 </View>
                 <Searchbar
                     placeholder="Search"

@@ -6,7 +6,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import { UIActivityIndicator } from 'react-native-indicators';
 
 import { SUB_CATEGORIES } from '../../../api'
-import { GREEN, WHITE } from '../../../hepler/Constant'
+import { GREEN, WHITE, GREY } from '../../../hepler/Constant'
 import { styles } from './styles'
 
 // create a component
@@ -52,25 +52,29 @@ class Categories extends Component {
                     textStyle={{ color: WHITE }}
                     customIndicator={<UIActivityIndicator color={GREEN} />}
                 />
-                <View style={[{ borderBottomWidth: .1, elevation: 3, }, styles.CardShadow]}>
-                    <Image
-                        source={{ uri: `${item.icon}` }}
-                        style={styles.HeaderImage}
-                        resizeMode='center'
-                    />
-                    <View style={styles.HeaderBlackLayer}></View>
-                    <View style={styles.HeaderView}>
-                        <Text style={styles.HeaderText}>{item.name}</Text>
+                <View style={[{ borderBottomWidth: 1, borderBottomColor: GREY }]}>
+                    <View style={{ borderBottomColor: GREY, borderBottomWidth: 1, height: hp('10%'), alignItems: 'center', flexDirection: 'row' }}>
+                        <TouchableOpacity
+                            style={[{flex:1},Platform.OS === 'ios' ? { paddingTop: 35 } : null]}
+                            onPress={() => this.props.navigation.goBack()}
+                        >
+                            <Image
+                                source={require('../../../assets/images/arrow_dark.png')}
+                                style={styles.BackButton}
+                            />
+                        </TouchableOpacity>
+                        <View style={styles.HeaderView}>
+                            <Text style={styles.HeaderText}>{item.name}</Text>
+                        </View>
+                        <View style={{flex:1}}></View>
                     </View>
-                    <TouchableOpacity
-                        style={[{ zIndex: 3, position: 'absolute', }, Platform.OS === 'ios' ? { paddingTop: 35 } : null]}
-                        onPress={() => this.props.navigation.goBack()}
-                    >
+                    <View style={{ justifyContent: 'center', alignItems: 'center', height: hp('25%') }}>
                         <Image
-                            source={require('../../../assets/images/back_arrow.png')}
-                            style={styles.BackButton}
+                            source={{ uri: `${item.icon}` }}
+                            style={styles.HeaderImage}
+                            resizeMode='center'
                         />
-                    </TouchableOpacity>
+                    </View>
                 </View>
                 {!this._isEmpty(SubExperiences)
                     ?
@@ -82,18 +86,13 @@ class Categories extends Component {
                                     onPress={() => this.props.navigation.navigate('AdditemDetails', { item })}
                                 >
                                     <View style={styles.ItemView}>
-                                        <Image
-                                            source={{ uri: `${item.icon}` }}
-                                            style={{ height: 100, width: 100, margin: 3 }}
-                                            resizeMode='center'
-                                        />
                                         <Text style={styles.ItemName}>{item.name}</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
                         }
                         keyExtractor={(_id) => _id}
-                        numColumns={3}
+                        numColumns={2}
                     />
                     :
                     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 
-import { DarkBlue } from '../../hepler/Constant'
+import { DARKBLUE, BLUE } from '../../hepler/Constant'
 import { setModalVisible } from '../../redux/actions'
 
 // create a component
@@ -18,7 +18,7 @@ class UserProfile extends Component {
             onSignout: props.onSignout
         }
     }
-   
+
     render() {
         return (
             <Modal
@@ -28,24 +28,32 @@ class UserProfile extends Component {
                 onRequestClose={() => changeModalVisible}
             >
                 <View style={[styles.container, Platform.OS === 'ios' ? { marginTop: 35 } : null]}>
-                    <TouchableOpacity
-                        onPress={this.state.onPress}
-                        style={{ flex: 1, top: 0, right: 0, position: 'absolute', margin: 25, }}
-                    >
-                        <Image
-                            source={require('../../assets/images/ic_close.png')}
-                            style={{ height: wp('7%'), width: wp('7%') }}
-                        />
-                    </TouchableOpacity>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('100%') }}>
+                        <View style={{ flex: 1 }}></View>
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ fontSize: 20, color: BLUE, marginTop: 15, fontWeight:'bold'}}>Settings</Text>
+                        </View>
+                        <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
+                            <TouchableOpacity
+                                onPress={this.state.onPress}
+                                style={{ flex: 1, top: 0, right: 0, position: 'absolute', margin: 25, }}
+                            >
+                                <Image
+                                    source={require('../../assets/images/ic_close.png')}
+                                    style={{ height: wp('7%'), width: wp('7%') }}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                     <View style={{ width: wp('85%'), marginTop: 70, }}>
                         <View>
-                            <Text style={{ fontSize: 25, fontWeight: 'bold', color: DarkBlue }}>
+                            <Text style={{ fontSize: 25, fontWeight: 'bold', color: DARKBLUE }}>
                                 Earnings
                         </Text>
                         </View>
                         <View style={{ padding: 15 }}>
                             <TouchableOpacity>
-                                <Text style={{ fontSize: 15, fontWeight: 'bold', color: DarkBlue, marginVertical: 15 }}>
+                                <Text style={{ fontSize: 15, fontWeight: 'bold', color: DARKBLUE, marginVertical: 15 }}>
                                     Listed Items
                                 </Text>
                             </TouchableOpacity>
@@ -53,33 +61,33 @@ class UserProfile extends Component {
                     </View>
                     <View style={{ width: wp('85%'), }}>
                         <View>
-                            <Text style={{ fontSize: 25, fontWeight: 'bold', color: DarkBlue }}>
+                            <Text style={{ fontSize: 25, fontWeight: 'bold', color: DARKBLUE }}>
                                 General
                         </Text>
                         </View>
                         <View style={{ padding: 15 }}>
                             <TouchableOpacity>
-                                <Text style={{ fontSize: 15, fontWeight: 'bold', color: DarkBlue, marginVertical: 15 }}>
+                                <Text style={{ fontSize: 15, fontWeight: 'bold', color: DARKBLUE, marginVertical: 15 }}>
                                     How it works
                             </Text>
                             </TouchableOpacity>
                             <TouchableOpacity>
-                                <Text style={{ fontSize: 15, fontWeight: 'bold', color: DarkBlue, marginVertical: 15 }}>
+                                <Text style={{ fontSize: 15, fontWeight: 'bold', color: DARKBLUE, marginVertical: 15 }}>
                                     Contact us
                                 </Text>
                             </TouchableOpacity>
                             <TouchableOpacity>
-                                <Text style={{ fontSize: 15, fontWeight: 'bold', color: DarkBlue, marginVertical: 15 }}>
+                                <Text style={{ fontSize: 15, fontWeight: 'bold', color: DARKBLUE, marginVertical: 15 }}>
                                     About us
                                 </Text>
                             </TouchableOpacity>
                             <TouchableOpacity>
-                                <Text style={{ fontSize: 15, fontWeight: 'bold', color: DarkBlue, marginVertical: 15 }}>
+                                <Text style={{ fontSize: 15, fontWeight: 'bold', color: DARKBLUE, marginVertical: 15 }}>
                                     Terms of sevice
                                 </Text>
                             </TouchableOpacity>
                             <TouchableOpacity>
-                                <Text style={{ fontSize: 15, fontWeight: 'bold', color: DarkBlue, marginVertical: 15 }}>
+                                <Text style={{ fontSize: 15, fontWeight: 'bold', color: DARKBLUE, marginVertical: 15 }}>
                                     Privacy Policy
                                 </Text>
                             </TouchableOpacity>
