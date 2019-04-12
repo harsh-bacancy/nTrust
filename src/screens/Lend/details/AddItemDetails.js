@@ -3,9 +3,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView, TextInput, Platform, Modal } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import LinearGradient from 'react-native-linear-gradient'
-// import ImagePicker from 'react-native-image-picker'
 import Swiper from 'react-native-swiper'
-
 import ImagePicker from 'react-native-image-crop-picker'
 
 
@@ -13,6 +11,7 @@ import ImagePicker from 'react-native-image-crop-picker'
 
 import { styles } from './styles'
 import { NTRUSTCOLOR, GREEN, GREY, WHITE, DARKBLUE, DISABLE } from '../../../hepler/Constant'
+
 
 
 // create a component
@@ -32,7 +31,6 @@ class AdditemDetails extends Component {
             isPhoto: false,
             photoCount: 0,
             photoPickerModel: false,
-            listItem: true
         }
         this.index = 0;
     }
@@ -104,29 +102,17 @@ class AdditemDetails extends Component {
         const data = Object.assign([], valueArray)
         data.splice(index, 1)
         this.setState({ photoCount: photoCount - 1 })
-        console.warn('photo count is', (photoCount))
-        if (photoCount === 1) {
-            console.warn('1')
-            this.setState({ listItem: true })
-        }
+        // console.warn('photo count is', (photoCount))
         this.setState({ valueArray: data })
     }
 
     render() {
-        const { good, verygood, excellent, ImageSource, Rent, Deposit, valueArray, isPhoto, photoCount, photoPickerModel, listItem, zipcode } = this.state
+        const { good, verygood, excellent, ImageSource, Rent, Deposit, valueArray, isPhoto, photoCount, photoPickerModel, zipcode } = this.state
         const item = this.props.navigation.getParam('item', 'data')
-        // if (this.state.photoCount == 0) {
-        //     this.setState({ isPhoto: false })
-        // }
-        if (!zipcode.length === 5 && !listItem) {
-            console.warn('lenght', zipcode.length)
-            this.setState({ listItem: true })
-        }
-        else if (!photoCount == 0 && zipcode.length === 5 && listItem) {
-            this.setState({ listItem: false })
-        }
-        // console.warn('index-', 'valueArray', 'pc', photoCount, 'phot', isPhoto)
-        // console.warn('lenght', zipcode.length)
+        let dataField = (zipcode.length == 5 && photoCount != 0);
+        // console.warn('lenght in render', zipcode.length, '-', )
+        // console.warn('dataField', dataField, 'photoCount', photoCount)
+        // console.warn('pc', photoCount, 'phot', isPhoto)
         let photoView = valueArray.map((item, key) => {
             // console.warn('key-', key, 'source-', `${item.path}`)
             return (
@@ -152,7 +138,7 @@ class AdditemDetails extends Component {
         )
         return (
             <View style={[styles.container, Platform.OS === 'ios' ? { paddingTop: 35 } : null]}>
-                <View style={{ width: wp('100%'), height: hp('10%'), backgroundColor: '#FFF', flexDirection: 'row', alignItems: 'center' }}>
+                <View style={{ width: wp('100%'), height: hp('10%'), backgroundColor: WHITE, flexDirection: 'row', alignItems: 'center' }}>
                     <TouchableOpacity
                         onPress={() => this.props.navigation.goBack()}
                         style={{ flex: 1 }}>
@@ -282,12 +268,12 @@ class AdditemDetails extends Component {
                 </ScrollView>
                 <View style={styles.BottomButton}>
                     <LinearGradient
-                        colors={listItem ? DISABLE : NTRUSTCOLOR}
+                        colors={!dataField ? DISABLE : NTRUSTCOLOR}
                         start={{ x: 0.0, y: 0.25 }} end={{ x: 0.99, y: 1.0 }}
                     >
                         <TouchableOpacity
                             onPress={() => this._onSubmit}
-                            disabled={listItem}
+                            disabled={!dataField}
                         >
                             <View style={{ alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
                                 <Text style={{ color: WHITE, fontSize: 25, fontWeight: 'bold', }}>LIST ITEM</Text>

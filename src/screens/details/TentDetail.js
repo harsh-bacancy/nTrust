@@ -30,6 +30,8 @@ class TentDetails extends Component {
             selectedItem: 0,
             selectedStartDate: null,
             selectedEndDate: null,
+            startTime: '',
+            endTime: ''
         }
         this.onDateChange = this.onDateChange.bind(this);
     }
@@ -41,7 +43,7 @@ class TentDetails extends Component {
     onPress = () => {
         this.setState({ selectedItem: 3 })
     }
-    onDateChange(date, type) {
+    onDateChange=(date, type)=> {
         console.warn('date-', date, 'type:', type)
         if (type === 'END_DATE') {
             this.setState({
@@ -56,19 +58,29 @@ class TentDetails extends Component {
             console.warn('starrtdate', this.selectedStartDate)
         }
     }
-    onTimeSelected = date => {
-        console.warn('date:', date)
+    onStartTimeSelected = date => {
+        const data = date;
+        // const data = moment(date).format('L')
+        // console.warn('starttime:', moment(date).format('LT'))
+        this.setState({ startTime: data.toString() })
+    }
+    onEndTimeSelected = date => {
+        // console.warn('endtime:', date)
+        this.setState({ endTime: moment(date).format('LT') })
     }
 
     render() {
-        const { setModalVisibleLocation, location, setModalVisibleDate, setModalVisibleTime, spinner, selectedEndDate, selectedStartDate } = this.state
+        const { setModalVisibleLocation, location, setModalVisibleDate, setModalVisibleTime, spinner, selectedEndDate, selectedStartDate, startTime, endTime } = this.state
         const item = this.props.navigation.getParam('item', 'data')
         const minDate = moment().format('MM/DD/YYYY');   // Today
         const maxDate = moment().add(20, 'days').calendar(); //Date after 20 days
+        const hourData = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+        const minuteData = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+
         const startDate = selectedStartDate ? selectedStartDate.toString() : '';
         const endDate = selectedEndDate ? selectedEndDate.toString() : '';
         //Location Picker
-        console.warn('current date-', startDate, 'last date', endDate)
+        console.warn('current date-', startTime, 'last date', endTime)
         const Locaionpicker = () => {
             return (
                 <View style={{ width: '100%', alignItems: 'center' }}>
@@ -86,7 +98,7 @@ class TentDetails extends Component {
                         <TouchableOpacity
                             style={{ width: '100%' }}
                         >
-                            <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomColor: '#000', borderBottomWidth: 1, borderTopColor: '#000', borderTopWidth: 1 }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomColor: BLACK, borderBottomWidth: 1, borderTopColor: BLACK, borderTopWidth: 1 }}>
                                 <Image
                                     source={require('../../assets/images/arrow-darkloc.png')}
                                     style={{ height: 35, width: 35, margin: 10 }}
@@ -115,7 +127,7 @@ class TentDetails extends Component {
                                 selectedDayTextColor={WHITE}
                                 width={wp('80%')}
                                 height={wp('80%')}
-                                onDateChange={this.onDateChange}
+                                onDateChange={()=>this.onDateChange}
                             />
                         </View>
                     </View>
@@ -130,7 +142,7 @@ class TentDetails extends Component {
                         <View style={{ alignItems: 'center', borderBottomColor: BLACK, borderBottomWidth: 1, borderTopColor: BLACK, borderTopWidth: 1, flexDirection: 'row', justifyContent: 'space-evenly' }}>
                             <View style={{ flex: 1, justifyContent: 'center', height: hp('30%'), alignItems: 'center',/*  backgroundColor: 'red' */ }}>
                                 <TimePicker
-                                    onTimeSelected={this.onTimeSelected}
+                                    onTimeSelected={() => this.onStartTimeSelected}
                                     itemTextSize={25}
                                 />
                             </View>
@@ -139,8 +151,10 @@ class TentDetails extends Component {
                             </View>
                             <View style={{ flex: 1, justifyContent: 'center', height: hp('30%'), alignItems: 'center',/*  backgroundColor: 'red'  */ }}>
                                 <TimePicker
-                                    onTimeSelected={this.onTimeSelected}
-
+                                    onTimeSelected={this.onEndTimeSelected}
+                                    // hours={hourData}
+                                    // minutes={minuteData}
+                                    itemTextSize={25}
                                 />
                             </View>
                         </View>
@@ -166,10 +180,10 @@ class TentDetails extends Component {
                         style={{ height: 125, width: 125 }}
                         resizeMode="center"
                     />
-                    <Text style={{ fontSize: 25, fontWeight: 'bold', color: '#164349', fontWeight: 'bold' }}>{item.name}</Text>
-                    <Text style={{ fontSize: 17, color: '#00DE95', fontWeight: 'bold', marginTop: 15 }}>Current Price you''ll pay: ${item.value}/Day</Text>
+                    <Text style={{ fontSize: 25, fontWeight: 'bold', color: DARKBLUE, fontWeight: 'bold' }}>{item.name}</Text>
+                    <Text style={{ fontSize: 17, color: GREEN, fontWeight: 'bold', marginTop: 15 }}>Current Price you''ll pay: ${item.value}/Day</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Text style={{ fontSize: 17, color: '#164349', fontWeight: 'bold' }}>Deposit: ${item.deposit}</Text>
+                        <Text style={{ fontSize: 17, color: DARKBLUE, fontWeight: 'bold' }}>Deposit: ${item.deposit}</Text>
                         <Image
                             source={require('../../assets/images/icon_question_mark.png')}
                             style={{ height: 15, width: 15, margin: 8 }}
@@ -215,7 +229,7 @@ class TentDetails extends Component {
                             source={require('../../assets/images/arrow-darktime.png')}
                             style={{ height: 35, width: 35, margin: 10 }}
                         />
-                        <Text style={{ fontSize: 15, fontWeight: 'bold', paddingHorizontal: 10 }}>Pick-Up Window</Text>
+                        <Text style={{ fontSize: 15, fontWeight: 'bold', paddingHorizontal: 10 }}>{startTime}</Text>
                     </TouchableOpacity>
                 </View>
                 <Text style={{ fontSize: 12, marginVertical: 20 }}>You will not charged until you select a lender</Text>
@@ -229,7 +243,7 @@ class TentDetails extends Component {
                             onPress={() => this._onSubmit}
                         >
                             <View style={{ alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-                                <Text style={{ color: '#FFF', fontSize: 25, fontWeight: 'bold', }}>SEE MATCHES</Text>
+                                <Text style={{ color: WHITE, fontSize: 25, fontWeight: 'bold', }}>SEE MATCHES</Text>
                             </View>
                         </TouchableOpacity>
                     </LinearGradient>
@@ -237,8 +251,8 @@ class TentDetails extends Component {
                 {/* View End */}
                 <Spinner
                     visible={spinner}
-                    textStyle={{ color: '#FFF' }}
-                    customIndicator={<UIActivityIndicator color='#00DE95' />}
+                    textStyle={{ color: WHITE }}
+                    customIndicator={<UIActivityIndicator color={GREEN} />}
                 />
                 <PopupModal
                     setModalVisible={setModalVisibleLocation}
