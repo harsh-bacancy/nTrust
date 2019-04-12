@@ -53,6 +53,11 @@ class NBox extends Component {
             });
         await this.props.navigation.navigate('Welcome')
     }
+    _navigateToWeb = (item) => {
+        // console.warn(item)
+        this.props.setModalVisible(false)
+        this.props.navigation.navigate('WebViewComponent', { item })
+    }
     render() {
         const { chatSwtich, username, settingVisible } = this.state
         // console.warn('visible', this.props.setVisibility.text)
@@ -63,6 +68,11 @@ class NBox extends Component {
                     // onClose={() => this.setState({ settingVisible: false })}
                     onPress={() => this.props.setModalVisible(false)}
                     onSignout={() => this._StandardLogout()}
+                    onhit={() => this._navigateToWeb('https://ntrustapp.com/how/')}
+                    onau={() => this._navigateToWeb('https://ntrustapp.com/our-story/')}
+                    oncu={() => this._navigateToWeb('https://ntrustapp.com/contact/')}
+                    onpp={() => this._navigateToWeb('https://ntrustapp.com/terms-of-service')}
+                    ontos={() => this._navigateToWeb('https://ntrustapp.com/privacy-policy/')}
 
                 />
                 <View style={{ height: hp('15%') }}>

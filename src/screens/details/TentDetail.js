@@ -11,7 +11,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import moment from 'moment'
 
 
-import { NTRUSTCOLOR, GREEN, BLUE, DARKBLUE, BLACK, WHITE } from '../../hepler/Constant'
+import { NTRUSTCOLOR, GREEN, BLUE, DARKBLUE, BLACK, WHITE, DISABLE } from '../../hepler/Constant'
 import PopupModal from '../../container/modal'
 import { styles } from './styles'
 // create a component
@@ -34,6 +34,11 @@ class TentDetails extends Component {
             endTime: ''
         }
         this.onDateChange = this.onDateChange.bind(this);
+        global.startTime = '';
+        global.endTime = '';
+        global.selectedEndDate = '';
+        global.selectedStartDate = '';
+
     }
 
     onItemSelected = selectedItem => {
@@ -43,30 +48,46 @@ class TentDetails extends Component {
     onPress = () => {
         this.setState({ selectedItem: 3 })
     }
-    onDateChange=(date, type)=> {
+    onDateChange(date, type) {
         console.warn('date-', date, 'type:', type)
         if (type === 'END_DATE') {
-            this.setState({
-                selectedEndDate: date,
-            });
-            console.warn('enddate', this.selectedEndDate)
+            // this.setState({
+            //     selectedEndDate: date,
+            // });
+            global.selectedEndDate = moment(date).format('MMM Do')
+            console.warn('enddate', global.selectedEndDate)
         } else {
-            this.setState({
-                selectedStartDate: date,
-                selectedEndDate: null,
-            });
-            console.warn('starrtdate', this.selectedStartDate)
+            // this.setState({
+            //     selectedStartDate: date,
+            //     selectedEndDate: null,
+            // });
+            global.selectedStartDate = moment(date).format('MMM Do')
+            global.selectedEndDate = null
+            console.warn('starrtdate', global.selectedStartDate, '--', global.selectedEndDate)
         }
     }
     onStartTimeSelected = date => {
-        const data = date;
-        // const data = moment(date).format('L')
         // console.warn('starttime:', moment(date).format('LT'))
-        this.setState({ startTime: data.toString() })
+        // this.setState({ startTime: data.toString() })
+        global.startTime = moment(date).format('LT')
+        console.warn('starttime:', global.startTime)
+
     }
     onEndTimeSelected = date => {
         // console.warn('endtime:', date)
-        this.setState({ endTime: moment(date).format('LT') })
+        // this.setState({ endTime: moment(date).format('LT') })
+        global.endTime = moment(date).format('LT')
+        console.warn('Endtime:', global.endTime)
+
+    }
+
+    onTimeSelected = () => {
+        // console.warn('1')
+        // console.warn('start', global.startTime, 'end', global.endTime)
+        this.setState({ startTime: global.startTime, endTime: global.endTime, setModalVisibleTime: !this.state.setModalVisibleTime })
+    }
+    onDateSelected = () => {
+        this.setState({ selectedStartDate: global.selectedStartDate, selectedEndDate: global.selectedEndDate, setModalVisibleDate: !this.state.setModalVisibleDate })
     }
 
     render() {
@@ -74,11 +95,8 @@ class TentDetails extends Component {
         const item = this.props.navigation.getParam('item', 'data')
         const minDate = moment().format('MM/DD/YYYY');   // Today
         const maxDate = moment().add(20, 'days').calendar(); //Date after 20 days
-        const hourData = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-        const minuteData = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+        let isEnable = startTime && endTime && (selectedEndDate || selectedStartDate);
 
-        const startDate = selectedStartDate ? selectedStartDate.toString() : '';
-        const endDate = selectedEndDate ? selectedEndDate.toString() : '';
         //Location Picker
         console.warn('current date-', startTime, 'last date', endTime)
         const Locaionpicker = () => {
@@ -127,7 +145,7 @@ class TentDetails extends Component {
                                 selectedDayTextColor={WHITE}
                                 width={wp('80%')}
                                 height={wp('80%')}
-                                onDateChange={()=>this.onDateChange}
+                                onDateChange={this.onDateChange}
                             />
                         </View>
                     </View>
@@ -142,7 +160,7 @@ class TentDetails extends Component {
                         <View style={{ alignItems: 'center', borderBottomColor: BLACK, borderBottomWidth: 1, borderTopColor: BLACK, borderTopWidth: 1, flexDirection: 'row', justifyContent: 'space-evenly' }}>
                             <View style={{ flex: 1, justifyContent: 'center', height: hp('30%'), alignItems: 'center',/*  backgroundColor: 'red' */ }}>
                                 <TimePicker
-                                    onTimeSelected={() => this.onStartTimeSelected}
+                                    onTimeSelected={this.onStartTimeSelected}
                                     itemTextSize={25}
                                 />
                             </View>
@@ -215,7 +233,16 @@ class TentDetails extends Component {
                             source={require('../../assets/images/arrow-darkcalendar.png')}
                             style={{ height: 35, width: 35, margin: 10 }}
                         />
-                        <Text style={{ fontSize: 15, fontWeight: 'bold', paddingHorizontal: 10 }}>Date</Text>
+                        {selectedStartDate
+                            ?
+                            selectedEndDate
+                                ?
+                                <Text style={{ fontSize: 15, fontWeight: 'bold', paddingHorizontal: 10 }}>{selectedStartDate} to {selectedEndDate}</Text>
+                                :
+                                <Text style={{ fontSize: 15, fontWeight: 'bold', paddingHorizontal: 10 }}>{selectedStartDate}</Text>
+                            :
+                            <Text style={{ fontSize: 15, fontWeight: 'bold', paddingHorizontal: 10 }}>Date</Text>
+                        }
                     </TouchableOpacity>
                 </View>
                 <View style={[styles.DetailSelecter, styles.BoxShadow]}>
@@ -229,18 +256,24 @@ class TentDetails extends Component {
                             source={require('../../assets/images/arrow-darktime.png')}
                             style={{ height: 35, width: 35, margin: 10 }}
                         />
-                        <Text style={{ fontSize: 15, fontWeight: 'bold', paddingHorizontal: 10 }}>{startTime}</Text>
+                        {startTime && endTime
+                            ?
+                            <Text style={{ fontSize: 15, fontWeight: 'bold', paddingHorizontal: 10 }}>{startTime} to {endTime}</Text>
+                            :
+                            <Text style={{ fontSize: 15, fontWeight: 'bold', paddingHorizontal: 10 }}>Pick-up Window</Text>
+                        }
+
                     </TouchableOpacity>
                 </View>
                 <Text style={{ fontSize: 12, marginVertical: 20 }}>You will not charged until you select a lender</Text>
-                {/* <TimePicker /> */}
                 <View style={styles.BottomButton}>
                     <LinearGradient
-                        colors={NTRUSTCOLOR}
+                        colors={!isEnable ? DISABLE : NTRUSTCOLOR}
                         start={{ x: 0.0, y: 0.25 }} end={{ x: 0.99, y: 1.0 }}
                     >
                         <TouchableOpacity
-                            onPress={() => this._onSubmit}
+                            onPress={() => this._onTimeSelected}
+                            disabled={!isEnable}
                         >
                             <View style={{ alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
                                 <Text style={{ color: WHITE, fontSize: 25, fontWeight: 'bold', }}>SEE MATCHES</Text>
@@ -272,6 +305,7 @@ class TentDetails extends Component {
                     HeadingText='Select a Date'
                     AgreeButtonText='Apply'
                     CloseButtonText='Cancel'
+                    onApply={() => this.onDateSelected()}
                     ViewHere={<DatePickerModal />}
                 />
                 <PopupModal
@@ -282,6 +316,7 @@ class TentDetails extends Component {
                     HeadingText='Select a Time'
                     AgreeButtonText='Apply'
                     CloseButtonText='Cancel'
+                    onApply={() => this.onTimeSelected()}
                     ViewHere={<TimePickerModal />}
                 />
             </View>

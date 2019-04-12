@@ -7,7 +7,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { NTRUSTCOLOR } from '../../hepler/Constant'
 
 // create a component
-const PopupModal = ({ setModalVisible, onClose, ViewHere, HeadingText, AgreeButtonText, CloseButtonText }) => {
+const PopupModal = ({ setModalVisible, onClose, ViewHere, HeadingText, AgreeButtonText, CloseButtonText, onApply }) => {
     return (
         <Modal
             animationType="slide"
@@ -17,17 +17,17 @@ const PopupModal = ({ setModalVisible, onClose, ViewHere, HeadingText, AgreeButt
         >
             <View style={styles.ModalStyle}>
                 <View style={{ backgroundColor: '#EEE', alignItems: 'center', justifyContent: 'center', borderRadius: 20, width: wp('90%'), elevation: 20, }}>
-                    <Text style={{ fontSize: 20, paddingVertical: 20, color: '#008EDE', fontWeight: '700' }}>{HeadingText}</Text>            
+                    <Text style={{ fontSize: 20, paddingVertical: 20, color: '#008EDE', fontWeight: '700' }}>{HeadingText}</Text>
                     {ViewHere}
                     <LinearGradient
                         colors={NTRUSTCOLOR}
                         start={{ x: 0.0, y: 0.25 }} end={{ x: 0.99, y: 1.0 }}
-                        style={{marginTop:20}}
+                        style={{ marginTop: 20 }}
                     >
-                        <TouchableOpacity                        
-                        // onPress={() => this.props.navigation.navigate('Dashboard')}
+                        <TouchableOpacity
+                            onPress={onApply}
                         >
-                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: hp('7%'), width: wp('70%'),  }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: hp('7%'), width: wp('70%'), }}>
                                 <Text style={{ fontSize: wp('5%'), paddingHorizontal: 10, color: '#FFF' }}>{AgreeButtonText}</Text>
                             </View>
                         </TouchableOpacity>
@@ -59,13 +59,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#16434999',
 
     },
-    BoxShadow:{
+    BoxShadow: {
         shadowColor: "#333333",
         shadowOpacity: 1,
         shadowRadius: 2,
         shadowOffset: {
-          height: 1,
-          width: 1
+            height: 1,
+            width: 1
         }
     }
 });

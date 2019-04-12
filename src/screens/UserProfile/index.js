@@ -15,7 +15,12 @@ class UserProfile extends Component {
         this.state = {
             setModalVisible: false,
             onPress: props.onPress,
-            onSignout: props.onSignout
+            onSignout: props.onSignout,
+            onhit: props.onhit,
+            onau: props.onau,
+            oncu: props.oncu,
+            onpp: props.pp,
+            ontos: props.ontos
         }
     }
 
@@ -31,7 +36,7 @@ class UserProfile extends Component {
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('100%') }}>
                         <View style={{ flex: 1 }}></View>
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ fontSize: 20, color: BLUE, marginTop: 15, fontWeight:'bold'}}>Settings</Text>
+                            <Text style={{ fontSize: 20, color: BLUE, marginTop: 15, fontWeight: 'bold' }}>Settings</Text>
                         </View>
                         <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
                             <TouchableOpacity
@@ -66,27 +71,37 @@ class UserProfile extends Component {
                         </Text>
                         </View>
                         <View style={{ padding: 15 }}>
-                            <TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={this.props.onhit}
+                            >
                                 <Text style={{ fontSize: 15, fontWeight: 'bold', color: DARKBLUE, marginVertical: 15 }}>
                                     How it works
                             </Text>
                             </TouchableOpacity>
-                            <TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={this.props.oncu}
+                            >
                                 <Text style={{ fontSize: 15, fontWeight: 'bold', color: DARKBLUE, marginVertical: 15 }}>
                                     Contact us
                                 </Text>
                             </TouchableOpacity>
-                            <TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={this.props.onau}
+                            >
                                 <Text style={{ fontSize: 15, fontWeight: 'bold', color: DARKBLUE, marginVertical: 15 }}>
                                     About us
                                 </Text>
                             </TouchableOpacity>
-                            <TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={this.props.ontos}
+                            >
                                 <Text style={{ fontSize: 15, fontWeight: 'bold', color: DARKBLUE, marginVertical: 15 }}>
                                     Terms of sevice
                                 </Text>
                             </TouchableOpacity>
-                            <TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={this.props.onpp}
+                            >
                                 <Text style={{ fontSize: 15, fontWeight: 'bold', color: DARKBLUE, marginVertical: 15 }}>
                                     Privacy Policy
                                 </Text>

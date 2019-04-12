@@ -9,7 +9,8 @@ import Welcome from '../../screens/welcome'
 import AdditemDetails from '../../screens/Lend/details/AddItemDetails'
 import Categories from '../../screens/Lend/categories/Categories'
 import NBox from '../../screens/nBox/nBox'
-
+import WebViewComponent from '../../components/WebViewComponent'
+import UserProfile from '../../screens/UserProfile/index'
 
 const FirstScreen = {
     TentDetails: 'TentDetails',
@@ -66,9 +67,21 @@ const ProductListNavigator = createStackNavigator(
                 header: null,
             },
         },
+        WebViewComponent: {
+            screen: WebViewComponent,
+            navigationOptions: {
+                header: null,
+            },
+        },
+        UserProfile: {
+            screen: UserProfile,
+            navigationOptions: {
+                header: null,
+            },
+        },
     },
     {
-        initialRouteName: true ? FirstScreen.TentDetails : FirstScreen.welcome,
+        initialRouteName: false ? FirstScreen.TentDetails : FirstScreen.welcome,
         headerMode: 'none',
         headerVisible: false
     }
