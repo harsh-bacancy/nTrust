@@ -7,8 +7,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { UIActivityIndicator } from 'react-native-indicators';
 import { LoginManager, AccessToken } from "react-native-fbsdk";
-
-
+import SplashScreen from 'react-native-splash-screen'
 
 
 import SlideOne from './SlideOne'
@@ -26,6 +25,9 @@ class Welcome extends Component {
         this.state = {
             spinner: false
         }
+    }
+    componentDidMount() {
+        SplashScreen.hide();
     }
 
     _stoteAccessToken = async (authToken) => {
