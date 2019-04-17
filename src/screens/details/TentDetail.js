@@ -23,6 +23,7 @@ class TentDetails extends Component {
             setModalVisibleLocation: false,
             setModalVisibleDate: false,
             setModalVisibleTime: false,
+            TimeErrorModal: false,
             spinner: false,
             location: '',
             date: '',
@@ -49,13 +50,13 @@ class TentDetails extends Component {
         this.setState({ selectedItem: 3 })
     }
     onDateChange(date, type) {
-        console.warn('date-', date, 'type:', type)
+        // console.warn('date-', date, 'type:', type)
         if (type === 'END_DATE') {
             // this.setState({
             //     selectedEndDate: date,
             // });
             global.selectedEndDate = moment(date).format('MMM Do')
-            console.warn('enddate', global.selectedEndDate)
+            // console.warn('enddate', global.selectedEndDate)
         } else {
             // this.setState({
             //     selectedStartDate: date,
@@ -63,42 +64,50 @@ class TentDetails extends Component {
             // });
             global.selectedStartDate = moment(date).format('MMM Do')
             global.selectedEndDate = null
-            console.warn('starrtdate', global.selectedStartDate, '--', global.selectedEndDate)
+            // console.warn('starrtdate', global.selectedStartDate, '--', global.selectedEndDate)
         }
     }
     onStartTimeSelected = date => {
         // console.warn('starttime:', moment(date).format('LT'))
         // this.setState({ startTime: data.toString() })
-        global.startTime = moment(date).format('LT')
-        console.warn('starttime:', global.startTime)
+        global.startTime = moment(date)
+        // console.warn('starttime:', global.startTime)
 
     }
     onEndTimeSelected = date => {
         // console.warn('endtime:', date)
         // this.setState({ endTime: moment(date).format('LT') })
-        global.endTime = moment(date).format('LT')
-        console.warn('Endtime:', global.endTime)
+        global.endTime = moment(date)
+        // console.warn('Endtime:', global.endTime)
 
     }
 
     onTimeSelected = () => {
-        // console.warn('1')
-        // console.warn('start', global.startTime, 'end', global.endTime)
-        this.setState({ startTime: global.startTime, endTime: global.endTime, setModalVisibleTime: !this.state.setModalVisibleTime })
+        var end = global.endTime
+        var start = global.startTime
+        var duration = moment.duration(end.diff(start))
+        if (duration.asHours() > 3 || duration.asHours() <= 0 || end == start) {
+            return (
+                this.setState({ TimeErrorModal: true, setModalVisibleTime: !this.state.setModalVisibleTime })
+            )
+        }
+
+        console.warn('duration', duration.asHours())
+        this.setState({ startTime: moment(global.startTime).format('LT'), endTime: moment(global.endTime).format('LT'), setModalVisibleTime: !this.state.setModalVisibleTime })
     }
     onDateSelected = () => {
         this.setState({ selectedStartDate: global.selectedStartDate, selectedEndDate: global.selectedEndDate, setModalVisibleDate: !this.state.setModalVisibleDate })
     }
 
     render() {
-        const { setModalVisibleLocation, location, setModalVisibleDate, setModalVisibleTime, spinner, selectedEndDate, selectedStartDate, startTime, endTime } = this.state
+        const { setModalVisibleLocation, location, setModalVisibleDate, setModalVisibleTime, spinner, selectedEndDate, selectedStartDate, startTime, endTime, TimeErrorModal } = this.state
         const item = this.props.navigation.getParam('item', 'data')
         const minDate = moment().format('MM/DD/YYYY');   // Today
         const maxDate = moment().add(20, 'days').calendar(); //Date after 20 days
         let isEnable = startTime && endTime && (selectedEndDate || selectedStartDate);
 
         //Location Picker
-        console.warn('current date-', startTime, 'last date', endTime)
+        // console.warn('current date-', startTime, 'last date', endTime)
         const Locaionpicker = () => {
             return (
                 <View style={{ width: '100%', alignItems: 'center' }}>
@@ -272,7 +281,7 @@ class TentDetails extends Component {
                         start={{ x: 0.0, y: 0.25 }} end={{ x: 0.99, y: 1.0 }}
                     >
                         <TouchableOpacity
-                            onPress={() => this._onTimeSelected}
+                            onPress={() => this.props.navigation.navigate('MatchFound')}
                             disabled={!isEnable}
                         >
                             <View style={{ alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
@@ -318,6 +327,15 @@ class TentDetails extends Component {
                     CloseButtonText='Cancel'
                     onApply={() => this.onTimeSelected()}
                     ViewHere={<TimePickerModal />}
+                />
+                <PopupModal
+                    setModalVisible={TimeErrorModal}
+                    onApply={() => {
+                        this.setState({ TimeErrorModal: !TimeErrorModal })
+                    }}
+                    HeadingText='Wrong Time Selected'
+                    AgreeButtonText='CLOSE'
+                    ViewHere={<Text>Please Select Appropriate Time</Text>}
                 />
             </View>
         );

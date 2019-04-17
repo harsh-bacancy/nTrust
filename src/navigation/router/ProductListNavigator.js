@@ -11,9 +11,10 @@ import Categories from '../../screens/Lend/categories/Categories'
 import NBox from '../../screens/nBox/nBox'
 import WebViewComponent from '../../components/WebViewComponent'
 import UserProfile from '../../screens/UserProfile/index'
+import MatchFound from '../../screens/Match/MatchFound'
 
 const FirstScreen = {
-    TentDetails: 'TentDetails',
+    MatchFound: 'MatchFound',
     welcome: 'Welcome'
 }
 
@@ -79,9 +80,15 @@ const ProductListNavigator = createStackNavigator(
                 header: null,
             },
         },
+        MatchFound: {
+            screen: MatchFound,
+            navigationOptions: {
+                header: null,
+            },
+        },
     },
     {
-        initialRouteName: false ? FirstScreen.TentDetails : FirstScreen.welcome,
+        initialRouteName: false ? FirstScreen.MatchFound : FirstScreen.welcome,
         headerMode: 'none',
         headerVisible: false
     }

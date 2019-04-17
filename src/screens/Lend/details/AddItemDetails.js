@@ -10,6 +10,7 @@ import ImagePicker from 'react-native-image-crop-picker'
 
 
 import { styles } from './styles'
+import PopupModal from '../../../container/modal'
 import { NTRUSTCOLOR, GREEN, GREY, WHITE, DARKBLUE, DISABLE } from '../../../hepler/Constant'
 
 
@@ -31,6 +32,7 @@ class AdditemDetails extends Component {
             isPhoto: false,
             photoCount: 0,
             photoPickerModel: false,
+            listitem: false
         }
         this.index = 0;
     }
@@ -106,8 +108,13 @@ class AdditemDetails extends Component {
         this.setState({ valueArray: data })
     }
 
+    onListItem() {
+        this.setState({ listitem: false })
+        this.props.navigation.navigate('TabNavigator')
+    }
+
     render() {
-        const { good, verygood, excellent, ImageSource, Rent, Deposit, valueArray, isPhoto, photoCount, photoPickerModel, zipcode } = this.state
+        const { good, verygood, excellent, ImageSource, Rent, Deposit, valueArray, isPhoto, photoCount, photoPickerModel, zipcode, listitem } = this.state
         const item = this.props.navigation.getParam('item', 'data')
         let dataField = (zipcode.length == 5 && photoCount != 0);
         // console.warn('lenght in render', zipcode.length, '-', )
@@ -272,7 +279,7 @@ class AdditemDetails extends Component {
                         start={{ x: 0.0, y: 0.25 }} end={{ x: 0.99, y: 1.0 }}
                     >
                         <TouchableOpacity
-                            onPress={() => this._onSubmit}
+                            onPress={() => this.setState({ listitem: true })}
                             disabled={!dataField}
                         >
                             <View style={{ alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
@@ -312,6 +319,14 @@ class AdditemDetails extends Component {
                     </View>
                 </Modal>
                 {/* Model End */}
+                <PopupModal
+                    setModalVisible={listitem}
+                    onApply={() => this.onListItem()}
+                    HeadingText='Thanks for Sharing!'
+                    AgreeButtonText='CLOSE'
+                    // CloseButtonText='Close'
+                    ViewHere={<View style={{ width: '90%' }}><Text style={{ textAlign: 'center' }}>Your item is now available and ready to be nTrusted.We'll notify you as soon as a user request your item.{'\n\n'}You will have <Text style={{ fontWeight: 'bold' }}>30 minutes</Text> to approve their request.</Text></View>}
+                />
             </View >
         );
     }

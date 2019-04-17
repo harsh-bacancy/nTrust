@@ -15,7 +15,7 @@ import SlideTwo from './SlideTwo'
 import SlideThree from './SlideThree'
 import { BACKGROUNDCOLOR, NTRUSTCOLOR, BLUE, GREEN, WHITE } from '../../hepler/Constant'
 import { styles } from './styles'
-import { LOGIN } from '../../api/index'
+// import { LOGIN } from '../../api/index'
 
 
 // create a component
@@ -42,27 +42,27 @@ class Welcome extends Component {
             console.error(error);
         }
     }
-    _standardLogin(data) {
-        this.setState({ spinner: true })
-        return fetch(LOGIN, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                access_token: data
-            })
-        }).then((response) => response.json())
-            .then((responseJson) => {
-                // const authToken = responseJson
-                console.warn('Backend Token:', responseJson)
-                this._stoteAccessToken(responseJson)
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }
+    // _standardLogin(data) {
+    //     this.setState({ spinner: true })
+    //     return fetch(LOGIN, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({
+    //             access_token: data
+    //         })
+    //     }).then((response) => response.json())
+    //         .then((responseJson) => {
+    //             // const authToken = responseJson
+    //             console.warn('Backend Token:', responseJson)
+    //             this._stoteAccessToken(responseJson)
+    //         })
+    //         .catch((error) => {
+    //             console.error(error);
+    //         });
+    // }
 
     _facebookLogin() {
         LoginManager.logOut();
@@ -76,7 +76,7 @@ class Welcome extends Component {
                 AccessToken.getCurrentAccessToken().then(data => {
                     const accessToken = data.accessToken;
                     console.warn('accessToken:::', accessToken)
-                    this._standardLogin(accessToken);
+                    this._stoteAccessToken(accessToken);
                     const responseInfoCallback = (error, info) => {
                         if (error) {
                             console.log(error);

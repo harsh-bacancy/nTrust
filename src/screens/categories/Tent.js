@@ -8,6 +8,7 @@ import { UIActivityIndicator } from 'react-native-indicators';
 import { SUB_CATEGORIES } from '../../api/index'
 import { styles } from './styles'
 import { WHITE, GREEN, BLACK, GREY } from '../../hepler/Constant'
+import { Drones, Gaming_Consoles, Gaming_Controllers, Pressure_Washers, Kayaks, Paddle_Boards, Cameras, Bicycles, Golf_Clubs, Bluetooth_Speakers } from './TempData'
 
 // create a component
 class Tent extends Component {
@@ -21,18 +22,41 @@ class Tent extends Component {
 
     async componentWillMount() {
         const item = this.props.navigation.getParam('item', 'data')
-        return await fetch(SUB_CATEGORIES + item._id, {
-            method: 'GET',
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                this.setState({ SubExperiences: responseJson.Data.items });
-                this.setState({ spinner: false });
-                console.warn('Messagere:', this.state.SubExperiences)
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        // return await fetch(SUB_CATEGORIES + item._id, {
+        //     method: 'GET',
+        // })
+        //     .then((response) => response.json())
+        //     .then((responseJson) => {
+        //         this.setState({ SubExperiences: responseJson.Data.items });
+        //         this.setState({ spinner: false });
+        //         console.warn('Messagere:', this.state.SubExperiences)
+        //     })
+        //     .catch((error) => {
+        //         console.error(error);
+        //     });
+        // console.warn('item id', item._id)
+        if (item._id == '5b349758dd441400047401b2') {
+            this.setState({ SubExperiences: Drones });
+        } else if (item._id == '5b349463dd441400047401a5') {
+            this.setState({ SubExperiences: Gaming_Consoles });
+        } else if (item._id == '5b3495c9dd441400047401a6') {
+            this.setState({ SubExperiences: Gaming_Controllers });
+        } else if (item._id == '5b3496badd441400047401ad') {
+            this.setState({ SubExperiences: Pressure_Washers });
+        } else if (item._id == '5b349751dd441400047401b1') {
+            this.setState({ SubExperiences: Kayaks });
+        } else if (item._id == '5b34976add441400047401b3') {
+            this.setState({ SubExperiences: Paddle_Boards });
+        } else if (item._id == '5b349781dd441400047401b4') {
+            this.setState({ SubExperiences: Cameras });
+        } else if (item._id == '5b349795dd441400047401b6') {
+            this.setState({ SubExperiences: Bicycles });
+        } else if (item._id == '5b3497d2dd441400047401b9') {
+            this.setState({ SubExperiences: Golf_Clubs });
+        } else if (item._id == '5b3498acdd441400047401c1') {
+            this.setState({ SubExperiences: Bluetooth_Speakers });
+        }
+        this.setState({ spinner: false });
     }
 
     _isEmpty(obj) {

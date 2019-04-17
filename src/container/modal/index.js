@@ -19,23 +19,31 @@ const PopupModal = ({ setModalVisible, onClose, ViewHere, HeadingText, AgreeButt
                 <View style={{ backgroundColor: '#EEE', alignItems: 'center', justifyContent: 'center', borderRadius: 20, width: wp('90%'), elevation: 20, }}>
                     <Text style={{ fontSize: 20, paddingVertical: 20, color: '#008EDE', fontWeight: '700' }}>{HeadingText}</Text>
                     {ViewHere}
-                    <LinearGradient
-                        colors={NTRUSTCOLOR}
-                        start={{ x: 0.0, y: 0.25 }} end={{ x: 0.99, y: 1.0 }}
-                        style={{ marginTop: 20 }}
-                    >
-                        <TouchableOpacity
-                            onPress={onApply}
+                    {AgreeButtonText ?
+                        <LinearGradient
+                            colors={NTRUSTCOLOR}
+                            start={{ x: 0.0, y: 0.25 }} end={{ x: 0.99, y: 1.0 }}
+                            style={[{ marginTop: 20 }, CloseButtonText ? null : { marginBottom: 20 }]}
                         >
-                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: hp('7%'), width: wp('70%'), }}>
-                                <Text style={{ fontSize: wp('5%'), paddingHorizontal: 10, color: '#FFF' }}>{AgreeButtonText}</Text>
-                            </View>
+                            <TouchableOpacity
+                                onPress={onApply}
+                            >
+                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: hp('7%'), width: wp('70%'), }}>
+                                    <Text style={{ fontSize: wp('5%'), paddingHorizontal: 10, color: '#FFF' }}>{AgreeButtonText}</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </LinearGradient>
+                        :
+                        null
+                    }
+                    {CloseButtonText ?
+                        <TouchableOpacity
+                            onPress={onClose}>
+                            <Text style={{ fontSize: 20, textDecorationLine: 'underline', paddingVertical: 25 }}>{CloseButtonText}</Text>
                         </TouchableOpacity>
-                    </LinearGradient>
-                    <TouchableOpacity
-                        onPress={onClose}>
-                        <Text style={{ fontSize: 20, textDecorationLine: 'underline', paddingVertical: 25 }}>{CloseButtonText}</Text>
-                    </TouchableOpacity>
+                        :
+                        null
+                    }
                 </View>
             </View>
         </Modal>

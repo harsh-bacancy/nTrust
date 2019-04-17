@@ -13,7 +13,7 @@ import { styles } from './styles'
 import User from '../../container/Chat/User'
 import UserProfile from '../UserProfile'
 import { setModalVisible } from '../../redux/actions'
-import { LOGOUT } from '../../api/index'
+// import { LOGOUT } from '../../api/index'
 
 
 // create a component
@@ -35,22 +35,22 @@ class NBox extends Component {
         authToken = JSON.parse(authorizationToken)
         console.warn('auth:', typeof authToken, '--', authToken.token)
         await LoginManager.logOut()
-        await fetch(LOGOUT, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': authToken.token
-            },
-        }).then((response) => response.json())
-            .then((responseJson) => {
-                // const authToken = responseJson
-                console.warn('response of signout:', responseJson)
-                //this._stoteAccessToken(responseJson)
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        // await fetch(LOGOUT, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'application/json',
+        //         'Authorization': authToken.token
+        //     },
+        // }).then((response) => response.json())
+        //     .then((responseJson) => {
+        //         // const authToken = responseJson
+        //         console.warn('response of signout:', responseJson)
+        //         //this._stoteAccessToken(responseJson)
+        //     })
+        //     .catch((error) => {
+        //         console.error(error);
+        //     });
         await this.props.navigation.navigate('Welcome')
     }
     _navigateToWeb = (item) => {
