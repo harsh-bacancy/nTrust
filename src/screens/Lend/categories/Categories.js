@@ -124,6 +124,7 @@ class Categories extends Component {
                             style={{ height: wp('30%'), width: wp('30%') }}
                             resizeMode='center'
                         />
+                        <Text style={styles.HeaderText}>No Record Found</Text>
                     </View>
                 }
             </View >

@@ -20,7 +20,8 @@ class UserProfile extends Component {
             onau: props.onau,
             oncu: props.oncu,
             onpp: props.pp,
-            ontos: props.ontos
+            ontos: props.ontos,
+            onli: props.onli
         }
     }
 
@@ -57,7 +58,9 @@ class UserProfile extends Component {
                         </Text>
                         </View>
                         <View style={{ padding: 15 }}>
-                            <TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={this.props.onli}
+                            >
                                 <Text style={{ fontSize: 15, fontWeight: 'bold', color: DARKBLUE, marginVertical: 15 }}>
                                     Listed Items
                                 </Text>

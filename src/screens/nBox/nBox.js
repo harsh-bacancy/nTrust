@@ -58,6 +58,10 @@ class NBox extends Component {
         this.props.setModalVisible(false)
         this.props.navigation.navigate('WebViewComponent', { item })
     }
+    showListedItem = () => {
+        this.props.setModalVisible(false)
+        this.props.navigation.navigate('ListedItem')
+    }
     render() {
         const { chatSwtich, username, settingVisible } = this.state
         // console.warn('visible', this.props.setVisibility.text)
@@ -73,6 +77,7 @@ class NBox extends Component {
                     oncu={() => this._navigateToWeb('https://ntrustapp.com/contact/')}
                     onpp={() => this._navigateToWeb('https://ntrustapp.com/terms-of-service')}
                     ontos={() => this._navigateToWeb('https://ntrustapp.com/privacy-policy/')}
+                    onli={() => this.showListedItem()}
 
                 />
                 <View style={{ height: hp('15%') }}>

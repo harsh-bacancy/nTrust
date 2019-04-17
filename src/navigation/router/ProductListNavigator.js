@@ -10,11 +10,11 @@ import AdditemDetails from '../../screens/Lend/details/AddItemDetails'
 import Categories from '../../screens/Lend/categories/Categories'
 import NBox from '../../screens/nBox/nBox'
 import WebViewComponent from '../../components/WebViewComponent'
-import UserProfile from '../../screens/UserProfile/index'
 import MatchFound from '../../screens/Match/MatchFound'
+import ListedItem from '../../screens/UserProfile/ListedItem'
 
 const FirstScreen = {
-    MatchFound: 'MatchFound',
+    ListedItem: 'ListedItem',
     welcome: 'Welcome'
 }
 
@@ -74,21 +74,21 @@ const ProductListNavigator = createStackNavigator(
                 header: null,
             },
         },
-        UserProfile: {
-            screen: UserProfile,
-            navigationOptions: {
-                header: null,
-            },
-        },
         MatchFound: {
             screen: MatchFound,
             navigationOptions: {
                 header: null,
             },
         },
+        ListedItem: {
+            screen: ListedItem,
+            navigationOptions: {
+                header: null,
+            },
+        },
     },
     {
-        initialRouteName: false ? FirstScreen.MatchFound : FirstScreen.welcome,
+        initialRouteName: false ? FirstScreen.ListedItem : FirstScreen.welcome,
         headerMode: 'none',
         headerVisible: false
     }
